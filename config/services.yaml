@@ -1,0 +1,39 @@
+parameters:
+  locale: '%env(APP_LOCALE)%'
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+    bind:
+      $locale: '%locale%'
+
+  # https://github.com/FriendsOfSymfony/FOSRestBundle/issues/1768
+  sensio_framework_extra.view.listener:
+    alias: Sensio\Bundle\FrameworkExtraBundle\EventListener\TemplateListener
+
+  App\Controller\:
+    resource: ../src/Controller
+    tags: [controller.service_arguments]
+
+  App\EventSubscriber\:
+    resource: ../src/EventSubscriber
+
+  App\Service\:
+    resource: ../src/Service
+
+  App\Service\Serializer\Handler\:
+    resource: ../src/Service/Serializer/Handler
+    tags: ["jms_serializer.subscribing_handler"]
+
+  App\Security\Voter\:
+    resource: ../src/Security/Voter
+
+  App\Form\Type\:
+    resource: ../src/Form/Type
+    tags: ["form.type"]
+
+  App\Form\DataTransformer\:
+    resource: ../src/Form/DataTransformer
+

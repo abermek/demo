@@ -1,0 +1,7 @@
+App\DTO\BadRequest\ReasonList:
+  exclusion_policy: ALL
+  properties:
+    reasons:
+      expose: true
+      serialized_name: errors
+      type: array

@@ -1,0 +1,17 @@
+framework:
+  secret: '%env(APP_SECRET)%'
+
+  session:
+    handler_id: ~
+
+  php_errors:
+    log: true
+
+  cache: ~
+
+  templating:
+    engines: ['php']
+
+  validation:
+    enabled: true
+    enable_annotations: true

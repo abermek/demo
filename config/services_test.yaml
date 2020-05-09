@@ -1,0 +1,10 @@
+parameters:
+  max_products_per_page: 1
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Fixture\:
+    resource: ../fixtures

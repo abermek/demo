@@ -1,0 +1,9 @@
+nelmio_api_doc:
+    documentation:
+        info:
+            title: Acme
+            description: The demo
+            version: 1.0.0
+    areas:
+        path_patterns:
+            - ^/v1

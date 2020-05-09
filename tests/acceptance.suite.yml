@@ -1,0 +1,20 @@
+actor: AcceptanceTester
+modules:
+    enabled:
+        - Symfony:
+            app_path: 'src'
+            environment: 'test'
+        - REST:
+            url: http://localhost
+            depends: Symfony
+        - Doctrine2:
+            depends: Symfony
+        - Db:
+              dsn: 'mysql:host=%MYSQL_HOST%;dbname=%MYSQL_DATABASE%'
+              user: '%MYSQL_USER%'
+              password: '%MYSQL_PASSWORD%'
+              populate: true
+              populator: "bin/console doctrine:fixtures:load --no-interaction"
+        - Asserts: ~
+        - \App\Tests\Helper\Acceptance
+        - \App\Tests\Helper\Schema
