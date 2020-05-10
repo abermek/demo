@@ -1,7 +1,7 @@
-Создать черновик описания проекта, README.md
-Установить и настроить XDebug: https://habr.com/ru/post/328094/
-Установить PHP Mess Detector (https://phpmd.org/), настроить хук на коммит.
-Уличшить документацию:
-  - Разобраться с форматом OpenAPI 2
-  - Разобраться с настройкой Nelmio API Doc
-  - Добавить аннотации и проверить результат загрузив его в Postman
+- Improve .gitignore for .idea: https://github.com/github/gitignore/blob/master/Global/JetBrains.gitignore
+- Run Configurations outside .idea dir = Run/Debug Configurations  + Store as project file.
+- Install and configure https://phpmd.org. Set up commit hook to run mess check on each commit
+- Improve documentation.
+  - OpenAPI 2
+  - Nelmio API Doc
+  - Postman
