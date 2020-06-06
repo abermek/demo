@@ -5,34 +5,38 @@ namespace App\Controller;
 use App\Cart\CartInterface;
 use App\DTO\View\CartView;
 use App\Entity\CartItem;
-use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use App\Exception\BadRequest\FormValidationFailedException;
+use App\Traits\EntityManagerTrait;
+use App\Traits\FormFactoryTrait;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use App\DTO\Cart\CartItemDTO;
 use App\Form\Type\Cart\CartItemType;
 
 /** @Route("/cart", name="cart_") */
 class CartController
 {
-    private EntityManagerInterface $em;
-
-    public function __construct(EntityManagerInterface $em)
-    {
-        $this->em = $em;
-    }
+    use EntityManagerTrait;
+    use FormFactoryTrait;
 
     /**
      * @Route(name="add", methods={"POST"})
-     * @ParamConverter("item", options={"form"=CartItemType::class})
      */
-    public function put(CartInterface $cart, CartItemDTO $item): CartView
+    public function put(CartInterface $cart, Request $request): CartView
     {
-        $cart->addItem(
-            new CartItem(
-                $item->getProduct(),
-                $item->getQuantity()
-            )
-        );
+        $item = new CartItem();
+        $form = $this->formFactory->create(CartItemType::class, $item);
+
+        $form->handleRequest($request);
+
+        if (!$form->isSubmitted()) {
+            $form->submit([]);
+        }
+
+        if (!$form->isValid()) {
+            throw new FormValidationFailedException($form->getErrors(true));
+        }
+
+        $cart->addItem($item);
 
         $this->em->flush();
         $this->em->refresh($cart);

@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Entity\Security\User;
 use App\Money\MoneyInterface;
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @ORM\Entity()
@@ -18,12 +17,12 @@ class Product
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue
      */
-    private int $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private string $name;
+    private ?string $name = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Security\User")
@@ -34,12 +33,10 @@ class Product
     /**
      * @ORM\Embedded(class="App\Entity\Money")
      */
-    private Money $price;
+    private ?Money $price = null;
 
-    public function __construct(string $name, MoneyInterface $price, User $owner)
+    public function __construct(User $owner)
     {
-        $this->name = $name;
-        $this->price = new Money($price->getAmount(), $price->getCurrency());
         $this->owner = $owner;
     }
 
@@ -48,7 +45,7 @@ class Product
         return $this->id;
     }
 
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -58,21 +55,23 @@ class Product
         return $this->owner;
     }
 
-    public function getPrice(): MoneyInterface
+    public function getPrice(): ?MoneyInterface
     {
         return $this->price;
     }
 
-    public function updateName(string $name): void
+    public function setName(?string $name): Product
     {
         $this->name = $name;
+        return $this;
     }
 
-    public function updatePrice(MoneyInterface $price): void
+    public function setPrice(?MoneyInterface $price): Product
     {
-        $this->price = new Money(
-            $price->getAmount(),
-            $price->getCurrency()
-        );
+        $this->price = is_null($price)
+            ? null
+            : new Money($price->getAmount(), $price->getCurrency());
+
+        return $this;
     }
 }

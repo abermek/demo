@@ -48,12 +48,15 @@ class CartFixture extends Fixture implements DependentFixtureInterface
             $customer = $this->getReference($prop['customer']);
             $cart = new Cart($customer);
 
-            foreach ($prop['items'] as $item) {
+            foreach ($prop['items'] as $row) {
                 /** @var Product $product */
-                $product = $this->getReference($item['product']);
-                $cart->addItem(
-                    new CartItem($product, $item['quantity'])
-                );
+                $product = $this->getReference($row['product']);
+                $item = new CartItem();
+                $item
+                    ->setProduct($product)
+                    ->setQuantity($row['quantity']);
+
+                $cart->addItem($item);
             }
 
             $manager->persist($cart);

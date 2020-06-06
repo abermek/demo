@@ -11,41 +11,32 @@ use Doctrine\ORM\Mapping as ORM;
 class CartItem
 {
     /**
-     * @var int
-     *
      * @ORM\Id()
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue
      */
-    private $id;
+    private ?int $id;
 
     /**
-     * @var Product
-     *
      * @ORM\ManyToOne(targetEntity="App\Entity\Product")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
-    private $product;
+    private ?Product $product = null;
 
     /**
-     * @var Cart
-     *
      * @ORM\ManyToOne(targetEntity="App\Entity\Cart", inversedBy="items")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
-    private $cart;
+    private ?Cart $cart = null;
 
     /**
-     * @var int
-     *
      * @ORM\Column(type="integer")
      */
-    private $quantity;
+    private ?int $quantity = null;
 
-    public function __construct(Product $product, int $quantity)
+    public function getQuantity(): ?int
     {
-        $this->product = $product;
-        $this->quantity = $quantity;
+        return $this->quantity;
     }
 
     public function getId(): ?int
@@ -53,19 +44,26 @@ class CartItem
         return $this->id;
     }
 
-    public function getProduct(): Product
+    public function getProduct(): ?Product
     {
         return $this->product;
     }
 
-    public function getQuantity(): int
+    public function setProduct(?Product $product): CartItem
     {
-        return $this->quantity;
+        $this->product = $product;
+        return $this;
     }
 
-    public function setCart(Cart $cart): CartItem
+    public function setCart(?Cart $cart): CartItem
     {
         $this->cart = $cart;
+        return $this;
+    }
+
+    public function setQuantity(?int $quantity): CartItem
+    {
+        $this->quantity = $quantity;
         return $this;
     }
 

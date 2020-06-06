@@ -2,6 +2,7 @@
 
 namespace App\DTO\Product;
 
-class ProductCriteria extends ProductDTO
+class ProductCriteria
 {
+    public ?string $name = null;
 }

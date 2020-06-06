@@ -38,10 +38,10 @@ class ProductRepository implements ProductRepositoryInterface
             ->select('p')
             ->from(Product::class, 'p');
 
-        if (!empty($criteria->getName())) {
+        if (!empty($criteria->name)) {
             $qb
                 ->andWhere($qb->expr()->eq('p.name', ':name_eq'))
-                ->setParameter('name_eq', $criteria->getName());
+                ->setParameter('name_eq', $criteria->name);
         }
 
         return $qb;

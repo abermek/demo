@@ -1,4 +1,4 @@
-App\DTO\Cart\CartItemDTO:
+App\Entity\CartItem:
   properties:
     product:
       - NotNull: ~
@@ -7,7 +7,7 @@ App\DTO\Cart\CartItemDTO:
       - Type: integer
       - GreaterThan: 0
 
-App\DTO\Product\ProductDTO:
+App\Entity\Product:
   properties:
     name:
       - Type: string
