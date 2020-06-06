@@ -1,16 +1,17 @@
 <?php
 
-namespace App\DTO\Response;
+namespace App\DTO\Response\BadRequest;
 
+use App\DTO\Response\BadRequestResponse;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 
-final class FormValidationFailedResponse
+final class InvalidFormResponse extends BadRequestResponse
 {
-    public array $errors = [];
-
     public function __construct(FormInterface $form)
     {
+        $errors = [];
+
         /** @var FormError $error */
         foreach ($form->getErrors(true) as $entry) {
             $error = [
@@ -30,8 +31,10 @@ final class FormValidationFailedResponse
                 $error['path'] = $path;
             }
 
-            $this->errors[] = $error;
+            $errors[] = $error;
         }
+
+        parent::__construct($errors);
     }
 
     private function getPropertyPath(FormInterface $form, string $baseName): string

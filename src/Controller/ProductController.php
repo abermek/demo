@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
-use App\DTO\Response\FormValidationFailedResponse;
+use App\DTO\Response\BadRequest\InvalidFormResponse;
+use App\DTO\Response\BadRequest\InvalidPageResponse;
+use App\DTO\Response\PaginationResponse;
 use App\Entity\Product;
 use App\DTO\Product\ProductCriteria;
 use App\Entity\Security\User;
@@ -10,6 +12,7 @@ use App\Service\Repository\ProductRepositoryInterface;
 use App\Traits\EntityManagerTrait;
 use App\Traits\FormFactoryTrait;
 use FOS\RestBundle\View\View;
+use Pagerfanta\Exception\OutOfRangeCurrentPageException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,10 +41,16 @@ class ProductController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && !$form->isValid()) {
-            return View::create(new FormValidationFailedResponse($form), Response::HTTP_BAD_REQUEST);
+            return View::create(new InvalidFormResponse($form), Response::HTTP_BAD_REQUEST);
         }
 
-        return $repository->paginate($criteria, $page, self::PRODUCTS_PER_PAGE);
+        try {
+            return new PaginationResponse(
+                $repository->paginate($criteria, $page, self::PRODUCTS_PER_PAGE)
+            );
+        } catch (OutOfRangeCurrentPageException $e) {
+            return View::create(new InvalidPageResponse($page), Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**
@@ -63,7 +72,7 @@ class ProductController
         }
 
         if (!$form->isValid()) {
-            return View::create(new FormValidationFailedResponse($form), Response::HTTP_BAD_REQUEST);
+            return View::create(new InvalidFormResponse($form), Response::HTTP_BAD_REQUEST);
         }
 
         $this->em->persist($product);
@@ -84,7 +93,7 @@ class ProductController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && !$form->isValid()) {
-            return View::create(new FormValidationFailedResponse($form), Response::HTTP_BAD_REQUEST);
+            return View::create(new InvalidFormResponse($form), Response::HTTP_BAD_REQUEST);
         }
 
         $this->em->flush();

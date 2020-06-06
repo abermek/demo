@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Cart\CartInterface;
-use App\DTO\Response\FormValidationFailedResponse;
+use App\DTO\Response\BadRequest\InvalidFormResponse;
 use App\Entity\CartItem;
 use App\Traits\EntityManagerTrait;
 use App\Traits\FormFactoryTrait;
@@ -34,7 +34,7 @@ class CartController
         }
 
         if (!$form->isValid()) {
-            return View::create(new FormValidationFailedResponse($form), Response::HTTP_BAD_REQUEST);
+            return View::create(new InvalidFormResponse($form), Response::HTTP_BAD_REQUEST);
         }
 
         $cart->addItem($item);

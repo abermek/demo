@@ -3,12 +3,12 @@
 namespace App\Service\Repository\Doctrine;
 
 use App\DTO\Product\ProductCriteria;
-use App\DTO\Page;
 use App\Entity\Product;
 use App\Service\Repository\ProductRepositoryInterface;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
+use Pagerfanta\Pagerfanta;
 
 class ProductRepository implements ProductRepositoryInterface
 {
@@ -54,7 +54,7 @@ class ProductRepository implements ProductRepositoryInterface
             ->getResult();
     }
 
-    public function paginate(ProductCriteria $criteria, int $pageNumber, int $itemsPerPage): Page
+    public function paginate(ProductCriteria $criteria, int $pageNumber, int $itemsPerPage): Pagerfanta
     {
         return $this->getPagination(
             $this->createQueryBuilder($criteria),
