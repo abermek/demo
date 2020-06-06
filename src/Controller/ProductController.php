@@ -2,16 +2,17 @@
 
 namespace App\Controller;
 
-use App\DTO\Page;
+use App\DTO\Response\FormValidationFailedResponse;
 use App\Entity\Product;
 use App\DTO\Product\ProductCriteria;
 use App\Entity\Security\User;
-use App\Exception\BadRequest\FormValidationFailedException;
 use App\Service\Repository\ProductRepositoryInterface;
 use App\Traits\EntityManagerTrait;
 use App\Traits\FormFactoryTrait;
+use FOS\RestBundle\View\View;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Security\Voter\ProductVoter;
 use App\Form\Type\Product\ProductCriteriaType;
@@ -29,7 +30,7 @@ class ProductController
     /**
      * @Route("/{page}", name="index", methods={"GET"}, requirements={"page"="^[1-9]\d*$"}, defaults={"page"=1})
      */
-    public function index(ProductRepositoryInterface $repository, Request $request, int $page = 1): Page
+    public function index(ProductRepositoryInterface $repository, Request $request, int $page = 1)
     {
         $criteria = new ProductCriteria();
         $form = $this->formFactory->create(ProductCriteriaType::class, $criteria);
@@ -37,7 +38,7 @@ class ProductController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && !$form->isValid()) {
-            throw new FormValidationFailedException($form->getErrors(true));
+            return View::create(new FormValidationFailedResponse($form), Response::HTTP_BAD_REQUEST);
         }
 
         return $repository->paginate($criteria, $page, self::PRODUCTS_PER_PAGE);
@@ -62,7 +63,7 @@ class ProductController
         }
 
         if (!$form->isValid()) {
-            throw new FormValidationFailedException($form->getErrors(true));
+            return View::create(new FormValidationFailedResponse($form), Response::HTTP_BAD_REQUEST);
         }
 
         $this->em->persist($product);
@@ -83,7 +84,7 @@ class ProductController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && !$form->isValid()) {
-            throw new FormValidationFailedException($form->getErrors(true));
+            return View::create(new FormValidationFailedResponse($form), Response::HTTP_BAD_REQUEST);
         }
 
         $this->em->flush();

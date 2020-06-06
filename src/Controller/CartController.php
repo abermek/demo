@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use App\Cart\CartInterface;
+use App\DTO\Response\FormValidationFailedResponse;
 use App\Entity\CartItem;
-use App\Exception\BadRequest\FormValidationFailedException;
 use App\Traits\EntityManagerTrait;
 use App\Traits\FormFactoryTrait;
+use FOS\RestBundle\View\View;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\Type\Cart\CartItemType;
 
@@ -32,7 +34,7 @@ class CartController
         }
 
         if (!$form->isValid()) {
-            throw new FormValidationFailedException($form->getErrors(true));
+            return View::create(new FormValidationFailedResponse($form), Response::HTTP_BAD_REQUEST);
         }
 
         $cart->addItem($item);
