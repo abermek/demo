@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Cart\CartInterface;
-use App\DTO\View\CartView;
 use App\Entity\CartItem;
 use App\Exception\BadRequest\FormValidationFailedException;
 use App\Traits\EntityManagerTrait;
@@ -21,7 +20,7 @@ class CartController
     /**
      * @Route(name="add", methods={"POST"})
      */
-    public function put(CartInterface $cart, Request $request): CartView
+    public function put(CartInterface $cart, Request $request)
     {
         $item = new CartItem();
         $form = $this->formFactory->create(CartItemType::class, $item);
@@ -41,6 +40,6 @@ class CartController
         $this->em->flush();
         $this->em->refresh($cart);
 
-        return new CartView($cart);
+        return $cart;
     }
 }

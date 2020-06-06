@@ -1,0 +1,9 @@
+App\Entity\Invoice\InvoiceItem:
+  exclusion_policy: ALL
+  properties:
+    product:
+      expose: true
+    quantity:
+      expose: true
+    total:
+      expose: true

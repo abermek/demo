@@ -1,0 +1,9 @@
+App\Entity\Invoice:
+  exclusion_policy: ALL
+  properties:
+    id:
+      expose: true
+    items:
+      expose: true
+    total:
+      expose: true

@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\DTO\Page;
-use App\DTO\View\ProductView;
 use App\Entity\Product;
 use App\DTO\Product\ProductCriteria;
 use App\Entity\Security\User;
@@ -48,7 +47,7 @@ class ProductController
      * @Route("", name="create", methods={"POST"})
      * @IsGranted(ProductVoter::PERMISSION_CREATE)
      */
-    public function create(Request $request, UserInterface $owner): ProductView
+    public function create(Request $request, UserInterface $owner)
     {
         /** @var User $owner */
         $product = new Product($owner);
@@ -70,14 +69,14 @@ class ProductController
         $this->em->flush();
         $this->em->refresh($product);
 
-        return new ProductView($product);
+        return $product;
     }
 
     /**
      * @Route("/{id}", name="update", methods={"POST"}, requirements={"id"="^[1-9]\d*$"})
      * @IsGranted(ProductVoter::PERMISSION_UPDATE, subject="product")
      */
-    public function update(Product $product, Request $request): ProductView
+    public function update(Product $product, Request $request)
     {
         $form = $this->formFactory->create(ProductType::class, $product);
 
@@ -90,7 +89,7 @@ class ProductController
         $this->em->flush();
         $this->em->refresh($product);
 
-        return new ProductView($product);
+        return $product;
     }
 
     /**

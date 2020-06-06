@@ -7,6 +7,15 @@ jms_serializer:
             DTO:
                 namespace_prefix: "App\\DTO"
                 path: "%kernel.project_dir%/config/serializer/DTO"
+            Entity:
+                namespace_prefix: "App\\Entity"
+                path: "%kernel.project_dir%/config/serializer/Entity"
+            Cart:
+                namespace_prefix: "App\\Entity\\Cart"
+                path: "%kernel.project_dir%/config/serializer/Entity/Cart"
+            Invoice:
+                namespace_prefix: "App\\Entity\\Invoice"
+                path: "%kernel.project_dir%/config/serializer/Entity/Invoice"
             BadRequest:
                 namespace_prefix: "App\\DTO\\BadRequest"
                 path: "%kernel.project_dir%/config/serializer/DTO/BadRequest"

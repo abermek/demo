@@ -1,0 +1,9 @@
+App\Entity\Cart\CartItem:
+  exclusion_policy: ALL
+  properties:
+    id:
+      expose: true
+    quantity:
+      expose: true
+    product:
+      expose: true
