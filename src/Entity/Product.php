@@ -4,35 +4,12 @@ namespace App\Entity;
 
 use App\Entity\Security\User;
 use App\Money\MoneyInterface;
-use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity()
- * @ORM\Table("products")
- */
 class Product
 {
-    /**
-     * @ORM\Id()
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
-     */
     private ?int $id;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private ?string $name = null;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Security\User")
-     * @ORM\JoinColumn(onDelete="CASCADE", nullable=false)
-     */
     private User $owner;
-
-    /**
-     * @ORM\Embedded(class="App\Entity\Money")
-     */
     private ?Money $price = null;
 
     public function __construct(User $owner)

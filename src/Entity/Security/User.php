@@ -3,62 +3,22 @@
 namespace App\Entity\Security;
 
 use App\Entity\Cart;
-use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Entity()
- * @ORM\Table("users")
- *
  * @Serializer\ExclusionPolicy("all")
  */
 class User implements UserInterface
 {
-    /**
-     * @var int
-     *
-     * @ORM\Id()
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
-     */
     private $id;
-
     /**
-     * @var string
-     *
-     * @ORM\Column(length=255)
-     *
      * @Serializer\Expose()
      */
     private $username;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(length=255)
-     */
     private $password;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(length=255)
-     */
     private $salt;
-
-    /**
-     * @var array
-     *
-     * @ORM\Column(type="json")
-     */
     private $roles;
-
-    /**
-     * @var Cart
-     *
-     * @ORM\OneToOne(targetEntity="App\Entity\Cart", mappedBy="owner", cascade={"remove"})
-     */
     private $cart;
 
     public function __construct()

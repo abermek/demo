@@ -4,34 +4,11 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity()
- * @ORM\Table("cart_items")
- */
 class CartItem
 {
-    /**
-     * @ORM\Id()
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
-     */
     private ?int $id;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Product")
-     * @ORM\JoinColumn(onDelete="CASCADE")
-     */
     private ?Product $product = null;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Cart", inversedBy="items")
-     * @ORM\JoinColumn(onDelete="CASCADE")
-     */
     private ?Cart $cart = null;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
     private ?int $quantity = null;
 
     public function getQuantity(): ?int

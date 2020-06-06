@@ -9,34 +9,10 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity()
- * @ORM\Table("carts")
- */
 class Cart implements CartInterface
 {
-    /**
-     * @var int
-     *
-     * @ORM\Id()
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
-     */
     private $id;
-
-    /**
-     * @var User
-     *
-     * @ORM\OneToOne(targetEntity="App\Entity\Security\User", inversedBy="cart")
-     * @ORM\JoinColumn(name="user_id", onDelete="CASCADE")
-     */
     private $owner;
-
-    /**
-     * @var Collection
-     *
-     * @ORM\OneToMany(targetEntity="App\Entity\CartItem", mappedBy="cart", cascade={"all"})
-     */
     private Collection $items;
 
     public function __construct(User $owner)

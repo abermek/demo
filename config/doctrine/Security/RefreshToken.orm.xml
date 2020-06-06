@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+
+    <entity name="App\Entity\Security\RefreshToken" table="oauth_refresh_tokens">
+
+        <id name="id" type="integer" column="id">
+            <generator/>
+        </id>
+
+        <many-to-one field="client" target-entity="App\Entity\Security\Client">
+            <join-column nullable="false" />
+        </many-to-one>
+
+        <many-to-one field="user" target-entity="App\Entity\Security\User">
+            <join-column nullable="false" on-delete="CASCADE" />
+        </many-to-one>
+
+    </entity>
+</doctrine-mapping>
