@@ -2,14 +2,12 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 class CartItem
 {
-    private ?int $id;
-    private ?Product $product = null;
-    private ?Cart $cart = null;
-    private ?int $quantity = null;
+    protected ?int $id;
+    protected ?Product $product = null;
+    protected ?Cart $cart = null;
+    protected ?int $quantity = null;
 
     public function getQuantity(): ?int
     {

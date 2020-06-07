@@ -7,10 +7,10 @@ use App\Money\MoneyInterface;
 
 class Product
 {
-    private ?int $id;
+    private ?int $id = null;
     private ?string $name = null;
-    private User $owner;
     private ?Money $price = null;
+    private User $owner;
 
     public function __construct(User $owner)
     {

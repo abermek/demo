@@ -7,12 +7,12 @@ use App\Entity\Security\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
-use Doctrine\ORM\Mapping as ORM;
 
 class Cart implements CartInterface
 {
-    private $id;
-    private $owner;
+    private ?int $id = null;
+
+    private User $owner;
     private Collection $items;
 
     public function __construct(User $owner)

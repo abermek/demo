@@ -28,3 +28,12 @@ App\DTO\Product\ProductCriteria:
       - Type: string
       - Length:
           max: 125
+
+App\Entity\Money:
+  properties:
+    amount:
+      - GreaterThan: 0
+    currency:
+      - Length:
+          min: 3
+          max: 3

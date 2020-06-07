@@ -3,23 +3,17 @@
 namespace App\Entity\Security;
 
 use App\Entity\Cart;
-use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-/**
- * @Serializer\ExclusionPolicy("all")
- */
 class User implements UserInterface
 {
-    private $id;
-    /**
-     * @Serializer\Expose()
-     */
-    private $username;
-    private $password;
-    private $salt;
-    private $roles;
-    private $cart;
+    private ?int $id = null;
+    private ?string $username = null;
+    private ?string $password = null;
+    private ?string $salt = null;
+    private ?Cart $cart = null;
+
+    private array $roles;
 
     public function __construct()
     {
@@ -77,5 +71,10 @@ class User implements UserInterface
     public function getCart(): ?Cart
     {
         return $this->cart;
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
     }
 }
