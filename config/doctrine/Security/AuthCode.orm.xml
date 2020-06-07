@@ -10,6 +10,11 @@
             <generator/>
         </id>
 
+        <field name="token" column="token" unique="true" />
+        <field name="redirectUri" column="redirect_uri" type="text" />
+        <field name="expiresAt" column="expires_at" type="integer" nullable="true" />
+        <field name="scope" column="scope" nullable="true" />
+
         <many-to-one field="client" target-entity="App\Entity\Security\Client">
             <join-column nullable="false" />
         </many-to-one>
