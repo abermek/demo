@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Tests;
+namespace Tests\Acceptance\Cart;
 
+use App\Tests\AcceptanceTester;
 use Codeception\Util\HttpCode;
 
 class PutCest
@@ -68,10 +69,10 @@ class PutCest
     {
         $I->amJack();
         $I->putToCart([]);
-        $I->seeBadRequest(
+        $I->seeBadRequest([
             ['path' => 'product', 'description' => 'This value should not be null.'],
             ['path' => 'quantity', 'description' => 'This value should not be null.'],
-        );
+        ]);
         $I->seeResponseCodeIs(HttpCode::BAD_REQUEST);
     }
 }

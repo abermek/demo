@@ -1,6 +1,6 @@
 <?php
 
-namespace acceptance\Product;
+namespace Tests\Acceptance\Product;
 
 use App\Tests\AcceptanceTester;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;

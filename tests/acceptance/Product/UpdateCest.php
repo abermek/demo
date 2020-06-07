@@ -1,5 +1,5 @@
 <?php
-namespace App\Tests\Product;
+namespace Tests\Acceptance\Product;
 
 use App\Tests\AcceptanceTester;
 use Codeception\Util\HttpCode;

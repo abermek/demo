@@ -1,15 +1,12 @@
 <?php
 
-namespace unit\Service\Pricing\Cart\Strategy;
+namespace Tests\Unit\Service\Pricing\Cart\Strategy;
 
-use App\Cart\CartInterface;
 use App\Entity\CartItem;
 use App\Entity\Product;
 use App\Money\MoneyInterface;
 use App\Service\Money\MoneyCalculator;
 use App\Service\Pricing\Cart\Strategy\CartItemStrategy;
-use App\Service\Pricing\Cart\Strategy\CartItemStrategyInterface;
-use App\Service\Pricing\Cart\Strategy\CartStrategy;
 use Codeception\Test\Unit;
 use Mockery;
 use Mockery\MockInterface;

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Tests;
+namespace Tests\Acceptance;
 
+use App\Tests\AcceptanceTester;
 use Codeception\Util\HttpCode;
 
 class CheckoutCest

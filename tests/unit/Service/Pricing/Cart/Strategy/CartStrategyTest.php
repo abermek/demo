@@ -1,6 +1,6 @@
 <?php
 
-namespace unit\Service\Pricing\Cart\Strategy;
+namespace Tests\Unit\Service\Pricing\Cart\Strategy;
 
 use App\Cart\CartInterface;
 use App\Entity\CartItem;

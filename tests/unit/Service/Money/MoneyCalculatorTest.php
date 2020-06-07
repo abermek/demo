@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Service\Money;
+namespace Tests\Unit\Service\Money;
 
 use App\Money\MoneyInterface;
 use App\Service\Money\MoneyCalculator;

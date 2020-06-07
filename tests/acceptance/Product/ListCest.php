@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Tests;
+namespace Tests\Acceptance\Product;
 
+use App\Tests\AcceptanceTester;
 use Codeception\Util\HttpCode;
 
 class ListCest

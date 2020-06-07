@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Service\Serializer\Handler;
+namespace Tests\Unit\Service\Serializer\Handler;
 
 use App\Service\Money\MoneyFormatter;
 use App\Service\Serializer\Handler\MoneyHandler;

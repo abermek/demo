@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Service\ParamConverter;
+namespace  Tests\Unit\Service\ParamConverter;
 
 use App\Entity\Cart;
 use App\Entity\Security\User;
