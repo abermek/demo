@@ -15,5 +15,4 @@ It has the following features:
 - Money. How to represent, calculate, format and serialize it.
 - Pricing. How to calculate the price to charge the Customer.
 - Discounts. How to manage discounts and seamlessly integrate them into Pricing.
-- DTO Injection. How to get the valid DTO as argument of your Controller Action.
 - Cooking CRUD, DTO, Pagination, etc.

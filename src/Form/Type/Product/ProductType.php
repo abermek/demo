@@ -3,6 +3,7 @@
 namespace App\Form\Type\Product;
 
 use App\Entity\Product;
+use App\Form\DataTransformer\SanitizeStringTransformer;
 use App\Form\Type\AbstractType;
 use App\Form\Type\PriceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -16,6 +17,8 @@ class ProductType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('price', PriceType::class);
+
+        $builder->get('name')->addModelTransformer(new SanitizeStringTransformer());
     }
 
     public function configureOptions(OptionsResolver $resolver)

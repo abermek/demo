@@ -67,4 +67,20 @@ class CreateCest
             ['path' => 'price', 'description' => 'The given "0" value is not valid.']
         );
     }
+
+    public function withHtmlName(AcceptanceTester $I)
+    {
+        $product = [
+            'name'  => '<strong>My awesome</strong>',
+            'price' => 1000
+        ];
+
+        $I->amJohn();
+        $I->createProduct($product);
+        $I->seeResponseContainsJson([
+            'name'  => 'My awesome',
+            'price' => '$10.00'
+        ]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+    }
 }
