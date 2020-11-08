@@ -1,17 +1,17 @@
 <?php
 
-namespace Tests\Acceptance;
+namespace Tests\Acceptance\Cart;
 
 use App\Tests\AcceptanceTester;
 use Codeception\Util\HttpCode;
 
-class CheckoutCest
+class GetCest
 {
-    public function iSeeProductsQuantitySubtotalsAndGrandTotalAtTheCheckout(AcceptanceTester $I)
+    public function iSeeProductsQuantitySubtotalsAndGrandTotalInMyCart(AcceptanceTester $I)
     {
         $I->amJack();
 
-        $I->amAtCheckout();
+        $I->getCart();
         $I->seeResponseCodeIs(HttpCode::NO_CONTENT);
 
         $I->putToCart([
@@ -26,24 +26,20 @@ class CheckoutCest
         ]);
         $I->seeResponseCodeIs(HttpCode::OK);
 
-        $I->amAtCheckout();
+        $I->getCart();
         $I->seeResponseContainsJson([
             'items' => [
                 [
-                    'product' => [
-                        'name'      => 'Staff',
-                        'price'     => '$10.00'
-                    ],
-                    'quantity'  => 1,
-                    'total'     => '$10.00'
+                    'name'      => 'Sword',
+                    'quantity'  => 2,
+                    'total'     => '$2.00',
+                    'price'     => '$1.00'
                 ],
                 [
-                    'product' => [
-                        'name'      => 'Sword',
-                        'price'     => '$1.00'
-                    ],
-                    'quantity'  => 2,
-                    'total'     => '$2.00'
+                    'name'      => 'Staff',
+                    'quantity'  => 1,
+                    'total'     => '$10.00',
+                    'price'     => '$10.00'
                 ]
             ],
             'total' => '$12.00'

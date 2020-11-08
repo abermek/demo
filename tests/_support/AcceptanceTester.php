@@ -79,6 +79,11 @@ class AcceptanceTester extends Actor
         $this->sendPOST('/v1/cart', $purchase);
     }
 
+    public function getCart()
+    {
+        $this->sendGET('/v1/cart');
+    }
+
     public function seeBadRequest(array $errors = [])
     {
         if (!empty($errors)) {
@@ -86,10 +91,5 @@ class AcceptanceTester extends Actor
         }
 
         $this->seeResponseCodeIs(HttpCode::BAD_REQUEST);
-    }
-
-    public function amAtCheckout()
-    {
-        $this->sendGET('/v1/checkout');
     }
 }

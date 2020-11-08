@@ -1,8 +1,6 @@
-App\Entity\Invoice:
+App\DTO\Receipt:
   exclusion_policy: ALL
   properties:
-    id:
-      expose: true
     items:
       expose: true
     total:

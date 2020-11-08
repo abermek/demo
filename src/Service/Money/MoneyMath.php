@@ -3,11 +3,8 @@
 namespace App\Service\Money;
 
 use App\Money\MoneyInterface;
-use Money\Currency;
-use Money\Money;
-use App\Money\Money as MyMoney;
 
-class MoneyCalculator
+class MoneyMath
 {
     private MoneyTransformer $transformer;
 

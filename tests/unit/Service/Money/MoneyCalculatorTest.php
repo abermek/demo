@@ -3,7 +3,7 @@
 namespace Tests\Unit\Service\Money;
 
 use App\Money\MoneyInterface;
-use App\Service\Money\MoneyCalculator;
+use App\Service\Money\MoneyMath;
 use App\Service\Money\MoneyTransformer;
 use Codeception\Test\Unit;
 use Mockery;
@@ -20,9 +20,9 @@ class MoneyCalculatorTest extends Unit
         $this->transformer = Mockery::mock(MoneyTransformer::class);
     }
 
-    public function getSystemUnderTest(): MoneyCalculator
+    public function getSystemUnderTest(): MoneyMath
     {
-        return new MoneyCalculator($this->transformer);
+        return new MoneyMath($this->transformer);
     }
 
     public function testMultiply()

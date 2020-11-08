@@ -1,0 +1,11 @@
+App\DTO\ReceiptItem:
+  exclusion_policy: ALL
+  properties:
+    name:
+      expose: true
+    quantity:
+        expose: true
+    price:
+        expose: true
+    total:
+        expose: true

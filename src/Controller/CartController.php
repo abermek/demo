@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Cart\CartInterface;
 use App\DTO\Response\BadRequest\InvalidFormResponse;
 use App\Entity\CartItem;
+use App\Pricing\CartPricingStrategy;
 use App\Traits\EntityManagerTrait;
 use App\Traits\FormFactoryTrait;
 use FOS\RestBundle\View\View;
@@ -22,7 +23,7 @@ class CartController
     /**
      * @Route(name="add", methods={"POST"})
      */
-    public function put(CartInterface $cart, Request $request)
+    public function put(CartInterface $cart, CartPricingStrategy $pricingStrategy, Request $request)
     {
         $item = new CartItem();
         $form = $this->formFactory->create(CartItemType::class, $item);
@@ -42,6 +43,16 @@ class CartController
         $this->em->flush();
         $this->em->refresh($cart);
 
-        return $cart;
+        return $pricingStrategy->execute($cart);
+    }
+
+    /**
+     * @Route(name="get", methods={"GET"})
+     */
+    public function get(CartInterface $cart, CartPricingStrategy $pricingStrategy)
+    {
+        return $cart->isEmpty()
+            ? null
+            : $pricingStrategy->execute($cart);
     }
 }

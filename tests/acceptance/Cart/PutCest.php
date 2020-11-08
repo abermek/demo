@@ -17,11 +17,8 @@ class PutCest
         $I->seeResponseContainsJson([
             'items' => [
                 [
-                    'product'  => [
-                        'id'    => 1,
-                        'name'  => 'Sword',
-                        'price' => '$1.00'
-                    ],
+                    'name'  => 'Sword',
+                    'price' => '$1.00',
                     'quantity' => 1
                 ]
             ]
@@ -42,13 +39,12 @@ class PutCest
         ]);
         $I->seeResponseContainsJson([
             'items' => [
-                'product'  => [
-                    'id'    => 1,
-                    'name'  => 'Sword',
-                    'price' => '$1.00'
-                ],
-                'quantity' => 3
-            ]
+                'name'  => 'Sword',
+                'price' => '$1.00',
+                'quantity' => 3,
+                'total' => '$3.00'
+            ],
+            'total' => '$3.00'
         ]);
     }
 

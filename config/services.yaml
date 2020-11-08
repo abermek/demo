@@ -13,6 +13,9 @@ services:
   sensio_framework_extra.view.listener:
     alias: Sensio\Bundle\FrameworkExtraBundle\EventListener\TemplateListener
 
+  App\Pricing\CartPricingStrategy: '@App\Service\Pricing\CartPricing'
+  App\Pricing\ProductPricingStrategy: '@App\Service\Pricing\ProductPricing'
+
   App\Controller\:
     resource: ../src/Controller
     tags: [controller.service_arguments]
