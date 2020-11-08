@@ -6,6 +6,7 @@ use App\Cart\CartInterface;
 use App\DTO\Response\BadRequest\InvalidFormResponse;
 use App\Entity\CartItem;
 use App\Pricing\CartPricingStrategy;
+use App\Service\Cart\AddProductToCart;
 use App\Traits\EntityManagerTrait;
 use App\Traits\FormFactoryTrait;
 use FOS\RestBundle\View\View;
@@ -23,7 +24,7 @@ class CartController
     /**
      * @Route(name="add", methods={"POST"})
      */
-    public function put(CartInterface $cart, CartPricingStrategy $pricingStrategy, Request $request)
+    public function put(CartInterface $cart, CartPricingStrategy $pricing, AddProductToCart $add, Request $request)
     {
         $item = new CartItem();
         $form = $this->formFactory->create(CartItemType::class, $item);
@@ -38,12 +39,12 @@ class CartController
             return View::create(new InvalidFormResponse($form), Response::HTTP_BAD_REQUEST);
         }
 
-        $cart->addItem($item);
+        $add->execute($cart, $item->getProduct(), $item->getQuantity());
 
         $this->em->flush();
         $this->em->refresh($cart);
 
-        return $pricingStrategy->execute($cart);
+        return $pricing->execute($cart);
     }
 
     /**

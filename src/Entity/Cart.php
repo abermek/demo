@@ -49,16 +49,7 @@ class Cart implements CartInterface
 
     public function addItem(CartItem $item): void
     {
-        $criteria = Criteria::create()
-            ->where(Criteria::expr()->eq('product', $item->getProduct()))
-            ->setMaxResults(1);
-
-        /** @var CartItem $tmp */
-        $tmp = $this->items->matching($criteria)->first();
-
-        if ($tmp instanceof CartItem) {
-            $tmp->increaseQuantity($item->getQuantity());
-        } else {
+        if (!$this->items->contains($item)) {
             $item->setCart($this);
             $this->items->add($item);
         }
