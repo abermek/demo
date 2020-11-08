@@ -3,8 +3,7 @@
 namespace Tests\Acceptance\Product;
 
 use App\Tests\AcceptanceTester;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Codeception\Util\HttpCode;
 
 class DeleteCest
 {
@@ -20,14 +19,16 @@ class DeleteCest
     public function deleteProductThatDoesNotExists(AcceptanceTester $I)
     {
         $I->amJohn();
-        $I->expectThrowable(NotFoundHttpException::class, fn() => $I->deleteProduct(999999));
+        $I->deleteProduct(999999);
+        $I->seeResponseCodeIs(HttpCode::NOT_FOUND);
 
     }
 
     public function deleteProductThatDoesNotBelongsToMe(AcceptanceTester $I)
     {
         $I->amJane();
-        $I->expectThrowable(AccessDeniedHttpException::class, fn() => $I->deleteProduct(self::PRODUCT_ID));
+        $I->deleteProduct(self::PRODUCT_ID);
+        $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
     }
 
 }

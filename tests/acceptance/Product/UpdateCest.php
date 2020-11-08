@@ -3,7 +3,6 @@ namespace Tests\Acceptance\Product;
 
 use App\Tests\AcceptanceTester;
 use Codeception\Util\HttpCode;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class UpdateCest
 {
@@ -48,9 +47,7 @@ class UpdateCest
     public function updateProductThatDoesNotBelongsToMe(AcceptanceTester $I)
     {
         $I->amJane();
-        $I->expectThrowable(
-            AccessDeniedHttpException::class,
-            fn() =>  $I->updateProduct(self::PRODUCT_ID, ['name' => 'My Product'])
-        );
+        $I->updateProduct(self::PRODUCT_ID, ['name' => 'My Product']);
+        $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
     }
 }
