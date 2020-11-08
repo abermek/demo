@@ -4,7 +4,7 @@ namespace  Tests\Unit\Service\ParamConverter;
 
 use App\Entity\Cart;
 use App\Entity\Security\User;
-use App\Service\Cart\GetCustomerCart;
+use App\Service\Cart\FindOrCreateCartByCustomer;
 use App\Service\ParamConverter\CartConverter;
 use Codeception\Test\Unit;
 use Mockery;
@@ -17,13 +17,13 @@ class CartConverterTest extends Unit
 {
     /** @var Security|MockInterface */
     private $security;
-    /** @var GetCustomerCart|MockInterface */
+    /** @var FindOrCreateCartByCustomer|MockInterface */
     private $getCart;
 
     protected function _before()
     {
         $this->security = Mockery::mock(Security::class);
-        $this->getCart  = Mockery::mock(GetCustomerCart::class);
+        $this->getCart  = Mockery::mock(FindOrCreateCartByCustomer::class);
     }
 
     public function getSystemUnderTest(): CartConverter

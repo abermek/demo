@@ -4,7 +4,7 @@ namespace App\Service\ParamConverter;
 
 use App\Cart\CartInterface;
 use App\Entity\Security\User;
-use App\Service\Cart\GetCustomerCart;
+use App\Service\Cart\FindOrCreateCartByCustomer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,9 +13,9 @@ use Symfony\Component\Security\Core\Security;
 class CartConverter implements ParamConverterInterface
 {
     private Security $security;
-    private GetCustomerCart $getCart;
+    private FindOrCreateCartByCustomer $getCart;
 
-    public function __construct(Security $security, GetCustomerCart $getCart)
+    public function __construct(Security $security, FindOrCreateCartByCustomer $getCart)
     {
         $this->security = $security;
         $this->getCart = $getCart;

@@ -4,25 +4,26 @@ namespace Tests\Unit\Service\Cart;
 
 use App\Entity\Cart;
 use App\Entity\Security\User;
-use App\Service\Cart\GetCustomerCart;
+use App\Service\Cart\FindOrCreateCartByCustomer;
 use App\Service\Repository\CartRepositoryInterface;
 use Codeception\Test\Unit;
+use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mockery\MockInterface;
 
 class GetCustomerCartTest extends Unit
 {
-    /** @var CartRepositoryInterface|MockInterface */
-    private CartRepositoryInterface $repository;
+    /** @var EntityManagerInterface|MockInterface */
+    private EntityManagerInterface $em;
 
     protected function _before()
     {
-        $this->repository = Mockery::mock(CartRepositoryInterface::class);
+        $this->em = Mockery::mock(EntityManagerInterface::class);
     }
 
-    public function getSystemUnderTest(): GetCustomerCart
+    public function getSystemUnderTest(): FindOrCreateCartByCustomer
     {
-        return new GetCustomerCart($this->repository);
+        return new FindOrCreateCartByCustomer($this->em);
     }
 
     public function testCustomerAlreadyHaveACart()
@@ -36,7 +37,7 @@ class GetCustomerCartTest extends Unit
             ->shouldReceive('getCart')
             ->andReturn($cart);
 
-        $this->repository->shouldNotReceive('create');
+        $this->em->shouldNotReceive('persist');
 
         self::assertEquals($cart, $this->getSystemUnderTest()->execute($customer));
     }
@@ -50,7 +51,7 @@ class GetCustomerCartTest extends Unit
             ->shouldReceive('getCart')
             ->andReturn(null);
 
-        $this->repository->shouldReceive('create');
+        $this->em->shouldReceive('persist');
 
         $cart = $this->getSystemUnderTest()->execute($customer);
 
