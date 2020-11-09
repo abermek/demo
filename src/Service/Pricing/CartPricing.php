@@ -2,7 +2,7 @@
 
 namespace App\Service\Pricing;
 
-use App\Cart\CartInterface;
+use App\Entity\Cart;
 use App\Entity\CartItem;
 use App\DTO\Receipt;
 use App\Pricing\CartPricingStrategy;
@@ -20,7 +20,7 @@ final class CartPricing implements CartPricingStrategy
         $this->moneyMath = $moneyMath;
     }
 
-    public function execute(CartInterface $cart): Receipt
+    public function execute(Cart $cart): Receipt
     {
         $items = [];
         $total = null;

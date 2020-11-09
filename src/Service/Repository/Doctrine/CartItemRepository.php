@@ -24,16 +24,16 @@ class CartItemRepository implements CartItemRepositoryInterface
             ->select('e')
             ->from(CartItem::class, 'e');
 
-        if (!empty($criteria->product) && $criteria->product->getId()) {
+        if (!is_null($criteria->productId)) {
             $qb
                 ->andWhere($qb->expr()->eq('e.product', ':product'))
-                ->setParameter('product', $criteria->product->getId());
+                ->setParameter('product', $criteria->productId);
         }
 
-        if (!empty($criteria->cart) && $criteria->cart->getId()) {
+        if (!is_null($criteria->cartId)) {
             $qb
                 ->andWhere($qb->expr()->eq('e.cart', ':cart'))
-                ->setParameter('cart', $criteria->cart->getId());
+                ->setParameter('cart', $criteria->cartId);
         }
 
         return $qb;
@@ -41,10 +41,6 @@ class CartItemRepository implements CartItemRepositoryInterface
 
     public function first(CartItemCriteria $criteria): ?CartItem
     {
-        if ($criteria->cart && !$criteria->cart->getId()) {
-            return null;
-        }
-
         return $this->createQueryBuilder($criteria)->getQuery()->getOneOrNullResult();
     }
 }

@@ -2,26 +2,29 @@
 
 namespace App\Service\Cart;
 
-use App\Cart\CartInterface;
 use App\DTO\CartItem\CartItemCriteria;
+use App\Entity\Cart;
 use App\Entity\CartItem;
 use App\Entity\Product;
 use App\Service\Repository\CartItemRepositoryInterface;
+use Doctrine\ORM\EntityManagerInterface;
 
-class AddProductToCart
+class PutProductToCart
 {
     private CartItemRepositoryInterface $repository;
+    private EntityManagerInterface $em;
 
-    public function __construct(CartItemRepositoryInterface $repository)
+    public function __construct(CartItemRepositoryInterface $repository, EntityManagerInterface $em)
     {
         $this->repository = $repository;
+        $this->em = $em;
     }
 
-    public function execute(CartInterface $cart, Product $product, int $quantity = 1)
+    public function execute(Cart $cart, Product $product, int $quantity = 1)
     {
         $criteria = new CartItemCriteria();
-        $criteria->cart = $cart;
-        $criteria->product = $product;
+        $criteria->cartId = (int) $cart->getId();
+        $criteria->productId = (int) $product->getId();
 
         $item = $this->repository->first($criteria);
 
@@ -33,6 +36,10 @@ class AddProductToCart
             $cart->addItem($item);
         } else {
             $item->increaseQuantity($quantity);
+        }
+
+        if (!$this->em->contains($cart)) {
+            $this->em->persist($cart);
         }
     }
 }

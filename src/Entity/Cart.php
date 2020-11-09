@@ -2,13 +2,11 @@
 
 namespace App\Entity;
 
-use App\Cart\CartInterface;
 use App\Entity\Security\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\Criteria;
 
-class Cart implements CartInterface
+class Cart
 {
     private ?int $id = null;
 

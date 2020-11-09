@@ -2,11 +2,11 @@
 
 namespace App\Controller;
 
-use App\Cart\CartInterface;
 use App\DTO\Response\BadRequest\InvalidFormResponse;
 use App\Entity\CartItem;
 use App\Pricing\CartPricingStrategy;
-use App\Service\Cart\AddProductToCart;
+use App\Service\Cart\GetActiveCart;
+use App\Service\Cart\PutProductToCart;
 use App\Traits\EntityManagerTrait;
 use App\Traits\FormFactoryTrait;
 use FOS\RestBundle\View\View;
@@ -24,8 +24,10 @@ class CartController
     /**
      * @Route(name="add", methods={"POST"})
      */
-    public function put(CartInterface $cart, CartPricingStrategy $pricing, AddProductToCart $add, Request $request)
+    public function put(GetActiveCart $getActiveCart, CartPricingStrategy $pricing, PutProductToCart $put, Request $request)
     {
+        $cart = $getActiveCart->execute();
+
         $item = new CartItem();
         $form = $this->formFactory->create(CartItemType::class, $item);
 
@@ -39,7 +41,7 @@ class CartController
             return View::create(new InvalidFormResponse($form), Response::HTTP_BAD_REQUEST);
         }
 
-        $add->execute($cart, $item->getProduct(), $item->getQuantity());
+        $put->execute($cart, $item->getProduct(), $item->getQuantity());
 
         $this->em->flush();
         $this->em->refresh($cart);
@@ -50,8 +52,10 @@ class CartController
     /**
      * @Route(name="get", methods={"GET"})
      */
-    public function get(CartInterface $cart, CartPricingStrategy $pricingStrategy)
+    public function get(GetActiveCart $getActiveCart, CartPricingStrategy $pricingStrategy)
     {
+        $cart = $getActiveCart->execute();
+
         return $cart->isEmpty()
             ? null
             : $pricingStrategy->execute($cart);

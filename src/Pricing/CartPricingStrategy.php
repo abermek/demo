@@ -2,10 +2,10 @@
 
 namespace App\Pricing;
 
-use App\Cart\CartInterface;
 use App\DTO\Receipt;
+use App\Entity\Cart;
 
 interface CartPricingStrategy
 {
-    public function execute(CartInterface $cart): Receipt;
+    public function execute(Cart $cart): Receipt;
 }

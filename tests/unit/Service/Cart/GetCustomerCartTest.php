@@ -4,7 +4,7 @@ namespace Tests\Unit\Service\Cart;
 
 use App\Entity\Cart;
 use App\Entity\Security\User;
-use App\Service\Cart\FindOrCreateCartByCustomer;
+use App\Service\Cart\GetCustomerCart;
 use App\Service\Repository\CartRepositoryInterface;
 use Codeception\Test\Unit;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,9 +21,9 @@ class GetCustomerCartTest extends Unit
         $this->em = Mockery::mock(EntityManagerInterface::class);
     }
 
-    public function getSystemUnderTest(): FindOrCreateCartByCustomer
+    public function getSystemUnderTest(): GetCustomerCart
     {
-        return new FindOrCreateCartByCustomer($this->em);
+        return new GetCustomerCart($this->em);
     }
 
     public function testCustomerAlreadyHaveACart()
