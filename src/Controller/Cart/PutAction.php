@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Cart;
 
 use App\DTO\Response\BadRequest\InvalidFormResponse;
 use App\Entity\CartItem;
+use App\Form\Type\Cart\CartItemType;
 use App\Pricing\CartPricingStrategy;
 use App\Service\Cart\GetActiveCart;
 use App\Service\Cart\PutProductToCart;
@@ -13,20 +14,27 @@ use FOS\RestBundle\View\View;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Form\Type\Cart\CartItemType;
 
-/** @Route("/cart", name="cart_") */
-class CartController
+/** @Route("/cart", name="cart.put", methods={"POST"}) */
+class PutAction
 {
     use EntityManagerTrait;
     use FormFactoryTrait;
 
-    /**
-     * @Route(name="add", methods={"POST"})
-     */
-    public function put(GetActiveCart $getActiveCart, CartPricingStrategy $pricing, PutProductToCart $put, Request $request)
+    private GetActiveCart $getActiveCart;
+    private CartPricingStrategy $pricing;
+    private PutProductToCart $put;
+
+    public function __construct(GetActiveCart $getActiveCart, CartPricingStrategy $pricing, PutProductToCart $put)
     {
-        $cart = $getActiveCart->execute();
+        $this->getActiveCart = $getActiveCart;
+        $this->pricing = $pricing;
+        $this->put = $put;
+    }
+
+    public function __invoke(Request $request)
+    {
+        $cart = $this->getActiveCart->execute();
 
         $item = new CartItem();
         $form = $this->formFactory->create(CartItemType::class, $item);
@@ -41,23 +49,11 @@ class CartController
             return View::create(new InvalidFormResponse($form), Response::HTTP_BAD_REQUEST);
         }
 
-        $put->execute($cart, $item->getProduct(), $item->getQuantity());
+        $this->put->execute($cart, $item->getProduct(), $item->getQuantity());
 
         $this->em->flush();
         $this->em->refresh($cart);
 
-        return $pricing->execute($cart);
-    }
-
-    /**
-     * @Route(name="get", methods={"GET"})
-     */
-    public function get(GetActiveCart $getActiveCart, CartPricingStrategy $pricingStrategy)
-    {
-        $cart = $getActiveCart->execute();
-
-        return $cart->isEmpty()
-            ? null
-            : $pricingStrategy->execute($cart);
+        return $this->pricing->execute($cart);
     }
 }
