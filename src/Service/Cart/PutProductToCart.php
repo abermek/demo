@@ -6,7 +6,7 @@ use App\DTO\CartItem\CartItemCriteria;
 use App\Entity\Cart;
 use App\Entity\CartItem;
 use App\Entity\Product;
-use App\Service\Repository\CartItemRepositoryInterface;
+use App\Repository\CartItemRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 class PutProductToCart
@@ -26,7 +26,7 @@ class PutProductToCart
         $criteria->cartId = (int) $cart->getId();
         $criteria->productId = (int) $product->getId();
 
-        $item = $this->repository->first($criteria);
+        $item = $this->repository->findOne($criteria);
 
         if (!$item) {
             $item = new CartItem();

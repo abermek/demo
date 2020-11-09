@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Service\Repository;
+namespace App\Repository;
 
 use App\DTO\CartItem\CartItemCriteria;
 use App\Entity\CartItem;
 
 interface CartItemRepositoryInterface
 {
-    public function first(CartItemCriteria $criteria): ?CartItem;
+    public function findOne(CartItemCriteria $criteria): ?CartItem;
 }

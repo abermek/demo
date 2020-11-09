@@ -37,3 +37,6 @@ services:
   App\Form\DataTransformer\:
     resource: ../src/Form/DataTransformer
 
+  App\Repository\:
+    resource: ../src/Repository
+

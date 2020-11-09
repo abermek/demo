@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Repository;
+namespace App\Repository;
 
 use App\DTO\Product\ProductCriteria;
 use App\Entity\Product;
@@ -9,10 +9,6 @@ use Pagerfanta\Pagerfanta;
 
 interface ProductRepositoryInterface
 {
-    public function create(Product $product): void;
-
-    public function remove(Product $product): void;
-
     public function find(ProductCriteria $criteria): Collection;
 
     public function paginate(ProductCriteria $criteria, int $pageNumber, int $itemsPerPage): Pagerfanta;

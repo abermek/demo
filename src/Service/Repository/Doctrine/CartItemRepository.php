@@ -4,7 +4,7 @@ namespace App\Service\Repository\Doctrine;
 
 use App\DTO\CartItem\CartItemCriteria;
 use App\Entity\CartItem;
-use App\Service\Repository\CartItemRepositoryInterface;
+use App\Repository\CartItemRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 
@@ -39,7 +39,7 @@ class CartItemRepository implements CartItemRepositoryInterface
         return $qb;
     }
 
-    public function first(CartItemCriteria $criteria): ?CartItem
+    public function findOne(CartItemCriteria $criteria): ?CartItem
     {
         return $this->createQueryBuilder($criteria)->getQuery()->getOneOrNullResult();
     }

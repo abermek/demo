@@ -5,7 +5,7 @@ namespace Tests\Unit\Service\Cart;
 use App\Entity\Cart;
 use App\Entity\Security\User;
 use App\Service\Cart\GetCustomerCart;
-use App\Service\Repository\CartRepositoryInterface;
+use App\Repository\CartRepositoryInterface;
 use Codeception\Test\Unit;
 use Doctrine\ORM\EntityManagerInterface;
 use Mockery;

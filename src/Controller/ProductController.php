@@ -8,7 +8,7 @@ use App\DTO\Response\PaginationResponse;
 use App\Entity\Product;
 use App\DTO\Product\ProductCriteria;
 use App\Entity\Security\User;
-use App\Service\Repository\ProductRepositoryInterface;
+use App\Repository\ProductRepositoryInterface;
 use App\Traits\EntityManagerTrait;
 use App\Traits\FormFactoryTrait;
 use FOS\RestBundle\View\View;
