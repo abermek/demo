@@ -1,8 +1,11 @@
 <?php
 namespace App\Tests;
 
+use App\Entity\Security\User;
 use Codeception\Actor;
 use Codeception\Util\HttpCode;
+use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 
 /**
  * Inherited Methods
@@ -25,17 +28,32 @@ class AcceptanceTester extends Actor
 
     public function amJohn()
     {
-        $this->amBearerAuthenticated('john');
+        $this->loggedInAs('john');
     }
 
     public function amJane()
     {
-        $this->amBearerAuthenticated('jane');
+        $this->loggedInAs('jane');
     }
 
     public function amJack()
     {
-        $this->amBearerAuthenticated('jack');
+        $this->loggedInAs('jack');
+    }
+
+    public function loggedInAs(string $username)
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->grabService(EntityManagerInterface::class);
+        $user = $em->getRepository(User::class)->findOneBy(['username' => $username]);
+
+        if (!$user) {
+            throw new Exception("I can't login as {$username} - he doesn't exists");
+        }
+
+        $token = $this->grabService('lexik_jwt_authentication.jwt_manager')->create($user);
+
+        $this->amBearerAuthenticated($token);
     }
 
     public function seeSuccessfulResponse(array $response = [])

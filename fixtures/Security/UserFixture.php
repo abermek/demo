@@ -4,11 +4,10 @@ namespace Fixture\Security;
 
 use App\Entity\Security\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class UserFixture extends Fixture implements DependentFixtureInterface
+class UserFixture extends Fixture
 {
     private UserPasswordEncoderInterface $passwordEncoder;
 
@@ -19,44 +18,25 @@ class UserFixture extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager)
     {
-        foreach (self::getPlayers() as $username) {
-            $player = $this->createPlayer($username);
-
-            $manager->persist($player);
-
-            $this->addReference($username, $player);
-        }
-
-        $manager->flush();
-    }
-
-    public function createPlayer(string $username): User
-    {
-        $password = '1';
-        $player = new User();
-
-        $player->setUsername($username);
-        $player->setSalt($password);
-        $player->setPassword(
-            $this->passwordEncoder->encodePassword($player, $password)
-        );
-
-        return $player;
-    }
-
-    function getDependencies()
-    {
-        return [
-            ClientFixture::class
-        ];
-    }
-
-    public static function getPlayers(): array
-    {
-        return [
+        $password = 1;
+        $users = [
             'john',
             'jane',
             'jack',
         ];
+
+        foreach ($users as $username) {
+            $user = new User();
+
+            $user->setUsername($username);
+            $user->setSalt($password);
+            $user->setPassword($this->passwordEncoder->encodePassword($user, $password));
+
+            $manager->persist($user);
+
+            $this->addReference($username, $user);
+        }
+
+        $manager->flush();
     }
 }

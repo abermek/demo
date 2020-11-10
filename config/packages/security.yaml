@@ -17,8 +17,10 @@ security:
 
     api:
       pattern:    ^/v\d+
-      fos_oauth:  true
       stateless:  true
+      guard:
+        authenticators:
+          - lexik_jwt_authentication.jwt_token_authenticator
 
     app:
       pattern: ^/

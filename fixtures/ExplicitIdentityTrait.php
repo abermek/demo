@@ -9,10 +9,7 @@ use ReflectionClass;
 
 trait ExplicitIdentityTrait
 {
-    /**
-     * @var int
-     */
-    protected $id = 1;
+    protected int $id = 1;
 
     # https://stackoverflow.com/questions/5301285/explicitly-set-id-with-doctrine-when-using-auto-strategy
     protected function explicitIdentity(ObjectManager $manager, string $entityClass): void

@@ -16,7 +16,8 @@ class CartFixture extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [
-            UserFixture::class
+            UserFixture::class,
+            ProductFixture::class
         ];
     }
 
