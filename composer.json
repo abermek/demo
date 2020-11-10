@@ -9,7 +9,7 @@
         "ext-pdo": "*",
         "doctrine/annotations": "1.8.*",
         "flow/jsonpath": "0.5.*",
-        "friendsofsymfony/rest-bundle": "2.7.*",
+        "friendsofsymfony/rest-bundle": "3.0.*",
         "jms/serializer-bundle": "3.5.*",
         "lexik/jwt-authentication-bundle": "^2.9",
         "moneyphp/money": "3.3.*",
