@@ -137,9 +137,6 @@
     "doctrine/sql-formatter": {
         "version": "1.1.1"
     },
-    "flow/jsonpath": {
-        "version": "0.4.0"
-    },
     "friendsofsymfony/rest-bundle": {
         "version": "2.2",
         "recipe": {
@@ -385,6 +382,9 @@
             "version": "5.2",
             "ref": "fb7e19da7f013d0d422fa9bce16f5c510e27609b"
         }
+    },
+    "softcreatr/jsonpath": {
+        "version": "0.7.2"
     },
     "stof/doctrine-extensions-bundle": {
         "version": "1.2",
