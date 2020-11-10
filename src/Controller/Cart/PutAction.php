@@ -2,9 +2,9 @@
 
 namespace App\Controller\Cart;
 
+use App\DTO\Purchase;
 use App\DTO\Response\BadRequest\InvalidFormResponse;
-use App\Entity\CartItem;
-use App\Form\Type\Cart\CartItemType;
+use App\Form\Type\PurchaseType;
 use App\Pricing\CartPricingStrategy;
 use App\Service\Cart\GetActiveCart;
 use App\Service\Cart\PutProductToCart;
@@ -36,8 +36,8 @@ class PutAction
     {
         $cart = $this->getActiveCart->execute();
 
-        $item = new CartItem();
-        $form = $this->formFactory->create(CartItemType::class, $item);
+        $purchase = new Purchase();
+        $form = $this->formFactory->create(PurchaseType::class, $purchase);
 
         $form->handleRequest($request);
 
@@ -49,7 +49,7 @@ class PutAction
             return View::create(new InvalidFormResponse($form), Response::HTTP_BAD_REQUEST);
         }
 
-        $this->put->execute($cart, $item->getProduct(), $item->getQuantity());
+        $this->put->execute($cart, $purchase);
 
         $this->em->flush();
         $this->em->refresh($cart);

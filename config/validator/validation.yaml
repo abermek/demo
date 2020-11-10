@@ -1,12 +1,3 @@
-App\Entity\CartItem:
-  properties:
-    product:
-      - NotNull: ~
-    quantity:
-      - NotNull: ~
-      - Type: integer
-      - GreaterThan: 0
-
 App\Entity\Product:
   properties:
     name:
@@ -28,6 +19,15 @@ App\DTO\Product\ProductCriteria:
       - Type: string
       - Length:
           max: 125
+
+App\DTO\Purchase:
+  properties:
+    product:
+      - NotNull: ~
+    quantity:
+      - NotNull: ~
+      - Type: integer
+      - GreaterThan: 0
 
 App\Entity\Money:
   properties:
