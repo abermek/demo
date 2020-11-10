@@ -9,9 +9,6 @@ framework:
 
   cache: ~
 
-  templating:
-    engines: ['php']
-
   validation:
     enabled: true
     enable_annotations: true
