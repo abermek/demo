@@ -1,9 +1,55 @@
 nelmio_api_doc:
-    documentation:
-        info:
-            title: Acme
-            description: The demo
-            version: 1.0.0
     areas:
         path_patterns:
             - ^/v1
+    documentation:
+        servers:
+            - url: http://localhost:81
+        info:
+            title: Blacksmith Shop
+            description: A small kiosk were master blacksmith sells his staff
+            version: '1.1'
+        security:
+            - Bearer: [ ]
+        tags:
+            - { name: Cart, description: All about Cart }
+        components:
+            securitySchemes:
+                Bearer:
+                    type: http
+                    scheme: bearer
+                    bearerFormat: JWT
+            schemas:
+                Cart:
+                    description: "Cart Response"
+                    type: object
+                    properties:
+                        total:
+                            type: string
+                            example: $42.00
+                        items:
+                            type: array
+                            items:
+                                $ref: "#/components/schemas/CartItem"
+                CartItem:
+                    description: "Cart Item Response"
+                    type: object
+                    properties:
+                        total:
+                            type: string
+                            example: $42.00
+                        quantity:
+                            type: integer
+                            example: 42
+                        product:
+                            $ref: "#/components/schemas/Product"
+                Product:
+                    description: "Product Response"
+                    type: object
+                    properties:
+                        id:
+                            type: int
+                            example: 42
+                        name:
+                            type: string
+                            example: Sword +5
