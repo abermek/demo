@@ -30,10 +30,10 @@ final class CartPricing implements CartPricingStrategy
             $subtotal = $this->productPricingStrategy->execute($item->getProduct(), $item->getQuantity());
 
             is_null($total)
-                ? $total = $subtotal->getTotal()
-                : $total = $this->moneyMath->add($total, $subtotal->getTotal());
+                ? $total = $subtotal->total
+                : $total = $this->moneyMath->add($total, $subtotal->total);
 
-            $items = array_merge($items, $subtotal->getItems());
+            $items = array_merge($items, $subtotal->items);
         }
 
         return new Receipt($total, ...$items);

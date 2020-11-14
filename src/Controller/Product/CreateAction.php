@@ -15,10 +15,21 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 use App\Security\Voter\ProductVoter;
+use OpenApi\Annotations as OA;
+use Nelmio\ApiDocBundle\Annotation as SWG;
 
 /**
  * @Route("/products", name="products.create", methods={"POST"})
  * @IsGranted(ProductVoter::PERMISSION_CREATE)
+ *
+ * @OA\RequestBody(request=ProductType::class, required=true)
+ * @OA\Response(
+ *     response=200,
+ *     description="Returns created Product",
+ *     @SWG\Model(type=Product::class)
+ * )
+ * @OA\Tag(name="Product")
+ * @SWG\Security(name="Bearer")
  */
 class CreateAction
 {

@@ -1,9 +1,22 @@
 nelmio_api_doc:
-    documentation:
-        info:
-            title: Acme
-            description: The demo
-            version: 1.0.0
     areas:
         path_patterns:
             - ^/v1
+    documentation:
+        servers:
+            - url: http://localhost:81
+        info:
+            title: Blacksmith Shop
+            description: A small kiosk were master blacksmith sells his staff
+            version: '1.1'
+        security:
+            - Bearer: []
+        tags:
+            - { name: Cart, description: All about Cart }
+            - { name: Product, description: All about Product }
+        components:
+            securitySchemes:
+                Bearer:
+                    type: http
+                    scheme: bearer
+                    bearerFormat: JWT

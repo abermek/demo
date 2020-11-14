@@ -14,9 +14,24 @@ use FOS\RestBundle\View\View;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\DTO\Receipt;
+use OpenApi\Annotations as OA;
+use Nelmio\ApiDocBundle\Annotation as SWG;
 
-/** @Route("/cart", name="cart.put", methods={"POST"}) */
-class PutAction
+/**
+ * @Route("/cart", name="cart.put", methods={"POST"})
+ *
+ * @OA\RequestBody(request=PurchaseType::class, required=true)
+ * @OA\Response(
+ *     response=200,
+ *     description="Put Product To The Cart",
+ *     @SWG\Model(type=Receipt::class)
+ * )
+ * @OA\Tag(name="Cart")
+ * @SWG\Security(name="Bearer")
+ *
+ */
+class PostAction
 {
     use EntityManagerTrait;
     use FormFactoryTrait;
