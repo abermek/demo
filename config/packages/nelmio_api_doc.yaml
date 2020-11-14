@@ -10,46 +10,13 @@ nelmio_api_doc:
             description: A small kiosk were master blacksmith sells his staff
             version: '1.1'
         security:
-            - Bearer: [ ]
+            - Bearer: []
         tags:
             - { name: Cart, description: All about Cart }
+            - { name: Product, description: All about Product }
         components:
             securitySchemes:
                 Bearer:
                     type: http
                     scheme: bearer
                     bearerFormat: JWT
-            schemas:
-                Cart:
-                    description: "Cart Response"
-                    type: object
-                    properties:
-                        total:
-                            type: string
-                            example: $42.00
-                        items:
-                            type: array
-                            items:
-                                $ref: "#/components/schemas/CartItem"
-                CartItem:
-                    description: "Cart Item Response"
-                    type: object
-                    properties:
-                        total:
-                            type: string
-                            example: $42.00
-                        quantity:
-                            type: integer
-                            example: 42
-                        product:
-                            $ref: "#/components/schemas/Product"
-                Product:
-                    description: "Product Response"
-                    type: object
-                    properties:
-                        id:
-                            type: int
-                            example: 42
-                        name:
-                            type: string
-                            example: Sword +5

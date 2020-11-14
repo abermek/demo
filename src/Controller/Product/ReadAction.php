@@ -14,9 +14,20 @@ use Pagerfanta\Exception\OutOfRangeCurrentPageException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use OpenApi\Annotations as OA;
+use Nelmio\ApiDocBundle\Annotation as SWG;
 
 /**
  * @Route("/products/{page}", name="products", methods={"GET"}, requirements={"page"="^[1-9]\d*$"}, defaults={"page"=1})
+ *
+ * @OA\RequestBody(request=ProductCriteriaType::class, required=true)
+ * @OA\Response(
+ *     response=200,
+ *     description="Returns list of the Products",
+ *     @SWG\Model(type=PaginationResponse::class)
+ * )
+ * @OA\Tag(name="Product")
+ * @SWG\Security(name="Bearer")
  */
 class ReadAction
 {

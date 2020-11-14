@@ -14,24 +14,19 @@ use FOS\RestBundle\View\View;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\DTO\Receipt;
 use OpenApi\Annotations as OA;
 use Nelmio\ApiDocBundle\Annotation as SWG;
 
 /**
  * @Route("/cart", name="cart.put", methods={"POST"})
  *
- * @OA\RequestBody(
- *     required=true,
- *     description="Product to put in the Cart",
- *     request=PutProductToCart::class
- * )
- *
+ * @OA\RequestBody(request=PurchaseType::class, required=true)
  * @OA\Response(
  *     response=200,
- *     description="Get current Cart",
- *     @OA\JsonContent(ref="#/components/schemas/Cart")
+ *     description="Put Product To The Cart",
+ *     @SWG\Model(type=Receipt::class)
  * )
- *
  * @OA\Tag(name="Cart")
  * @SWG\Security(name="Bearer")
  *

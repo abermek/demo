@@ -5,6 +5,7 @@ namespace App\Controller\Cart;
 use App\Pricing\CartPricingStrategy;
 use App\Service\Cart\GetActiveCart;
 use Symfony\Component\Routing\Annotation\Route;
+use App\DTO\Receipt;
 use OpenApi\Annotations as OA;
 use Nelmio\ApiDocBundle\Annotation as SWG;
 
@@ -13,10 +14,9 @@ use Nelmio\ApiDocBundle\Annotation as SWG;
  *
  * @OA\Response(
  *     response=200,
- *     description="Get current Cart",
- *     @OA\JsonContent(ref="#/components/schemas/Cart")
+ *     description="Returns current Cart",
+ *     @SWG\Model(type=Receipt::class)
  * )
- *
  * @OA\Tag(name="Cart")
  * @SWG\Security(name="Bearer")
  */
