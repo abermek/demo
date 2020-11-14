@@ -1,7 +1,0 @@
-- Improve .gitignore for .idea: https://github.com/github/gitignore/blob/master/Global/JetBrains.gitignore
-- Run Configurations outside .idea dir = Run/Debug Configurations  + Store as project file.
-- Install and configure https://phpmd.org. Set up commit hook to run mess check on each commit
-- Improve documentation.
-  - OpenAPI 2
-  - Nelmio API Doc
-  - Postman
