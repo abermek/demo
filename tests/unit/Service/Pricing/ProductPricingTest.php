@@ -53,7 +53,7 @@ class ProductPricingTest extends Unit
 
         $result = $this->getSystemUnderTest()->execute($product, $quantity);
 
-        self::assertEquals($total, $result->getTotal());
+        self::assertEquals($total, $result->total);
 
     }
 }

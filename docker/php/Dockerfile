@@ -1,4 +1,4 @@
-FROM php:7.4-fpm
+FROM php:8.0-fpm
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
@@ -18,7 +18,6 @@ RUN apt-get update && apt-get install -y \
     && pecl install xdebug \
     && docker-php-ext-enable xdebug \
     && docker-php-ext-install intl pdo pdo_mysql zip \
-    && docker-php-ext-enable intl pdo pdo_mysql zip \
     && usermod -u 1000 www-data \
     && groupmod -g 1000 www-data
 
