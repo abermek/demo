@@ -13,8 +13,7 @@ use Mockery\MockInterface;
 
 class MoneyHandlerTest extends Unit
 {
-    /** @var MoneyFormatter | MockInterface */
-    private $formatter;
+    private MoneyFormatter | MockInterface $formatter;
 
     protected function _before()
     {
@@ -28,9 +27,7 @@ class MoneyHandlerTest extends Unit
 
     public function testSerialize()
     {
-        /** @var Context|MockInterface $context */
         $context = Mockery::mock(Context::class);
-        /** @var MoneyInterface|MockInterface $money */
         $money   = Mockery::mock(MoneyInterface::class);
 
         $formatted = '$10';
@@ -40,7 +37,7 @@ class MoneyHandlerTest extends Unit
             ->with($money)
             ->andReturn($formatted);
 
-        $result = $this->getSystemUnderTest()->serialize(new JsonSerializationVisitor(), $money, [], $context);
+        $result = $this->getSystemUnderTest()->serialize(new JsonSerializationVisitor(), $money);
 
         self::assertEquals($formatted, $result);
     }

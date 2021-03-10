@@ -12,8 +12,7 @@ use Money\Money;
 
 class MoneyCalculatorTest extends Unit
 {
-    /** @var MoneyTransformer | MockInterface  */
-    private $transformer;
+    private MoneyTransformer | MockInterface  $transformer;
 
     protected function _before()
     {
@@ -27,7 +26,6 @@ class MoneyCalculatorTest extends Unit
 
     public function testMultiply()
     {
-        /** @var MoneyInterface|MockInterface $appMoney */
         $appMoney   = Mockery::mock(MoneyInterface::class);
         $multiplier = 2;
         $amount     = 200;
@@ -53,11 +51,8 @@ class MoneyCalculatorTest extends Unit
 
     public function testAdd()
     {
-        /** @var MoneyInterface|MockInterface $money1 */
         $money1   = Mockery::mock(MoneyInterface::class);
-        /** @var MoneyInterface|MockInterface $money2 */
         $money2   = Mockery::mock(MoneyInterface::class);
-        /** @var MoneyInterface|MockInterface $return */
         $return   = Mockery::mock(MoneyInterface::class);
 
         $amount = 200;

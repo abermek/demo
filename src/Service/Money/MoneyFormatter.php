@@ -10,15 +10,13 @@ use NumberFormatter;
 class MoneyFormatter
 {
     private IntlMoneyFormatter $formatter;
-    private MoneyTransformer $transformer;
 
-    public function __construct(string $locale, MoneyTransformer $transformer)
+    public function __construct(string $locale, private MoneyTransformer $transformer)
     {
         $this->formatter = new IntlMoneyFormatter(
             new NumberFormatter($locale, NumberFormatter::CURRENCY),
             new ISOCurrencies()
         );
-        $this->transformer = $transformer;
     }
 
     public function format(MoneyInterface $money): string

@@ -6,21 +6,16 @@ use App\Money\Money;
 use App\Entity\Money as EmbeddedMoney;
 use App\Money\MoneyInterface;
 use App\Service\Money\MoneyFormatter;
-use JMS\Serializer\Context;
 use JMS\Serializer\GraphNavigator;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\JsonSerializationVisitor;
 
 class MoneyHandler implements SubscribingHandlerInterface
 {
-    private MoneyFormatter $formatter;
+    public function __construct(private MoneyFormatter $formatter)
+    {}
 
-    public function __construct(MoneyFormatter $formatter)
-    {
-        $this->formatter = $formatter;
-    }
-
-    public static function getSubscribingMethods()
+    public static function getSubscribingMethods(): array
     {
         return [
             [
@@ -38,7 +33,7 @@ class MoneyHandler implements SubscribingHandlerInterface
         ];
     }
 
-    public function serialize(JsonSerializationVisitor $visitor, MoneyInterface $money, array $type, Context $context)
+    public function serialize(JsonSerializationVisitor $visitor, MoneyInterface $money): string
     {
         return $this->formatter->format($money);
     }

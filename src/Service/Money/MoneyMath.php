@@ -6,15 +6,10 @@ use App\Money\MoneyInterface;
 
 class MoneyMath
 {
-    private MoneyTransformer $transformer;
+    public function __construct(private MoneyTransformer $transformer)
+    {}
 
-    public function __construct(MoneyTransformer $transformer)
-    {
-        $this->transformer = $transformer;
-    }
-
-    /** @var int|float|string $multiplier */
-    public function multiply(MoneyInterface $money, $multiplier): MoneyInterface
+    public function multiply(MoneyInterface $money, int|float|string $multiplier): MoneyInterface
     {
         return $this->transformer->reverseTransform(
             $this->transformer->transform($money)->multiply($multiplier)

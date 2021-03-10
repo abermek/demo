@@ -10,8 +10,6 @@ use OpenApi\Annotations as OA;
 use Nelmio\ApiDocBundle\Annotation as SWG;
 
 /**
- * @Route("/cart", name="cart.get", methods={"GET"})
- *
  * @OA\Response(
  *     response=200,
  *     description="Returns current Cart",
@@ -20,16 +18,11 @@ use Nelmio\ApiDocBundle\Annotation as SWG;
  * @OA\Tag(name="Cart")
  * @SWG\Security(name="Bearer")
  */
+#[Route(path: '/cart', name: 'cart.get', methods: ['GET'])]
 class GetAction
 {
-    private GetActiveCart $getActiveCart;
-    private CartPricingStrategy $pricingStrategy;
-
-    public function __construct(GetActiveCart $getActiveCart, CartPricingStrategy $pricingStrategy)
-    {
-        $this->getActiveCart = $getActiveCart;
-        $this->pricingStrategy = $pricingStrategy;
-    }
+    public function __construct(private GetActiveCart $getActiveCart, private CartPricingStrategy $pricingStrategy)
+    {}
 
     public function __invoke()
     {

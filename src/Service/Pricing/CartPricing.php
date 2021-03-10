@@ -11,14 +11,8 @@ use App\Service\Money\MoneyMath;
 
 final class CartPricing implements CartPricingStrategy
 {
-    private ProductPricingStrategy $productPricingStrategy;
-    private MoneyMath $moneyMath;
-
-    public function __construct(ProductPricingStrategy $productPricingStrategy, MoneyMath $moneyMath)
-    {
-        $this->productPricingStrategy = $productPricingStrategy;
-        $this->moneyMath = $moneyMath;
-    }
+    public function __construct(private ProductPricingStrategy $productPricingStrategy, private MoneyMath $moneyMath)
+    {}
 
     public function execute(Cart $cart): Receipt
     {

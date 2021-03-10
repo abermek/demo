@@ -3,12 +3,13 @@
 namespace App\Traits;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Contracts\Service\Attribute\Required;
 
 trait EntityManagerTrait
 {
     protected EntityManagerInterface $em;
 
-    /** @required */
+    #[Required]
     public function setEntityManager(EntityManagerInterface $em): void
     {
         $this->em = $em;

@@ -19,7 +19,6 @@ use OpenApi\Annotations as OA;
 use Nelmio\ApiDocBundle\Annotation as SWG;
 
 /**
- * @Route("/products", name="products.create", methods={"POST"})
  * @IsGranted(ProductVoter::PERMISSION_CREATE)
  *
  * @OA\RequestBody(request=ProductType::class, required=true)
@@ -31,6 +30,7 @@ use Nelmio\ApiDocBundle\Annotation as SWG;
  * @OA\Tag(name="Product")
  * @SWG\Security(name="Bearer")
  */
+#[Route(path: '/products', name: 'products.create', methods: ['POST'])]
 class CreateAction
 {
     use FormFactoryTrait;

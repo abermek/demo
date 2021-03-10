@@ -13,8 +13,7 @@ use Money\Money;
 
 class MoneyFormatterTest extends Unit
 {
-    /** @var MoneyTransformer|MockInterface */
-    private $transformer;
+    private MoneyTransformer|MockInterface  $transformer;
 
     protected function _before()
     {
@@ -29,7 +28,6 @@ class MoneyFormatterTest extends Unit
     /** @dataProvider dataProviderForFormat */
     public function testFormat(string $locale, int $amount, string $currency,  string $expectedResult)
     {
-        /** @var MoneyInterface|MockInterface $money */
         $money = Mockery::mock(MoneyInterface::class);
 
         $this->transformer

@@ -10,12 +10,8 @@ use App\Service\Money\MoneyMath;
 
 final class ProductPricing implements ProductPricingStrategy
 {
-    private MoneyMath $moneyMath;
-
-    public function __construct(MoneyMath $moneyMath)
-    {
-        $this->moneyMath = $moneyMath;
-    }
+    public function __construct(private MoneyMath $moneyMath)
+    {}
 
     public function execute(Product $product, int $quantity): Receipt
     {

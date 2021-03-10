@@ -17,7 +17,6 @@ use OpenApi\Annotations as OA;
 use Nelmio\ApiDocBundle\Annotation as SWG;
 
 /**
- * @Route("/products/{id}", name="products.update", methods={"POST"}, requirements={"id"="^[1-9]\d*$"})
  * @IsGranted(ProductVoter::PERMISSION_UPDATE, subject="product")
  *
  * @OA\RequestBody(request=ProductType::class, required=true)
@@ -29,6 +28,7 @@ use Nelmio\ApiDocBundle\Annotation as SWG;
  * @OA\Tag(name="Product")
  * @SWG\Security(name="Bearer")
  */
+#[Route(path: '/products/{id}', name: 'products.update', requirements: ['id' => '^[1-9]\d*$'], methods: ['POST'])]
 class UpdateAction
 {
     use FormFactoryTrait;

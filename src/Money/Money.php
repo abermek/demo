@@ -6,17 +6,11 @@ use Exception;
 
 class Money implements MoneyInterface
 {
-    private int $amount;
-    private string $currency;
-
-    public function __construct(int $amount, string $currency)
+    public function __construct(private int $amount, private string $currency)
     {
         if ($amount <= 0) {
             throw new Exception('Amount should be greater then 0');
         }
-
-        $this->amount = $amount;
-        $this->currency = $currency;
     }
 
     public function getAmount(): int

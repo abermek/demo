@@ -18,8 +18,6 @@ use OpenApi\Annotations as OA;
 use Nelmio\ApiDocBundle\Annotation as SWG;
 
 /**
- * @Route("/products/{page}", name="products", methods={"GET"}, requirements={"page"="^[1-9]\d*$"}, defaults={"page"=1})
- *
  * @OA\RequestBody(request=ProductCriteriaType::class, required=true)
  * @OA\Response(
  *     response=200,
@@ -29,6 +27,7 @@ use Nelmio\ApiDocBundle\Annotation as SWG;
  * @OA\Tag(name="Product")
  * @SWG\Security(name="Bearer")
  */
+#[Route(path: '/products/{page}', name: 'products', requirements: ['page' => '^[1-9]\d*$'], defaults: ['page' => 1], methods: ['GET'])]
 class ReadAction
 {
     use FormFactoryTrait;

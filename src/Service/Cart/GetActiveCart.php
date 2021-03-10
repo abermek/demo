@@ -8,14 +8,8 @@ use Symfony\Component\Security\Core\Security;
 
 class GetActiveCart
 {
-    private Security $security;
-    private GetCustomerCart $getCustomerCart;
-
-    public function __construct(Security $security, GetCustomerCart $getCustomerCart)
-    {
-        $this->security = $security;
-        $this->getCustomerCart = $getCustomerCart;
-    }
+    public function __construct(private Security $security, private GetCustomerCart $getCustomerCart)
+    {}
 
     public function execute(): Cart
     {

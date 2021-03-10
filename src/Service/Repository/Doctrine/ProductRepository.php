@@ -14,12 +14,8 @@ class ProductRepository implements ProductRepositoryInterface
 {
     use PaginationTrait;
 
-    private EntityManagerInterface $em;
-
-    public function __construct(EntityManagerInterface $em)
-    {
-        $this->em = $em;
-    }
+    public function __construct(private EntityManagerInterface $em)
+    {}
 
     private function createQueryBuilder(ProductCriteria $criteria): QueryBuilder
     {

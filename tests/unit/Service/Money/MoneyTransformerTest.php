@@ -19,7 +19,6 @@ class MoneyTransformerTest extends Unit
 
     public function testTransform()
     {
-        /** @var MoneyInterface|MockInterface $money */
         $money      = Mockery::mock(MoneyInterface::class);
         $amount     = "100";
         $currency   = 'USD';

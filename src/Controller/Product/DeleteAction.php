@@ -11,13 +11,13 @@ use OpenApi\Annotations as OA;
 use Nelmio\ApiDocBundle\Annotation as SWG;
 
 /**
- * @Route("/products/{id}", name="products.delete", methods={"DELETE"}, requirements={"id"="^[1-9]\d*$"})
  * @IsGranted(ProductVoter::PERMISSION_DELETE, subject="product")
  *
  * @OA\Response(response=204,description="No Content")
  * @OA\Tag(name="Product")
  * @SWG\Security(name="Bearer")
  */
+#[Route(path: '/products/{id}', name: 'products.delete', requirements: ['id' => '^[1-9]\d*$'], methods: ['DELETE'])]
 class DeleteAction
 {
     use EntityManagerTrait;

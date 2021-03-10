@@ -15,15 +15,10 @@ class ProductVoter extends Voter
     public const PERMISSION_CREATE = 'product.create';
     public const PERMISSION_DELETE = 'product.delete';
 
-    private Security $security;
+    public function __construct(private Security $security)
+    {}
 
-    public function __construct(Security $security)
-    {
-        $this->security = $security;
-    }
-
-    /** @inheritDoc */
-    protected function supports($attribute, $subject)
+    protected function supports(string $attribute, $subject): bool
     {
         if ($attribute === self::PERMISSION_CREATE) {
             return true;
@@ -37,8 +32,7 @@ class ProductVoter extends Voter
         return $subject instanceof Product && in_array($attribute, $permissions);
     }
 
-    /** @inheritDoc */
-    protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
 
@@ -50,14 +44,11 @@ class ProductVoter extends Voter
             return true;
         }
 
-        switch ($attribute) {
-            case self::PERMISSION_DELETE:
-            case self::PERMISSION_UPDATE:
-                return $subject->getOwner() === $user || $this->security->isGranted('ROLE_ADMIN');
-            case self::PERMISSION_CREATE:
-                return true;
-            default:
-                throw new LogicException('A voter for the ' . $attribute . ' was not found');
-        }
+        return match ($attribute) {
+            self::PERMISSION_DELETE,
+            self::PERMISSION_UPDATE => $subject->getOwner() === $user || $this->security->isGranted('ROLE_ADMIN'),
+            self::PERMISSION_CREATE => true,
+            default => throw new LogicException('A voter for the ' . $attribute . ' was not found'),
+        };
     }
 }

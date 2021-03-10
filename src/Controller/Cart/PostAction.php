@@ -19,8 +19,6 @@ use OpenApi\Annotations as OA;
 use Nelmio\ApiDocBundle\Annotation as SWG;
 
 /**
- * @Route("/cart", name="cart.put", methods={"POST"})
- *
  * @OA\RequestBody(request=PurchaseType::class, required=true)
  * @OA\Response(
  *     response=200,
@@ -31,21 +29,17 @@ use Nelmio\ApiDocBundle\Annotation as SWG;
  * @SWG\Security(name="Bearer")
  *
  */
+#[Route(path: '/cart', name: 'cart.put', methods: ['POST'])]
 class PostAction
 {
     use EntityManagerTrait;
     use FormFactoryTrait;
 
-    private GetActiveCart $getActiveCart;
-    private CartPricingStrategy $pricing;
-    private PutProductToCart $put;
-
-    public function __construct(GetActiveCart $getActiveCart, CartPricingStrategy $pricing, PutProductToCart $put)
-    {
-        $this->getActiveCart = $getActiveCart;
-        $this->pricing = $pricing;
-        $this->put = $put;
-    }
+    public function __construct(
+        private GetActiveCart $getActiveCart,
+        private CartPricingStrategy $pricing,
+        private PutProductToCart $put)
+    {}
 
     public function __invoke(Request $request)
     {

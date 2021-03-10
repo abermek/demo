@@ -13,8 +13,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 
 class ProductPricingTest extends Unit
 {
-    /** @var MoneyMath | MockInterface */
-    private $math;
+    private MoneyMath | MockInterface $math;
 
     protected function _before()
     {
@@ -28,11 +27,8 @@ class ProductPricingTest extends Unit
 
     public function testCalculateCartItemTotal()
     {
-        /** @var Product | MockInterface $product */
         $product = Mockery::mock(Product::class);
-        /** @var MoneyInterface|MockObject $price */
         $price = Mockery::mock(MoneyInterface::class);
-        /** @var MoneyInterface|MockObject $total */
         $total = Mockery::mock(MoneyInterface::class);
 
         $quantity = 3;
