@@ -24,7 +24,7 @@ class PurchaseType extends AbstractType
         parent::configureOptions($resolver);
 
         $resolver->setDefaults([
-            'data_class' => Purchase::class
+            'data_class' => Purchase::class,
         ]);
     }
 }

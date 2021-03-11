@@ -12,7 +12,8 @@ use App\Service\Money\MoneyMath;
 class PricingStrategy implements StrategyInterface
 {
     public function __construct(private MoneyMath $math)
-    {}
+    {
+    }
 
     public function execute(PurchaseInterface ...$purchases): ReceiptInterface
     {

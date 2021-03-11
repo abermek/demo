@@ -3,12 +3,12 @@
 namespace App\Controller\Product;
 
 use App\Entity\Product;
+use App\Security\Voter\ProductVoter;
 use App\Traits\EntityManagerTrait;
+use Nelmio\ApiDocBundle\Annotation as SWG;
+use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Security\Voter\ProductVoter;
-use OpenApi\Annotations as OA;
-use Nelmio\ApiDocBundle\Annotation as SWG;
 
 /**
  * @IsGranted(ProductVoter::PERMISSION_DELETE, subject="product")

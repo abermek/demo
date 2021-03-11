@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -40,6 +42,7 @@ class Product
     public function setName(?string $name): Product
     {
         $this->name = $name;
+
         return $this;
     }
 

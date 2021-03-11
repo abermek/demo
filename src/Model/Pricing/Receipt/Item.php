@@ -12,8 +12,8 @@ final class Item implements ItemInterface
         private int $quantity,
         private MoneyInterface $unitPrice,
         private MoneyInterface $grandTotal
-    )
-    {}
+    ) {
+    }
 
     public function getProductName(): string
     {

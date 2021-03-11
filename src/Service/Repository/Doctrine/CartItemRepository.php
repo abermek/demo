@@ -11,7 +11,8 @@ use Doctrine\ORM\QueryBuilder;
 class CartItemRepository implements CartItemRepositoryInterface
 {
     public function __construct(private EntityManagerInterface $em)
-    {}
+    {
+    }
 
     private function createQueryBuilder(CartItemCriteria $criteria): QueryBuilder
     {

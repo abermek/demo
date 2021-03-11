@@ -12,7 +12,8 @@ use Doctrine\ORM\EntityManagerInterface;
 class PutProductToCart
 {
     public function __construct(private CartItemRepositoryInterface $repository, private EntityManagerInterface $em)
-    {}
+    {
+    }
 
     public function execute(Cart $cart, Purchase $purchase)
     {

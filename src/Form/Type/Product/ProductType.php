@@ -26,7 +26,7 @@ class ProductType extends AbstractType
         parent::configureOptions($resolver);
 
         $resolver->setDefaults([
-            'data_class' => Product::class
+            'data_class' => Product::class,
         ]);
     }
 }

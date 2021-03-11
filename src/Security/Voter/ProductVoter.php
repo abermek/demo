@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Security\Voter;
 
@@ -16,11 +18,12 @@ class ProductVoter extends Voter
     public const PERMISSION_DELETE = 'product.delete';
 
     public function __construct(private Security $security)
-    {}
+    {
+    }
 
     protected function supports(string $attribute, $subject): bool
     {
-        if ($attribute === self::PERMISSION_CREATE) {
+        if (self::PERMISSION_CREATE === $attribute) {
             return true;
         }
 
