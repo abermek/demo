@@ -1,0 +1,6 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Unit" type="CodeceptionConfigurationType" factoryName="Codeception">
+    <PhpTestRunnerSettings method="" scope="Type" selected_type="unit" />
+    <method v="2" />
+  </configuration>
+</component>
