@@ -5,7 +5,7 @@ namespace App\Controller\Cart;
 use App\Pricing\CartPricingStrategy;
 use App\Service\Cart\GetActiveCart;
 use Symfony\Component\Routing\Annotation\Route;
-use App\DTO\Receipt;
+use App\Model\Pricing\Receipt;
 use OpenApi\Annotations as OA;
 use Nelmio\ApiDocBundle\Annotation as SWG;
 

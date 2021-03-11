@@ -1,0 +1,8 @@
+App\Model\Pricing\Receipt:
+  exclusion_policy: ALL
+  properties:
+    items:
+      expose: true
+    grandTotal:
+      expose: true
+      serialized_name: total

@@ -16,3 +16,9 @@ jms_serializer:
             BadRequest:
                 namespace_prefix: "App\\DTO\\BadRequest"
                 path: "%kernel.project_dir%/config/serializer/DTO/BadRequest"
+            Pricing:
+                namespace_prefix: "App\\Model\\Pricing"
+                path: "%kernel.project_dir%/config/serializer/Model/Pricing"
+            Receipt:
+                namespace_prefix: "App\\Model\\Pricing\\Receipt"
+                path: "%kernel.project_dir%/config/serializer/Model/Pricing/Receipt"

@@ -1,7 +1,0 @@
-App\DTO\Receipt:
-  exclusion_policy: ALL
-  properties:
-    items:
-      expose: true
-    total:
-      expose: true

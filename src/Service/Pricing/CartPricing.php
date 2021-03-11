@@ -4,7 +4,7 @@ namespace App\Service\Pricing;
 
 use App\Entity\Cart;
 use App\Entity\CartItem;
-use App\DTO\Receipt;
+use App\Model\Pricing\Receipt;
 use App\Pricing\CartPricingStrategy;
 use App\Pricing\ProductPricingStrategy;
 use App\Service\Money\MoneyMath;
@@ -24,10 +24,10 @@ final class CartPricing implements CartPricingStrategy
             $subtotal = $this->productPricingStrategy->execute($item->getProduct(), $item->getQuantity());
 
             is_null($total)
-                ? $total = $subtotal->total
-                : $total = $this->moneyMath->add($total, $subtotal->total);
+                ? $total = $subtotal->getGrandTotal()
+                : $total = $this->moneyMath->add($total, $subtotal->getGrandTotal());
 
-            $items = array_merge($items, $subtotal->items);
+            $items = array_merge($items, $subtotal->getItems());
         }
 
         return new Receipt($total, ...$items);

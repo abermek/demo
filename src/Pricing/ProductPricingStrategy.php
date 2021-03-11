@@ -3,9 +3,8 @@
 namespace App\Pricing;
 
 use App\Entity\Product;
-use App\DTO\Receipt;
 
 interface ProductPricingStrategy
 {
-    public function execute(Product $product, int $quantity): Receipt;
+    public function execute(Product $product, int $quantity): ReceiptInterface;
 }
