@@ -5,7 +5,7 @@ namespace App\Controller\Cart;
 use App\DTO\Purchase;
 use App\DTO\Response\BadRequest\InvalidFormResponse;
 use App\Form\Type\PurchaseType;
-use App\Pricing\CartPricingStrategy;
+use App\Pricing\StrategyInterface;
 use App\Service\Cart\GetActiveCart;
 use App\Service\Cart\PutProductToCart;
 use App\Traits\EntityManagerTrait;
@@ -37,7 +37,7 @@ class PostAction
 
     public function __construct(
         private GetActiveCart $getActiveCart,
-        private CartPricingStrategy $pricing,
+        private StrategyInterface $pricing,
         private PutProductToCart $put)
     {}
 
@@ -63,6 +63,6 @@ class PostAction
         $this->em->flush();
         $this->em->refresh($cart);
 
-        return $this->pricing->execute($cart);
+        return $this->pricing->execute(... $cart->getItems());
     }
 }

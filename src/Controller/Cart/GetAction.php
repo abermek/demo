@@ -2,8 +2,8 @@
 
 namespace App\Controller\Cart;
 
-use App\Pricing\CartPricingStrategy;
 use App\Service\Cart\GetActiveCart;
+use App\Service\Pricing\PricingStrategy;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Model\Pricing\Receipt;
 use OpenApi\Annotations as OA;
@@ -21,7 +21,7 @@ use Nelmio\ApiDocBundle\Annotation as SWG;
 #[Route(path: '/cart', name: 'cart.get', methods: ['GET'])]
 class GetAction
 {
-    public function __construct(private GetActiveCart $getActiveCart, private CartPricingStrategy $pricingStrategy)
+    public function __construct(private GetActiveCart $getActiveCart, private PricingStrategy $pricingStrategy)
     {}
 
     public function __invoke()
@@ -30,6 +30,6 @@ class GetAction
 
         return $cart->isEmpty()
             ? null
-            : $this->pricingStrategy->execute($cart);
+            : $this->pricingStrategy->execute(... $cart->getItems());
     }
 }

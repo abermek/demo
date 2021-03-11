@@ -2,16 +2,15 @@
 
 namespace Tests\Unit\Service\Pricing;
 
-use App\Entity\Product;
 use App\Money\MoneyInterface;
+use App\Pricing\PurchaseInterface;
 use App\Service\Money\MoneyMath;
-use App\Service\Pricing\ProductPricing;
+use App\Service\Pricing\PricingStrategy;
 use Codeception\Test\Unit;
 use Mockery;
 use Mockery\MockInterface;
-use PHPUnit\Framework\MockObject\MockObject;
 
-class ProductPricingTest extends Unit
+class PricingStrategyTest extends Unit
 {
     private MoneyMath | MockInterface $math;
 
@@ -20,36 +19,44 @@ class ProductPricingTest extends Unit
         $this->math = Mockery::mock(MoneyMath::class);
     }
 
-    public function getSystemUnderTest(): ProductPricing
+    public function getSystemUnderTest(): PricingStrategy
     {
-        return new ProductPricing($this->math);
+        return new PricingStrategy($this->math);
     }
 
     public function testCalculateCartItemTotal()
     {
-        $product = Mockery::mock(Product::class);
+        $purchase = Mockery::mock(PurchaseInterface::class);
         $price = Mockery::mock(MoneyInterface::class);
         $total = Mockery::mock(MoneyInterface::class);
 
         $quantity = 3;
         $name = 'sword';
 
-        $product
-            ->shouldReceive('getPrice')
+        $purchase
+            ->shouldReceive('getProductPrice')
             ->andReturn($price);
 
-        $product
-            ->shouldReceive('getName')
+        $purchase
+            ->shouldReceive('getProductName')
             ->andReturn($name);
+
+        $purchase
+            ->shouldReceive('getProductId')
+            ->andReturn(1);
+
+        $purchase
+            ->shouldReceive('getProductQuantity')
+            ->andReturn($quantity);
 
         $this->math
             ->shouldReceive('multiply')
             ->with($price, $quantity)
             ->andReturn($total);
 
-        $result = $this->getSystemUnderTest()->execute($product, $quantity);
+        $result = $this->getSystemUnderTest()->execute($purchase);
 
-        self::assertEquals($total, $result->total);
+        self::assertEquals($total, $result->getGrandTotal());
 
     }
 }

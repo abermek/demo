@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
-class CartItem
+use App\Money\MoneyInterface;
+use App\Pricing\PurchaseInterface;
+
+class CartItem implements PurchaseInterface
 {
     protected ?int $id;
     protected ?Product $product = null;
@@ -47,5 +50,25 @@ class CartItem
         $this->quantity += $amount;
 
         return $this;
+    }
+
+    public function getProductName(): string
+    {
+        return $this->product->getName();
+    }
+
+    public function getProductId(): string
+    {
+        return $this->product->getId();
+    }
+
+    public function getProductQuantity(): int
+    {
+        return $this->quantity;
+    }
+
+    public function getProductPrice(): MoneyInterface
+    {
+        return $this->product->getPrice();
     }
 }
