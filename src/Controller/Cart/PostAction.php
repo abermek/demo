@@ -14,6 +14,7 @@ use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Model\Pricing\Receipt;
 
 /**
  * @OA\RequestBody(request=PurchaseType::class, required=true)
