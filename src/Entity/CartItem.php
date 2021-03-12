@@ -30,18 +30,21 @@ class CartItem implements PurchaseInterface
     public function setProduct(?Product $product): CartItem
     {
         $this->product = $product;
+
         return $this;
     }
 
     public function setCart(?Cart $cart): CartItem
     {
         $this->cart = $cart;
+
         return $this;
     }
 
     public function setQuantity(?int $quantity): CartItem
     {
         $this->quantity = $quantity;
+
         return $this;
     }
 

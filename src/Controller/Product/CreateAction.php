@@ -6,17 +6,17 @@ use App\DTO\Response\BadRequest\InvalidFormResponse;
 use App\Entity\Product;
 use App\Entity\Security\User;
 use App\Form\Type\Product\ProductType;
+use App\Security\Voter\ProductVoter;
 use App\Traits\EntityManagerTrait;
 use App\Traits\FormFactoryTrait;
 use FOS\RestBundle\View\View;
+use Nelmio\ApiDocBundle\Annotation as SWG;
+use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
-use App\Security\Voter\ProductVoter;
-use OpenApi\Annotations as OA;
-use Nelmio\ApiDocBundle\Annotation as SWG;
 
 /**
  * @IsGranted(ProductVoter::PERMISSION_CREATE)

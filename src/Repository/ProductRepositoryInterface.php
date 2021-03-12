@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\DTO\Product\ProductCriteria;
-use App\Entity\Product;
 use Doctrine\Common\Collections\Collection;
 use Pagerfanta\Pagerfanta;
 

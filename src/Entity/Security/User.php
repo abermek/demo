@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Entity\Security;
 
@@ -47,24 +49,28 @@ class User implements UserInterface
     public function setUsername(string $username): User
     {
         $this->username = $username;
+
         return $this;
     }
 
     public function setPassword(string $password): User
     {
         $this->password = $password;
+
         return $this;
     }
 
     public function setSalt(string $salt): User
     {
         $this->salt = $salt;
+
         return $this;
     }
 
     public function setRoles(array $roles): User
     {
         $this->roles = $roles;
+
         return $this;
     }
 

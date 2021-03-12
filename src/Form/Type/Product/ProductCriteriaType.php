@@ -22,7 +22,7 @@ class ProductCriteriaType extends AbstractType
         $resolver->setDefault('method', 'GET');
         $resolver->setDefaults([
             'method' => 'GET',
-            'data_class' => ProductCriteria::class
+            'data_class' => ProductCriteria::class,
         ]);
     }
 }

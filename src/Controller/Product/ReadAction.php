@@ -10,12 +10,12 @@ use App\Form\Type\Product\ProductCriteriaType;
 use App\Repository\ProductRepositoryInterface;
 use App\Traits\FormFactoryTrait;
 use FOS\RestBundle\View\View;
+use Nelmio\ApiDocBundle\Annotation as SWG;
+use OpenApi\Annotations as OA;
 use Pagerfanta\Exception\OutOfRangeCurrentPageException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use OpenApi\Annotations as OA;
-use Nelmio\ApiDocBundle\Annotation as SWG;
 
 /**
  * @OA\RequestBody(request=ProductCriteriaType::class, required=true)
@@ -27,7 +27,13 @@ use Nelmio\ApiDocBundle\Annotation as SWG;
  * @OA\Tag(name="Product")
  * @SWG\Security(name="Bearer")
  */
-#[Route(path: '/products/{page}', name: 'products', requirements: ['page' => '^[1-9]\d*$'], defaults: ['page' => 1], methods: ['GET'])]
+#[Route(
+    path: '/products/{page}',
+    name: 'products',
+    requirements: ['page' => '^[1-9]\d*$'],
+    defaults: ['page' => 1],
+    methods: ['GET']
+)]
 class ReadAction
 {
     use FormFactoryTrait;
@@ -49,7 +55,7 @@ class ReadAction
             return new PaginationResponse(
                 $repository->paginate($criteria, $page, self::PRODUCTS_PER_PAGE)
             );
-        } catch (OutOfRangeCurrentPageException $e) {
+        } catch (OutOfRangeCurrentPageException) {
             return View::create(new InvalidPageResponse($page), Response::HTTP_BAD_REQUEST);
         }
     }

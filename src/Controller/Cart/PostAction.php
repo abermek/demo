@@ -9,12 +9,11 @@ use App\Service\Cart\ActiveCart;
 use App\Traits\EntityManagerTrait;
 use App\Traits\FormFactoryTrait;
 use FOS\RestBundle\View\View;
+use Nelmio\ApiDocBundle\Annotation as SWG;
+use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Model\Pricing\Receipt;
-use OpenApi\Annotations as OA;
-use Nelmio\ApiDocBundle\Annotation as SWG;
 
 /**
  * @OA\RequestBody(request=PurchaseType::class, required=true)
@@ -25,7 +24,6 @@ use Nelmio\ApiDocBundle\Annotation as SWG;
  * )
  * @OA\Tag(name="Cart")
  * @SWG\Security(name="Bearer")
- *
  */
 #[Route(path: '/cart', name: 'cart.put', methods: ['POST'])]
 class PostAction
@@ -34,7 +32,8 @@ class PostAction
     use FormFactoryTrait;
 
     public function __construct(private ActiveCart $cart)
-    {}
+    {
+    }
 
     public function __invoke(Request $request)
     {

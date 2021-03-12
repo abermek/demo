@@ -12,10 +12,10 @@ final class InvalidFormResponse extends BadRequestResponse
     {
         $errors = [];
 
-        /** @var FormError $error */
+        /* @var FormError $error */
         foreach ($form->getErrors(true) as $entry) {
             $error = [
-                'description' => $entry->getMessage()
+                'description' => $entry->getMessage(),
             ];
 
             $origin = $entry->getOrigin();
@@ -39,7 +39,7 @@ final class InvalidFormResponse extends BadRequestResponse
 
     private function getPropertyPath(FormInterface $form, string $baseName): string
     {
-        $name   = $form->getName();
+        $name = $form->getName();
         $parent = $form->getParent();
 
         if (empty($name) || empty($parent)) {

@@ -21,7 +21,8 @@ use Nelmio\ApiDocBundle\Annotation as SWG;
 class GetAction
 {
     public function __construct(private ActiveCart $activeCart)
-    {}
+    {
+    }
 
     public function __invoke()
     {

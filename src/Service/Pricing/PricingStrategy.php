@@ -12,7 +12,8 @@ use App\Pricing\StrategyInterface;
 class PricingStrategy implements StrategyInterface
 {
     public function __construct(private MathInterface $math)
-    {}
+    {
+    }
 
     public function execute(PurchaseInterface ...$purchases): ReceiptInterface
     {
