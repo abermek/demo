@@ -25,16 +25,19 @@ class ProductFixture extends Fixture implements DependentFixtureInterface
     {
         $products = [
             [
+                'slug'  => 'sword',
                 'name'  => 'Sword',
                 'owner' => 'john',
                 'price' => 100
             ],
             [
+                'slug'  => 'staff',
                 'name'  => 'Staff',
                 'owner' => 'jane',
                 'price' => 1000
             ],
             [
+                'slug'  => 'wooden-shield',
                 'name'  => 'Shield',
                 'owner' => 'john',
                 'price' => 100
@@ -47,6 +50,7 @@ class ProductFixture extends Fixture implements DependentFixtureInterface
 
             $product = new Product($owner);
             $product
+                ->setSlug($props['slug'])
                 ->setPrice(new USD($props['price']))
                 ->setName($props['name']);
 

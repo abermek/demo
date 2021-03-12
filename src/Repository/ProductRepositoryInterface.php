@@ -8,7 +8,7 @@ use Pagerfanta\Pagerfanta;
 
 interface ProductRepositoryInterface
 {
-    public function find(ProductCriteria $criteria): Collection;
+    public function find(ProductCriteria $criteria): array;
 
     public function paginate(ProductCriteria $criteria, int $pageNumber, int $itemsPerPage): Pagerfanta;
 }
