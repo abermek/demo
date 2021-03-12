@@ -1,7 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace App\Money;
+namespace App\Model;
 
+use App\Money\MoneyInterface;
 use Exception;
 
 class Money implements MoneyInterface

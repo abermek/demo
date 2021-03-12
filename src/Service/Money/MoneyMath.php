@@ -2,9 +2,11 @@
 
 namespace App\Service\Money;
 
+use App\Money\MathInterface;
 use App\Money\MoneyInterface;
+use Money\Money;
 
-class MoneyMath
+class MoneyMath implements MathInterface
 {
     public function __construct(private MoneyTransformer $transformer)
     {}
@@ -23,6 +25,7 @@ class MoneyMath
             $addends
         );
 
+        /** @var Money $money */
         $money = array_shift($addends);
 
         return $this->transformer->reverseTransform($money->add(... $addends));

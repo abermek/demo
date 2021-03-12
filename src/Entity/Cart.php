@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Entity\Security\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
 
 class Cart
 {
@@ -50,6 +51,48 @@ class Cart
         if (!$this->items->contains($item)) {
             $item->setCart($this);
             $this->items->add($item);
+        }
+    }
+
+    public function addProduct(Product $product, int $quantity): void
+    {
+        $criteria = Criteria::create()->andWhere(
+            Criteria::expr()->eq('product', $product)
+        );
+
+        /** @var CartItem $item */
+        $item = $this->items->matching($criteria)->current();
+
+        if ($item) {
+            $item->setQuantity($item->getQuantity() + $quantity);
+        } else {
+            $item = new CartItem();
+            $item
+                ->setCart($this)
+                ->setProduct($product)
+                ->setQuantity($quantity);
+
+            $this->items->add($item);
+        }
+    }
+
+    public function removeProduct(Product $product, int $quantity): void
+    {
+        $criteria = Criteria::create()->andWhere(
+            Criteria::expr()->eq('product', $product->getId())
+        );
+
+        /** @var CartItem $item */
+        $item = $this->items->matching($criteria)->first();
+
+        if ($item === null) {
+            return;
+        }
+
+        $item->increaseQuantity(-$quantity);
+
+        if ($item->getQuantity() <= 0) {
+            $this->items->removeElement($item);
         }
     }
 }

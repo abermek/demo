@@ -10,7 +10,7 @@ use Mockery;
 use Mockery\MockInterface;
 use Money\Money;
 
-class MoneyCalculatorTest extends Unit
+class MoneyMathTest extends Unit
 {
     private MoneyTransformer | MockInterface  $transformer;
 

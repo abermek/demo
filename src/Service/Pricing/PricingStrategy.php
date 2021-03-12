@@ -4,14 +4,14 @@ namespace App\Service\Pricing;
 
 use App\Model\Pricing\Receipt;
 use App\Model\Pricing\Receipt\Item;
+use App\Money\MathInterface;
 use App\Pricing\PurchaseInterface;
 use App\Pricing\ReceiptInterface;
 use App\Pricing\StrategyInterface;
-use App\Service\Money\MoneyMath;
 
 class PricingStrategy implements StrategyInterface
 {
-    public function __construct(private MoneyMath $math)
+    public function __construct(private MathInterface $math)
     {}
 
     public function execute(PurchaseInterface ...$purchases): ReceiptInterface

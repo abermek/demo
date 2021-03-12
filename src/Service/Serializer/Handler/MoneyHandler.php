@@ -2,7 +2,7 @@
 
 namespace App\Service\Serializer\Handler;
 
-use App\Money\Money;
+use App\Model\Money;
 use App\Entity\Money as EmbeddedMoney;
 use App\Money\MoneyInterface;
 use App\Service\Money\MoneyFormatter;

@@ -5,9 +5,7 @@ namespace App\Controller\Cart;
 use App\DTO\Purchase;
 use App\DTO\Response\BadRequest\InvalidFormResponse;
 use App\Form\Type\PurchaseType;
-use App\Pricing\StrategyInterface;
-use App\Service\Cart\GetActiveCart;
-use App\Service\Cart\PutProductToCart;
+use App\Service\Cart\ActiveCart;
 use App\Traits\EntityManagerTrait;
 use App\Traits\FormFactoryTrait;
 use FOS\RestBundle\View\View;
@@ -35,16 +33,11 @@ class PostAction
     use EntityManagerTrait;
     use FormFactoryTrait;
 
-    public function __construct(
-        private GetActiveCart $getActiveCart,
-        private StrategyInterface $pricing,
-        private PutProductToCart $put)
+    public function __construct(private ActiveCart $cart)
     {}
 
     public function __invoke(Request $request)
     {
-        $cart = $this->getActiveCart->execute();
-
         $purchase = new Purchase();
         $form = $this->formFactory->create(PurchaseType::class, $purchase);
 
@@ -58,11 +51,10 @@ class PostAction
             return View::create(new InvalidFormResponse($form), Response::HTTP_BAD_REQUEST);
         }
 
-        $this->put->execute($cart, $purchase);
+        $this->cart->addPurchase($purchase);
 
         $this->em->flush();
-        $this->em->refresh($cart);
 
-        return $this->pricing->execute(... $cart->getItems());
+        return $this->cart->getReceipt();
     }
 }

@@ -4,7 +4,7 @@ namespace Fixture;
 
 use App\Entity\Product;
 use App\Entity\Security\User;
-use App\Money\USD;
+use App\Model\Money\USD;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;

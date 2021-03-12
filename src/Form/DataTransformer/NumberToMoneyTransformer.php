@@ -3,7 +3,7 @@
 namespace App\Form\DataTransformer;
 
 use App\Money\MoneyInterface;
-use App\Money\USD;
+use App\Model\Money\USD;
 use Exception;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;

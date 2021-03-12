@@ -2,7 +2,7 @@
 
 namespace App\Service\Money;
 
-use App\Money\Money as AppMoney;
+use App\Model\Money as AppMoney;
 use App\Money\MoneyInterface;
 use Money\Currency;
 use Money\Money;
