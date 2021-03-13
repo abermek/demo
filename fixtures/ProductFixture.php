@@ -48,8 +48,9 @@ class ProductFixture extends Fixture implements DependentFixtureInterface
             /** @var User $owner */
             $owner = $this->getReference($props['owner']);
 
-            $product = new Product($owner);
+            $product = new Product();
             $product
+                ->setOwner($owner)
                 ->setSlug($props['slug'])
                 ->setPrice(new USD($props['price']))
                 ->setName($props['name']);

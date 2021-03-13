@@ -2,7 +2,9 @@
 
 namespace App\DTO\Product;
 
-class ProductCriteria
+use App\DTO\InputInterface;
+
+class ProductCriteria implements InputInterface
 {
     public ?string $name = null;
     public ?string $slug = null;

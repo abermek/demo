@@ -2,19 +2,15 @@
 
 namespace App\Controller\Product;
 
-use App\DTO\Response\BadRequest\InvalidFormResponse;
+use App\Attribute\Input;
 use App\Entity\Product;
 use App\Entity\Security\User;
 use App\Form\Type\Product\ProductType;
 use App\Security\Voter\ProductVoter;
-use App\Traits\EntityManagerTrait;
-use App\Traits\FormFactoryTrait;
-use FOS\RestBundle\View\View;
+use Doctrine\ORM\EntityManagerInterface;
 use Nelmio\ApiDocBundle\Annotation as SWG;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
@@ -33,29 +29,16 @@ use Symfony\Component\Security\Http\Attribute\CurrentUser;
 #[Route(path: '/products', name: 'products.create', methods: ['POST'])]
 class CreateAction
 {
-    use FormFactoryTrait;
-    use EntityManagerTrait;
+    public function __invoke(
+        EntityManagerInterface $em,
+        #[CurrentUser] User $owner,
+        #[Input(ProductType::class, ['Create'])] Product $product
+    ): Product {
+        $product->setOwner($owner);
 
-    public function __invoke(Request $request, #[CurrentUser] User $owner)
-    {
-        $product = new Product($owner);
-
-        $options = ['validation_groups' => ['Create']];
-        $form = $this->formFactory->create(ProductType::class, $product, $options);
-
-        $form->handleRequest($request);
-
-        if (!$form->isSubmitted()) {
-            $form->submit([]);
-        }
-
-        if (!$form->isValid()) {
-            return View::create(new InvalidFormResponse($form), Response::HTTP_BAD_REQUEST);
-        }
-
-        $this->em->persist($product);
-        $this->em->flush();
-        $this->em->refresh($product);
+        $em->persist($product);
+        $em->flush();
+        $em->refresh($product);
 
         return $product;
     }

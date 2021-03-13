@@ -2,8 +2,8 @@
 
 namespace App\Controller\Product;
 
+use App\Attribute\Input;
 use App\DTO\Product\ProductCriteria;
-use App\DTO\Response\BadRequest\InvalidFormResponse;
 use App\DTO\Response\BadRequest\InvalidPageResponse;
 use App\DTO\Response\PaginationResponse;
 use App\Form\Type\Product\ProductCriteriaType;
@@ -13,7 +13,6 @@ use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation as SWG;
 use OpenApi\Annotations as OA;
 use Pagerfanta\Exception\OutOfRangeCurrentPageException;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -40,17 +39,11 @@ class ReadAction
 
     private const PRODUCTS_PER_PAGE = 20;
 
-    public function __invoke(ProductRepositoryInterface $repository, Request $request, int $page = 1)
-    {
-        $criteria = new ProductCriteria();
-        $form = $this->formFactory->create(ProductCriteriaType::class, $criteria);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && !$form->isValid()) {
-            return View::create(new InvalidFormResponse($form), Response::HTTP_BAD_REQUEST);
-        }
-
+    public function __invoke(
+        ProductRepositoryInterface $repository,
+        #[Input(ProductCriteriaType::class)] ProductCriteria $criteria,
+        int $page = 1
+    ): PaginationResponse|View {
         try {
             return new PaginationResponse(
                 $repository->paginate($criteria, $page, self::PRODUCTS_PER_PAGE)

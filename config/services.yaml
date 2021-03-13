@@ -20,25 +20,34 @@ services:
 
   App\Controller\:
     resource: ../src/Controller
-    tags: [controller.service_arguments]
+    tags: [ controller.service_arguments ]
 
   App\Service\:
     resource: ../src/Service
 
   App\Service\Serializer\Handler\:
     resource: ../src/Service/Serializer/Handler
-    tags: ["jms_serializer.subscribing_handler"]
+    tags: [ "jms_serializer.subscribing_handler" ]
 
   App\Security\Voter\:
     resource: ../src/Security/Voter
 
   App\Form\Type\:
     resource: ../src/Form/Type
-    tags: ["form.type"]
+    tags: [ "form.type" ]
+
+  App\ArgumentResolver\:
+    resource: ../src/ArgumentResolver
+    tags:
+      - { name: "controller.argument_value_resolver", priority: 50 }
 
   App\Command\:
     resource: ../src/Command
-    tags: ["console.command"]
+    tags: [ "console.command" ]
+
+  App\EventSubscriber\:
+    resource: ../src/EventSubscriber
+    tags: [ "kernel.event_subscriber" ]
 
   App\Form\DataTransformer\:
     resource: ../src/Form/DataTransformer

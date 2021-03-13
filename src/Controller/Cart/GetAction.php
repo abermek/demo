@@ -2,6 +2,7 @@
 
 namespace App\Controller\Cart;
 
+use App\Pricing\ReceiptInterface;
 use App\Service\Cart\ActiveCart;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Model\Pricing\Receipt;
@@ -20,12 +21,8 @@ use Nelmio\ApiDocBundle\Annotation as SWG;
 #[Route(path: '/cart', name: 'cart.get', methods: ['GET'])]
 class GetAction
 {
-    public function __construct(private ActiveCart $activeCart)
+    public function __invoke(ActiveCart $cart): ReceiptInterface | null
     {
-    }
-
-    public function __invoke()
-    {
-        return $this->activeCart->getReceipt();
+        return $cart->getReceipt();
     }
 }

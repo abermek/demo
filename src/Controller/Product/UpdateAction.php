@@ -2,19 +2,17 @@
 
 namespace App\Controller\Product;
 
-use App\DTO\Response\BadRequest\InvalidFormResponse;
 use App\Entity\Product;
+use App\Exception\Input\InvalidInputException;
 use App\Form\Type\Product\ProductType;
 use App\Security\Voter\ProductVoter;
-use App\Traits\EntityManagerTrait;
-use App\Traits\FormFactoryTrait;
-use FOS\RestBundle\View\View;
+use Doctrine\ORM\EntityManagerInterface;
 use Nelmio\ApiDocBundle\Annotation as SWG;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -33,21 +31,22 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route(path: '/products/{id}', name: 'products.update', requirements: ['id' => '^[1-9]\d*$'], methods: ['POST'])]
 class UpdateAction
 {
-    use FormFactoryTrait;
-    use EntityManagerTrait;
-
-    public function __invoke(Product $product, Request $request)
-    {
-        $form = $this->formFactory->create(ProductType::class, $product);
+    public function __invoke(
+        Product $product,
+        Request $request,
+        EntityManagerInterface $em,
+        FormFactoryInterface $formFactory
+    ): Product {
+        $form = $formFactory->create(ProductType::class, $product);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && !$form->isValid()) {
-            return View::create(new InvalidFormResponse($form), Response::HTTP_BAD_REQUEST);
+            throw new InvalidInputException($form);
         }
 
-        $this->em->flush();
-        $this->em->refresh($product);
+        $em->flush();
+        $em->refresh($product);
 
         return $product;
     }

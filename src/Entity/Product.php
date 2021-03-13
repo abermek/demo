@@ -4,21 +4,17 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\DTO\InputInterface;
 use App\Entity\Security\User;
 use App\Money\MoneyInterface;
 
-class Product
+class Product implements InputInterface
 {
     private ?int $id = null;
     private ?string $name = null;
     private ?string $slug = null;
     private ?Money $price = null;
     private User $owner;
-
-    public function __construct(User $owner)
-    {
-        $this->owner = $owner;
-    }
 
     public function getId(): ?int
     {
@@ -40,6 +36,12 @@ class Product
     public function getOwner(): User
     {
         return $this->owner;
+    }
+
+    public function setOwner(User $owner): Product
+    {
+        $this->owner = $owner;
+        return $this;
     }
 
     public function getPrice(): ?MoneyInterface
