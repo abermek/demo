@@ -8,9 +8,11 @@ use App\Traits\EntityManagerTrait;
 use Nelmio\ApiDocBundle\Annotation as SWG;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
+ * @ParamConverter("product", class=Product::class)
  * @IsGranted(ProductVoter::PERMISSION_DELETE, subject="product")
  *
  * @OA\Response(response=204,description="No Content")

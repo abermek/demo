@@ -41,7 +41,9 @@
         "symfony/twig-bundle": "5.2.*",
         "symfony/validator": "5.2.*",
         "symfony/yaml": "5.2.*",
-        "symfony/doctrine-bridge": "5.2.*"
+        "symfony/doctrine-bridge": "5.2.*",
+        "symfony/security-http": "5.2.*",
+        "symfony/security-core": "5.2.*"
     },
     "require-dev": {
         "codeception/codeception": "4.1.*",
@@ -83,8 +85,7 @@
     },
     "scripts": {
         "auto-scripts": {
-            "cache:clear": "symfony-cmd",
-            "app:git:hooks:install": "symfony-cmd"
+            "cache:clear": "symfony-cmd"
         },
         "post-install-cmd": [
             "@auto-scripts"

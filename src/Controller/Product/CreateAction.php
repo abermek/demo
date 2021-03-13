@@ -16,7 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
 /**
  * @IsGranted(ProductVoter::PERMISSION_CREATE)
@@ -36,9 +36,8 @@ class CreateAction
     use FormFactoryTrait;
     use EntityManagerTrait;
 
-    public function __invoke(Request $request, UserInterface $owner)
+    public function __invoke(Request $request, #[CurrentUser] User $owner)
     {
-        /** @var User $owner */
         $product = new Product($owner);
 
         $options = ['validation_groups' => ['Create']];

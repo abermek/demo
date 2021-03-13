@@ -12,11 +12,13 @@ use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation as SWG;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
+ * @ParamConverter("product", class=Product::class)
  * @IsGranted(ProductVoter::PERMISSION_UPDATE, subject="product")
  *
  * @OA\RequestBody(request=ProductType::class, required=true)
