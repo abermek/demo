@@ -8,6 +8,8 @@ services:
     public: false
     bind:
       $locale: '%locale%'
+      $gitHooksOriginDir: '%kernel.project_dir%/hooks'
+      $gitHooksTargetDir: '%kernel.project_dir%/.git/hooks'
 
   # https://github.com/FriendsOfSymfony/FOSRestBundle/issues/1768
   sensio_framework_extra.view.listener:
@@ -33,6 +35,10 @@ services:
   App\Form\Type\:
     resource: ../src/Form/Type
     tags: ["form.type"]
+
+  App\Command\:
+    resource: ../src/Command
+    tags: ["console.command"]
 
   App\Form\DataTransformer\:
     resource: ../src/Form/DataTransformer

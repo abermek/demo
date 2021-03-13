@@ -16,13 +16,13 @@ class CodeQualityTool extends Application
         parent::__construct('CI', '1.0.0');
     }
     //https://habr.com/ru/sandbox/137130/
-    public function doRun(InputInterface $input, OutputInterface $output)
+    public function doRun(InputInterface $input, OutputInterface $output): void
     {
         $output->writeln('<info>Fetching Diff</info>');
 
         $files = [];
         $failed = false;
-        exec("git diff-index --cached --name-status HEAD | egrep '^(A|M)' | awk '{print $2;}'", $output);
+        exec("git diff-index --cached --name-status HEAD | egrep '^(A|M)' | awk '{print $2;}'", $files);
 
         $output->writeln('<info>PHPCS</info>');
 
