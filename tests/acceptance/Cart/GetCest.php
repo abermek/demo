@@ -15,13 +15,13 @@ class GetCest
         $I->seeResponseCodeIs(HttpCode::NO_CONTENT);
 
         $I->putToCart([
-            'product'   => 1,
+            'product'   => 'sword',
             'quantity'  => 2
         ]);
         $I->seeResponseCodeIs(HttpCode::OK);
 
         $I->putToCart([
-            'product'   => 2,
+            'product'   => 'staff',
             'quantity'  => 1
         ]);
         $I->seeResponseCodeIs(HttpCode::OK);

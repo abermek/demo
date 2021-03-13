@@ -40,7 +40,8 @@
         "symfony/templating": "5.2.*",
         "symfony/twig-bundle": "5.2.*",
         "symfony/validator": "5.2.*",
-        "symfony/yaml": "5.2.*"
+        "symfony/yaml": "5.2.*",
+        "symfony/doctrine-bridge": "5.2.*"
     },
     "require-dev": {
         "codeception/codeception": "4.1.*",

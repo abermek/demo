@@ -77,9 +77,9 @@ class AcceptanceTester extends Actor
         $this->sendGET($url);
     }
 
-    public function updateProduct(int $id, array $product)
+    public function updateProduct(string $slug, array $product)
     {
-        $this->sendPOST('/v1/products/' . $id, $product);
+        $this->sendPOST('/v1/products/' . $slug, $product);
     }
 
     public function createProduct(array $product)
@@ -87,9 +87,9 @@ class AcceptanceTester extends Actor
         $this->sendPOST('/v1/products', $product);
     }
 
-    public function deleteProduct(int $id)
+    public function deleteProduct(string $slug)
     {
-        $this->sendDELETE('/v1/products/' . $id);
+        $this->sendDELETE('/v1/products/' . $slug);
     }
 
     public function putToCart(array $purchase)

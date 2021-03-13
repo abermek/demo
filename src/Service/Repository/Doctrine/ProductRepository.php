@@ -5,7 +5,6 @@ namespace App\Service\Repository\Doctrine;
 use App\DTO\Product\ProductCriteria;
 use App\Entity\Product;
 use App\Repository\ProductRepositoryInterface;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Pagerfanta\Pagerfanta;
@@ -31,10 +30,16 @@ class ProductRepository implements ProductRepositoryInterface
                 ->setParameter('name_eq', $criteria->name);
         }
 
+        if (!empty($criteria->slug)) {
+            $qb
+                ->andWhere($qb->expr()->eq('p.slug', ':slug_eq'))
+                ->setParameter('slug_eq', $criteria->slug);
+        }
+
         return $qb;
     }
 
-    public function find(ProductCriteria $criteria): Collection
+    public function find(ProductCriteria $criteria): array
     {
         return $this->createQueryBuilder($criteria)
             ->getQuery()
@@ -48,5 +53,13 @@ class ProductRepository implements ProductRepositoryInterface
             $pageNumber,
             $itemsPerPage
         );
+    }
+
+    public function findOneBySlug(string $slug): ?Product
+    {
+        $criteria = new ProductCriteria();
+        $criteria->slug = $slug;
+
+        return $this->find($criteria)[0] ?? null;
     }
 }

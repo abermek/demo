@@ -11,7 +11,7 @@ class PutCest
     {
         $I->amJack();
         $I->putToCart([
-            'product'   => 1,
+            'product'   => 'sword',
             'quantity'  => 1
         ]);
         $I->seeResponseContainsJson([
@@ -30,11 +30,11 @@ class PutCest
     {
         $I->amJack();
         $I->putToCart([
-            'product'   => 1,
+            'product'   => 'sword',
             'quantity'  => 1
         ]);
         $I->putToCart([
-            'product'   => 1,
+            'product'   => 'sword',
             'quantity'  => 2
         ]);
         $I->seeResponseContainsJson([
@@ -52,11 +52,11 @@ class PutCest
     {
         $I->amJack();
         $I->putToCart([
-            'product'   => 99999,
+            'product'   => 'magic-sword-99',
             'quantity'  => 1
         ]);
         $I->seeBadRequest(
-            ['path' => 'product', 'description' => 'This value is not valid.']
+            ['path' => 'product', 'description' => 'The selected Product does not exist']
         );
         $I->seeResponseCodeIs(HttpCode::BAD_REQUEST);
     }
