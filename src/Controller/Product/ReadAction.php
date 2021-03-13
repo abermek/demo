@@ -8,7 +8,6 @@ use App\DTO\Response\BadRequest\InvalidPageResponse;
 use App\DTO\Response\PaginationResponse;
 use App\Form\Type\Product\ProductCriteriaType;
 use App\Repository\ProductRepositoryInterface;
-use App\Traits\FormFactoryTrait;
 use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation as SWG;
 use OpenApi\Annotations as OA;
@@ -35,8 +34,6 @@ use Symfony\Component\Routing\Annotation\Route;
 )]
 class ReadAction
 {
-    use FormFactoryTrait;
-
     private const PRODUCTS_PER_PAGE = 20;
 
     public function __invoke(

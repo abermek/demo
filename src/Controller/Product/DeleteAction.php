@@ -4,7 +4,6 @@ namespace App\Controller\Product;
 
 use App\Entity\Product;
 use App\Security\Voter\ProductVoter;
-use App\Traits\EntityManagerTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use Nelmio\ApiDocBundle\Annotation as SWG;
 use OpenApi\Annotations as OA;
