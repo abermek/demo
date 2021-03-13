@@ -9,7 +9,7 @@ class CreateCest
     public function createProduct(AcceptanceTester $I)
     {
         $product = [
-            'name'  => 'The Legendary',
+            'name'  => 'Long Sword +5',
             'price' => 1000
         ];
 
@@ -49,7 +49,7 @@ class CreateCest
     {
         $I->amJohn();
         $I->createProduct([
-            'name'  => 'The Legendary'
+            'name'  => 'Long Sword'
         ]);
         $I->seeBadRequest(
             ['path' => 'price', 'description' => 'This value should not be null.']
@@ -60,7 +60,7 @@ class CreateCest
     {
         $I->amJohn();
         $I->createProduct([
-            'name'  => 'The Legendary',
+            'name'  => 'Long Sword',
             'price' => 0
         ]);
         $I->seeBadRequest(
@@ -68,19 +68,16 @@ class CreateCest
         );
     }
 
-    public function withHtmlName(AcceptanceTester $I)
+    public function withNameContainsForbiddenCharacters(AcceptanceTester $I)
     {
-        $product = [
-            'name'  => '<strong>My awesome</strong>',
-            'price' => 1000
-        ];
-
         $I->amJohn();
-        $I->createProduct($product);
-        $I->seeResponseContainsJson([
-            'name'  => 'My awesome',
-            'price' => '$10.00'
+        $I->createProduct([
+            'name'  => '<b>Long sword +5</b>!!!!!',
+            'price' => 1000
         ]);
-        $I->seeResponseCodeIs(HttpCode::OK);
+
+        $I->seeBadRequest(
+            ['path' => 'name', 'description' => 'This value is not valid.']
+        );
     }
 }

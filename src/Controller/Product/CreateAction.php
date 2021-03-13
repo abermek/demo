@@ -32,7 +32,7 @@ class CreateAction
     public function __invoke(
         EntityManagerInterface $em,
         #[CurrentUser] User $owner,
-        #[Input(ProductType::class, ['Create'])] Product $product
+        #[Input(ProductType::class, ['Default', 'Create'])] Product $product
     ): Product {
         $product->setOwner($owner);
 
