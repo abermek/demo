@@ -20,7 +20,6 @@ class Cart
         $this->owner = $owner;
     }
 
-    /** @return CartItem [] */
     public function getItems(): Collection
     {
         return $this->items;

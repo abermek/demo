@@ -2,6 +2,7 @@
 
 namespace App\Service\Pricing;
 
+use App\Exception\Pricing\PricingStrategy\EmptyPurchasesException;
 use App\Model\Pricing\Receipt;
 use App\Model\Pricing\Receipt\Item;
 use App\Money\MathInterface;
@@ -19,6 +20,10 @@ class PricingStrategy implements StrategyInterface
     {
         $items = [];
         $grandTotal = null;
+
+        if (empty($purchases)) {
+            throw new EmptyPurchasesException();
+        }
 
         foreach ($purchases as $purchase) {
             $subtotal = $this->math->multiply($purchase->getProductPrice(), $purchase->getProductQuantity());

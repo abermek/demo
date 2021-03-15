@@ -7,12 +7,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AbstractType extends ParentType
 {
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefault('csrf_protection', false);
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return '';
     }

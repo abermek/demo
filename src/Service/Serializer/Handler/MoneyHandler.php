@@ -6,7 +6,7 @@ use App\Entity\Money as EmbeddedMoney;
 use App\Model\Money;
 use App\Money\MoneyInterface;
 use App\Service\Money\MoneyFormatter;
-use JMS\Serializer\GraphNavigator;
+use JMS\Serializer\GraphNavigatorInterface;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\JsonSerializationVisitor;
 
@@ -20,13 +20,13 @@ class MoneyHandler implements SubscribingHandlerInterface
     {
         return [
             [
-                'direction' => GraphNavigator::DIRECTION_SERIALIZATION,
+                'direction' => GraphNavigatorInterface::DIRECTION_SERIALIZATION,
                 'format' => 'json',
                 'type' => Money::class,
                 'method' => 'serialize',
             ],
             [
-                'direction' => GraphNavigator::DIRECTION_SERIALIZATION,
+                'direction' => GraphNavigatorInterface::DIRECTION_SERIALIZATION,
                 'format' => 'json',
                 'type' => EmbeddedMoney::class,
                 'method' => 'serialize',

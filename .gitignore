@@ -45,3 +45,7 @@ fabric.properties
 /.phpcs-cache
 /phpcs.xml
 ###< squizlabs/php_codesniffer ###
+
+###> vimeo/psalm ###
+/psalm.xml
+###< vimeo/psalm ###

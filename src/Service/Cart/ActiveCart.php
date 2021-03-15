@@ -49,4 +49,9 @@ class ActiveCart
             ? null
             : $this->pricing->execute(... $this->cart->getItems());
     }
+
+    public function isEmpty(): bool
+    {
+        return $this->cart->isEmpty();
+    }
 }

@@ -30,10 +30,12 @@ class PostAction
         EntityManagerInterface $em,
         ActiveCart $cart,
         #[Input(PurchaseType::class)] Purchase $purchase
-    ): ReceiptInterface {
+    ): ?ReceiptInterface {
         $cart->addPurchase($purchase);
         $em->flush();
 
-        return $cart->getReceipt();
+        return $cart->isEmpty()
+            ? null
+            : $cart->getReceipt();
     }
 }

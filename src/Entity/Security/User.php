@@ -22,27 +22,27 @@ class User implements UserInterface
         $this->roles = ['ROLE_USER'];
     }
 
-    public function getRoles()
+    public function getRoles(): array
     {
         return $this->roles;
     }
 
-    public function getPassword()
+    public function getPassword(): ?string
     {
         return $this->password;
     }
 
-    public function getSalt()
+    public function getSalt(): ?string
     {
         return $this->salt;
     }
 
-    public function getUsername()
+    public function getUsername(): ?string
     {
         return $this->username;
     }
 
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
     }
 

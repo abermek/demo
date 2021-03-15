@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Exception\Pricing\Purchase\EmptyPropertyException;
 use App\Money\MoneyInterface;
 use App\Pricing\PurchaseInterface;
 
@@ -15,6 +16,13 @@ class CartItem implements PurchaseInterface
     public function getQuantity(): ?int
     {
         return $this->quantity;
+    }
+
+    public function setQuantity(?int $quantity): CartItem
+    {
+        $this->quantity = $quantity;
+
+        return $this;
     }
 
     public function getId(): ?int
@@ -41,13 +49,6 @@ class CartItem implements PurchaseInterface
         return $this;
     }
 
-    public function setQuantity(?int $quantity): CartItem
-    {
-        $this->quantity = $quantity;
-
-        return $this;
-    }
-
     public function increaseQuantity(int $amount): CartItem
     {
         $this->quantity += $amount;
@@ -57,21 +58,37 @@ class CartItem implements PurchaseInterface
 
     public function getProductName(): string
     {
+        if (!$this->product || empty($this->product->getName())) {
+            throw new EmptyPropertyException('product.name');
+        }
+
         return $this->product->getName();
     }
 
     public function getProductId(): string
     {
-        return $this->product->getId();
-    }
+        if (!$this->product || empty($this->product->getId())) {
+            throw new EmptyPropertyException('product.id');
+        }
 
-    public function getProductQuantity(): int
-    {
-        return $this->quantity;
+        return $this->product->getId();
     }
 
     public function getProductPrice(): MoneyInterface
     {
+        if (!$this->product || empty($this->product->getPrice())) {
+            throw new EmptyPropertyException('product.price');
+        }
+
         return $this->product->getPrice();
+    }
+
+    public function getProductQuantity(): int
+    {
+        if ($this->quantity === null) {
+            throw new EmptyPropertyException('quantity');
+        }
+
+        return $this->quantity;
     }
 }

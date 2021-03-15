@@ -2,6 +2,7 @@
 
 namespace App\Model\Pricing;
 
+use App\Exception\Pricing\Receipt\EmptyItemsException;
 use App\Money\MoneyInterface;
 use App\Pricing\Receipt\ItemInterface;
 use App\Pricing\ReceiptInterface;
@@ -12,6 +13,10 @@ final class Receipt implements ReceiptInterface
 
     public function __construct(private MoneyInterface $grandTotal, ItemInterface ...$items)
     {
+        if (empty($items)) {
+            throw new EmptyItemsException();
+        }
+
         $this->items = $items;
     }
 

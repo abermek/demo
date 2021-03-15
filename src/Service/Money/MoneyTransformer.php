@@ -20,7 +20,7 @@ class MoneyTransformer
     public function reverseTransform(Money $money): MoneyInterface
     {
         return new AppMoney(
-            $money->getAmount(),
+            (int) $money->getAmount(),
             $money->getCurrency()->getCode()
         );
     }

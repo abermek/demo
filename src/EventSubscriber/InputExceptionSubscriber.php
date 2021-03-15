@@ -4,7 +4,6 @@ namespace App\EventSubscriber;
 
 use App\DTO\Response\BadRequest\InvalidFormResponse;
 use App\Exception\Input\InvalidInputException;
-use JMS\Serializer\Serializer;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;

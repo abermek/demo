@@ -6,6 +6,6 @@ use App\Entity\Product;
 
 class Purchase implements InputInterface
 {
-    public ?Product $product;
-    public ?int $quantity;
+    public ?Product $product = null;
+    public ?int $quantity = null;
 }

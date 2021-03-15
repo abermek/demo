@@ -39,6 +39,8 @@ class InputArgumentResolver implements ArgumentValueResolverInterface
         /** @var Input $attribute */
         $attribute = $argument->getAttribute();
         $class = $argument->getType();
+
+        /** @psalm-suppress UndefinedClass */
         $dto = new $class;
 
         $options = [];
@@ -56,7 +58,6 @@ class InputArgumentResolver implements ArgumentValueResolverInterface
 
         if (!$form->isValid()) {
             throw new InvalidInputException($form);
-//            return View::create(new InvalidFormResponse($form), Response::HTTP_BAD_REQUEST);
         }
 
         yield $dto;
