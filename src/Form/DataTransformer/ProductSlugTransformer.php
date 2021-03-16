@@ -16,11 +16,13 @@ class ProductSlugTransformer implements DataTransformerInterface
     public function transform($value): string
     {
         /** @var Product $value */
-        if ($value === null || $value->getSlug() === null) {
+        if ($value === null) {
             return '';
         }
 
-        return $value->getSlug();
+        $slug = $value->getSlug();
+
+        return $slug ?? '';
     }
 
     public function reverseTransform($value): ?Product

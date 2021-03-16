@@ -58,34 +58,49 @@ class CartItem implements PurchaseInterface
 
     public function getProductName(): string
     {
-        if (!$this->product || empty($this->product->getName())) {
+        if (!$this->product) {
+            throw new EmptyPropertyException('product');
+        }
+
+        $value = $this->product->getName();
+        if (empty($value)) {
             throw new EmptyPropertyException('product.name');
         }
 
-        return $this->product->getName();
+        return $value;
     }
 
     public function getProductId(): string
     {
-        if (!$this->product || empty($this->product->getId())) {
+        if (!$this->product) {
+            throw new EmptyPropertyException('product');
+        }
+
+        $value = $this->product->getId();
+        if (empty($value)) {
             throw new EmptyPropertyException('product.id');
         }
 
-        return $this->product->getId();
+        return (string) $value;
     }
 
     public function getProductPrice(): MoneyInterface
     {
-        if (!$this->product || empty($this->product->getPrice())) {
+        if (!$this->product) {
+            throw new EmptyPropertyException('product');
+        }
+
+        $value = $this->product->getPrice();
+        if (empty($value)) {
             throw new EmptyPropertyException('product.price');
         }
 
-        return $this->product->getPrice();
+        return $value;
     }
 
     public function getProductQuantity(): int
     {
-        if ($this->quantity === null) {
+        if (empty($this->quantity)) {
             throw new EmptyPropertyException('quantity');
         }
 

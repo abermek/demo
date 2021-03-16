@@ -31,6 +31,7 @@ class InputExceptionSubscriber implements EventSubscriberInterface
             return;
         }
 
+        /** @psalm-suppress UndefinedInterfaceMethod */
         $data = $this->serializer->toArray(new InvalidFormResponse($exception->form));
         $response = new JsonResponse($data, Response::HTTP_BAD_REQUEST);
 

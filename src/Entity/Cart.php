@@ -59,7 +59,10 @@ class Cart
             Criteria::expr()->eq('product', $product)
         );
 
-        /** @var CartItem $item */
+        /**
+         * @var CartItem $item
+         * @psalm-suppress UndefinedInterfaceMethod
+         */
         $item = $this->items->matching($criteria)->current();
 
         if ($item) {
@@ -81,7 +84,11 @@ class Cart
             Criteria::expr()->eq('product', $product->getId())
         );
 
-        /** @var CartItem $item */
+        /**
+         * @var CartItem $item
+         *
+         * @psalm-suppress UndefinedInterfaceMethod
+         */
         $item = $this->items->matching($criteria)->first();
 
         if ($item === null) {

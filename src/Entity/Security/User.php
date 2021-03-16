@@ -37,8 +37,10 @@ class User implements UserInterface
         return $this->salt;
     }
 
+    /** @psalm-suppress InvalidNullableReturnType */
     public function getUsername(): ?string
     {
+        /** @psalm-suppress NullableReturnStatement */
         return $this->username;
     }
 
