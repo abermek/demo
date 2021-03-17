@@ -15,6 +15,6 @@ This changelog references the relevant changes done in 1.2 minor versions.
 * [Form] Handle forms with Argument Resolver and custom Attribute
 * [Cart] Improve Cart
 * [Pricing] Improve Pricing 
-* [Product] Add Slug
+* [Product] Add Product Slug
 * [Psalm] Install and configure Psalm
 * [PHPCS] Install and Configure PHPCS

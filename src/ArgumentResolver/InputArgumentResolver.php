@@ -41,7 +41,7 @@ class InputArgumentResolver implements ArgumentValueResolverInterface
         $class = $argument->getType();
 
         /** @psalm-suppress UndefinedClass */
-        $dto = new $class;
+        $dto = new $class();
 
         $options = [];
         if ($attribute->validationGroups !== null) {

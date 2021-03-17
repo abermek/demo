@@ -40,7 +40,7 @@ class ReadAction
         ProductRepositoryInterface $repository,
         #[Input(ProductCriteriaType::class)] ProductCriteria $criteria,
         int $page = 1
-    ): PaginationResponse|View {
+    ): PaginationResponse | View {
         try {
             return new PaginationResponse(
                 $repository->paginate($criteria, $page, self::PRODUCTS_PER_PAGE)

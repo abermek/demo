@@ -11,5 +11,4 @@ class InvalidInputException extends Exception
     {
         parent::__construct('Input Validation Failed');
     }
-
 }

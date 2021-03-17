@@ -10,5 +10,4 @@ class EmptyPropertyException extends Exception
     {
         parent::__construct("{$name} is empty of undefined");
     }
-
 }
