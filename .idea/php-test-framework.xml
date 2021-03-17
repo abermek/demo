@@ -16,6 +16,7 @@
       <tool tool_name="Codeception">
         <cache>
           <versions>
+            <info id="interpreter-097bd7d4-089c-4971-a1ee-3ca11f5aa317" version="4.1.18" />
             <info id="interpreter-3208bdf7-3499-443e-8a08-0e9edd3c5daf" version="3.1.2" />
           </versions>
         </cache>
