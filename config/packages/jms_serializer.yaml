@@ -4,18 +4,12 @@ jms_serializer:
             format_output: '%kernel.debug%'
     metadata:
         directories:
-            DTO:
-                namespace_prefix: "App\\DTO"
-                path: "%kernel.project_dir%/config/serializer/DTO"
             Entity:
                 namespace_prefix: "App\\Entity"
                 path: "%kernel.project_dir%/config/serializer/Entity"
             Cart:
                 namespace_prefix: "App\\Entity\\Cart"
                 path: "%kernel.project_dir%/config/serializer/Entity/Cart"
-            BadRequest:
-                namespace_prefix: "App\\DTO\\BadRequest"
-                path: "%kernel.project_dir%/config/serializer/DTO/BadRequest"
             Pricing:
                 namespace_prefix: "App\\Model\\Pricing"
                 path: "%kernel.project_dir%/config/serializer/Model/Pricing"

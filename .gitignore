@@ -49,3 +49,6 @@ fabric.properties
 ###> vimeo/psalm ###
 /psalm.xml
 ###< vimeo/psalm ###
+
+public/images/*
+!public/images/.gitignore

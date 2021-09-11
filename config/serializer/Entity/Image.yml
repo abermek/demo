@@ -1,0 +1,13 @@
+App\Entity\Product:
+  exclusion_policy: ALL
+  properties:
+    id:
+      expose: true
+    name:
+      expose: true
+    type:
+      expose: true
+    size:
+      expose: true
+    createdAt:
+      expose: true
