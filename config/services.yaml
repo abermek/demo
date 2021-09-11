@@ -1,5 +1,7 @@
 parameters:
+  domain: 'http://localhost:81'
   locale: '%env(APP_LOCALE)%'
+  image.filter.webp: 'images'
 
 services:
   _defaults:
@@ -54,4 +56,9 @@ services:
 
   App\Repository\:
     resource: ../src/Repository
+
+  App\Service\Image\UploadImage:
+      bind:
+        $filter: '@liip_imagine.service.filter'
+        $filterSet: '%image.filter.webp%'
 

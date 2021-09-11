@@ -52,3 +52,7 @@ fabric.properties
 
 public/images/*
 !public/images/.gitignore
+
+###> liip/imagine-bundle ###
+/public/media/cache/
+###< liip/imagine-bundle ###

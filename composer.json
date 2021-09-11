@@ -14,6 +14,7 @@
         "jms/serializer-bundle": "3.8.*",
         "league/flysystem-bundle": "^2.0",
         "lexik/jwt-authentication-bundle": "2.11.*",
+        "liip/imagine-bundle": "^2.6",
         "moneyphp/money": "3.3.*",
         "nelmio/api-doc-bundle": "4.2.*",
         "pagerfanta/pagerfanta": "3.0.*",

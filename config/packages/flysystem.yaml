@@ -1,5 +1,9 @@
 flysystem:
     storages:
+        public:
+            adapter: 'local'
+            options:
+                directory: '%kernel.project_dir%/public'
         images:
             adapter: 'local'
             options:

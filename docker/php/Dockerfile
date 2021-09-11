@@ -15,8 +15,11 @@ RUN apt-get update && apt-get install -y \
     libicu-dev \
     libzip-dev \
     zlib1g-dev \
+    libmagickwand-dev --no-install-recommends \
     && pecl install xdebug \
+    && pecl install imagick \
     && docker-php-ext-enable xdebug \
+    && docker-php-ext-enable imagick \
     && docker-php-ext-install intl pdo pdo_mysql zip \
     && usermod -u 1000 www-data \
     && groupmod -g 1000 www-data

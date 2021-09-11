@@ -4,7 +4,9 @@ namespace App\Controller\Image;
 
 use App\Attribute\Input;
 use App\DTO\Response\ImageResponse;
+use App\Service\Image\UploadImage;
 use Doctrine\ORM\EntityManagerInterface;
+use Liip\ImagineBundle\Service\FilterService;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\Type\ImageType;
 use App\Entity\Image;
@@ -28,11 +30,11 @@ class CreateAction
 {
     public function __invoke(
         EntityManagerInterface $em,
-        UploadHandler $uploadHandler,
+        UploadImage $uploadImage,
         UploaderHelper $uploaderHelper,
         #[Input(ImageType::class)] Image $image
     ): ImageResponse {
-        $uploadHandler->upload($image, Image::FILE_FIELD_NAME);
+       $uploadImage->execute($image);
 
         $em->persist($image);
         $em->flush();
