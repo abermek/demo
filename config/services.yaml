@@ -12,27 +12,19 @@ services:
       $locale: '%locale%'
       $gitHooksOriginDir: '%kernel.project_dir%/hooks'
       $gitHooksTargetDir: '%kernel.project_dir%/.git/hooks'
+      $filterService: '@liip_imagine.service.filter'
+      $imageFilterWebp: '%image.filter.webp%'
 
-  # https://github.com/FriendsOfSymfony/FOSRestBundle/issues/1768
-  sensio_framework_extra.view.listener:
-    alias: Sensio\Bundle\FrameworkExtraBundle\EventListener\TemplateListener
-
-  App\Pricing\StrategyInterface: '@App\Service\Pricing\PricingStrategy'
-  App\Money\MathInterface: '@App\Service\Money\MoneyMath'
+  App\:
+    resource: ../src/{Service,MessageHandler,Voter,DataTransformer,Repository,Form/DataTransformer}
 
   App\Controller\:
     resource: ../src/Controller
     tags: [ controller.service_arguments ]
 
-  App\Service\:
-    resource: ../src/Service
-
   App\Service\Serializer\Handler\:
     resource: ../src/Service/Serializer/Handler
     tags: [ "jms_serializer.subscribing_handler" ]
-
-  App\Security\Voter\:
-    resource: ../src/Security/Voter
 
   App\Form\Type\:
     resource: ../src/Form/Type
@@ -51,14 +43,10 @@ services:
     resource: ../src/EventSubscriber
     tags: [ "kernel.event_subscriber" ]
 
-  App\Form\DataTransformer\:
-    resource: ../src/Form/DataTransformer
+  App\Pricing\StrategyInterface: '@App\Service\Pricing\PricingStrategy'
+  App\Money\MathInterface: '@App\Service\Money\MoneyMath'
 
-  App\Repository\:
-    resource: ../src/Repository
-
-  App\Service\Image\UploadImage:
-      bind:
-        $filter: '@liip_imagine.service.filter'
-        $filterSet: '%image.filter.webp%'
+  # https://github.com/FriendsOfSymfony/FOSRestBundle/issues/1768
+  sensio_framework_extra.view.listener:
+    alias: Sensio\Bundle\FrameworkExtraBundle\EventListener\TemplateListener
 

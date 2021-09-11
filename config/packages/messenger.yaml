@@ -1,0 +1,10 @@
+framework:
+  # https://symfony.com/doc/current/messenger.html#transport-configuration
+  messenger:
+    failure_transport: failed
+    transports:
+      sync: 'sync://'
+      failed: 'sync://'
+
+    routing:
+     'App\Message\FilterImageMessage': sync
