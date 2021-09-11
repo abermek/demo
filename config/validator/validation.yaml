@@ -14,6 +14,11 @@ App\Entity\Product:
           groups: Create
       - Valid: ~
 
+App\Entity\Image:
+  properties:
+    file:
+      - Image: ~
+
 App\DTO\Product\ProductCriteria:
   properties:
     name:
