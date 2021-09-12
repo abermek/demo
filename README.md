@@ -9,3 +9,13 @@ It runs on PHP 8.0 and Symfony 5.2  covers the following features:
 - Money and Currencies
 - Pricing and Discounts
 - CRUD, DTO, Pagination, etc.
+
+## 2021-11-09
+
+WebP is a modern image format. It lacks browser support, so you have to keep both the original image and
+its webp version. From the business perspective, you want to upload an image and get not only the original 
+image but its webp copy too. 
+
+This update introduces new features that allows you to:
+- Upload an image
+- Create a webp copy of the image
