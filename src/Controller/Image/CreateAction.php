@@ -3,17 +3,13 @@
 namespace App\Controller\Image;
 
 use App\Attribute\Input;
-use App\DTO\Response\ImageResponse;
+use App\Entity\Image;
+use App\Form\Type\ImageType;
 use App\Service\Image\UploadImage;
 use Doctrine\ORM\EntityManagerInterface;
-use Liip\ImagineBundle\Service\FilterService;
-use Symfony\Component\Routing\Annotation\Route;
-use App\Form\Type\ImageType;
-use App\Entity\Image;
-use Vich\UploaderBundle\Handler\UploadHandler;
 use Nelmio\ApiDocBundle\Annotation as SWG;
 use OpenApi\Annotations as OA;
-use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @OA\RequestBody(request=ImageType::class, required=true)
@@ -31,18 +27,13 @@ class CreateAction
     public function __invoke(
         EntityManagerInterface $em,
         UploadImage $uploadImage,
-        UploaderHelper $uploaderHelper,
         #[Input(ImageType::class)] Image $image
-    ): ImageResponse {
+    ): Image {
        $uploadImage->execute($image);
 
         $em->persist($image);
         $em->flush();
 
-        return new ImageResponse(
-            $image->getId(),
-            $image->getName(),
-            $uploaderHelper->asset($image, Image::FILE_FIELD_NAME)
-        );
+        return $image;
     }
 }

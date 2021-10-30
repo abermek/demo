@@ -21,6 +21,7 @@ class Image implements InputInterface
     private ?int $size = null;
     private ?string $name = null;
     private ?string $type = null;
+    private ?string $url = null;
 
     /**
      * @Vich\UploadableField(
@@ -84,5 +85,16 @@ class Image implements InputInterface
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    public function setUrl(?string $url): Image
+    {
+        $this->url = $url;
+        return $this;
     }
 }

@@ -1,13 +1,9 @@
-App\Entity\Product:
+App\Entity\Image:
   exclusion_policy: ALL
   properties:
     id:
       expose: true
     name:
       expose: true
-    type:
-      expose: true
-    size:
-      expose: true
-    createdAt:
+    url:
       expose: true

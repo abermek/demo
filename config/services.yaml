@@ -26,6 +26,10 @@ services:
     resource: ../src/Service/Serializer/Handler
     tags: [ "jms_serializer.subscribing_handler" ]
 
+  App\Serializer\EventSubscriber\:
+    resource: ../src/Serializer/EventSubscriber
+    tags: [ "jms_serializer.event_subscriber" ]
+
   App\Form\Type\:
     resource: ../src/Form/Type
     tags: [ "form.type" ]
