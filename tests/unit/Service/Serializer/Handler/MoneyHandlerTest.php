@@ -3,7 +3,7 @@
 namespace Tests\Unit\Service\Serializer\Handler;
 
 use App\Service\Money\MoneyFormatter;
-use App\Service\Serializer\Handler\MoneyHandler;
+use App\Serializer\SubscribingHandler\MoneyHandler;
 use Codeception\Test\Unit;
 use App\Money\MoneyInterface;
 use JMS\Serializer\Context;

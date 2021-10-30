@@ -22,8 +22,8 @@ services:
     resource: ../src/Controller
     tags: [ controller.service_arguments ]
 
-  App\Service\Serializer\Handler\:
-    resource: ../src/Service/Serializer/Handler
+  App\Serializer\SubscribingHandler\:
+    resource: ../src/Serializer/SubscribingHandler
     tags: [ "jms_serializer.subscribing_handler" ]
 
   App\Serializer\EventSubscriber\:

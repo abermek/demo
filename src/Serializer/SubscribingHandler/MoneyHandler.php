@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Serializer\Handler;
+namespace App\Serializer\SubscribingHandler;
 
 use App\Entity\Money as EmbeddedMoney;
 use App\Model\Money;
