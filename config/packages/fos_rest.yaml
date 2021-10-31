@@ -1,7 +1,9 @@
 fos_rest:
+  body_listener:
+    enabled: true
   format_listener:
-      rules:
-        - { path: ^/, priorities: [ json ], fallback_format: json, prefer_extension: true }
+    rules:
+      - { path: ^/, priorities: [ json ], fallback_format: json, prefer_extension: true }
   view:
     formats:
       json: true
