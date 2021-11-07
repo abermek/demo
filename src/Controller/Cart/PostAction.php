@@ -34,8 +34,6 @@ class PostAction
         $cart->addPurchase($purchase);
         $em->flush();
 
-        return $cart->isEmpty()
-            ? null
-            : $cart->getReceipt();
+        return $cart->getReceipt();
     }
 }

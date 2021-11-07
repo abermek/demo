@@ -5,6 +5,7 @@ namespace App\Service\Cart;
 use App\DTO\Purchase;
 use App\Entity\Cart;
 use App\Entity\Security\User;
+use App\Exception\Cart\EmptyCartException;
 use App\Pricing\ReceiptInterface;
 use App\Service\Pricing\PricingStrategy;
 use Doctrine\ORM\EntityManagerInterface;
@@ -38,20 +39,12 @@ class ActiveCart
         $this->cart->removeProduct($purchase->product, $purchase->quantity);
     }
 
-    public function getPurchases(): iterable
-    {
-        return $this->cart->getItems();
-    }
-
     public function getReceipt(): ?ReceiptInterface
     {
-        return $this->cart->isEmpty()
-            ? null
-            : $this->pricing->execute(... $this->cart->getItems());
-    }
+        if ($this->cart->isEmpty()) {
+            throw new EmptyCartException();
+        }
 
-    public function isEmpty(): bool
-    {
-        return $this->cart->isEmpty();
+        return $this->pricing->execute(... $this->cart->getItems());
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Controller\Cart;
 
+use App\Exception\Cart\EmptyCartException;
 use App\Pricing\ReceiptInterface;
 use App\Service\Cart\ActiveCart;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,8 +22,12 @@ use Nelmio\ApiDocBundle\Annotation as SWG;
 #[Route(path: '/cart', name: 'cart.get', methods: ['GET'])]
 class GetAction
 {
-    public function __invoke(ActiveCart $cart): ReceiptInterface | null
+    public function __invoke(ActiveCart $cart): ?ReceiptInterface
     {
-        return $cart->getReceipt();
+        try {
+            return $cart->getReceipt();
+        } catch (EmptyCartException) {
+            return null;
+        }
     }
 }
