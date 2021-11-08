@@ -3,7 +3,6 @@
 namespace App\ArgumentResolver;
 
 use App\Attribute\Input;
-use App\DTO\InputInterface;
 use App\Exception\Attribute\Input\EmptyTypeException;
 use App\Exception\Attribute\Input\InvalidIdentityException;
 use App\Exception\Attribute\Input\MissingTypeException;
@@ -16,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
-class InputArgumentResolver implements ArgumentValueResolverInterface
+class InputResolver implements ArgumentValueResolverInterface
 {
     public function __construct(private FormFactoryInterface $formFactory, private EntityManagerInterface $em)
     {
@@ -24,18 +23,6 @@ class InputArgumentResolver implements ArgumentValueResolverInterface
 
     public function supports(Request $request, ArgumentMetadata $argument): bool
     {
-//        $class = $argument->getType();
-//        if (is_null($class)) {
-//            return false;
-//        }
-//
-//        $isInput = in_array(InputInterface::class, class_implements($class));
-//        if (!$isInput) {
-//            return false;
-//        }
-//
-//        $attribute = $argument->getAttribute();
-
         return $argument->getAttribute() instanceof Input;
     }
 

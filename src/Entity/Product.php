@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\DTO\InputInterface;
 use App\Entity\Security\User;
 use App\Money\MoneyInterface;
 
-class Product implements InputInterface
+class Product
 {
     private ?int $id = null;
     private ?string $name = null;

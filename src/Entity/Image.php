@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\DTO\InputInterface;
 use DateTime;
 use Gedmo\Timestampable\Traits\Timestampable;
 use Symfony\Component\HttpFoundation\File\File;
@@ -11,7 +10,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @Vich\Uploadable()
  */
-class Image implements InputInterface
+class Image
 {
     use Timestampable;
 
