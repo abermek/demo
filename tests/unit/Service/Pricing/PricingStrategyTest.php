@@ -56,7 +56,7 @@ class PricingStrategyTest extends Unit
 
         $result = $this->getSystemUnderTest()->execute($purchase);
 
-        self::assertEquals($total, $result->getGrandTotal());
+        self::assertEquals($total, $result->getTotal());
 
     }
 }

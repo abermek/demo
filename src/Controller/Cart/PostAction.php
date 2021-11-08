@@ -6,8 +6,8 @@ use App\Attribute\Input;
 use App\DTO\Purchase;
 use App\Entity\Cart;
 use App\Form\Type\PurchaseType;
-use App\Model\Pricing\Receipt;
-use App\Pricing\PricingStrategyInterface;
+use App\Pricing\Receipt;
+use App\Pricing\PricingStrategy;
 use Doctrine\ORM\EntityManagerInterface;
 use Nelmio\ApiDocBundle\Annotation as SWG;
 use OpenApi\Annotations as OA;
@@ -29,7 +29,7 @@ class PostAction
     public function __invoke(
         EntityManagerInterface $em,
         Cart $cart,
-        PricingStrategyInterface $pricing,
+        PricingStrategy $pricing,
         #[Input(PurchaseType::class)] Purchase $purchase
     ): Receipt {
         $cart->addProduct($purchase->product, $purchase->quantity);

@@ -2,9 +2,7 @@
 
 namespace App\Pricing;
 
-use App\Model\Pricing\Receipt;
-
-interface PricingStrategyInterface
+interface PricingStrategy
 {
     public function execute(PurchaseInterface ...$purchases): Receipt;
 }

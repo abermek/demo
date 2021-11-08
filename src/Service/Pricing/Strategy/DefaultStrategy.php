@@ -3,13 +3,13 @@
 namespace App\Service\Pricing\Strategy;
 
 use App\Exception\Pricing\PricingStrategy\EmptyPurchasesException;
-use App\Model\Pricing\Receipt;
-use App\Model\Pricing\Receipt\Item;
+use App\Pricing\Receipt;
+use App\Pricing\ReceiptItem;
 use App\Money\MathInterface;
-use App\Pricing\PricingStrategyInterface;
+use App\Pricing\PricingStrategy;
 use App\Pricing\PurchaseInterface;
 
-class DefaultStrategy implements PricingStrategyInterface
+class DefaultStrategy implements PricingStrategy
 {
     public function __construct(private MathInterface $math)
     {
@@ -31,7 +31,7 @@ class DefaultStrategy implements PricingStrategyInterface
                 ? $grandTotal = $subtotal
                 : $grandTotal = $this->math->add($grandTotal, $subtotal);
 
-            $items[] = new Item(
+            $items[] = new ReceiptItem(
                 $purchase->getProductName(),
                 $purchase->getProductQuantity(),
                 $purchase->getProductPrice(),
