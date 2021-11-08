@@ -2,6 +2,7 @@
 
 namespace App\Controller\Cart;
 
+use App\Entity\Cart;
 use App\Exception\Cart\EmptyCartException;
 use App\Pricing\ReceiptInterface;
 use App\Service\Cart\ActiveCart;
@@ -22,10 +23,10 @@ use Nelmio\ApiDocBundle\Annotation as SWG;
 #[Route(path: '/cart', name: 'cart.get', methods: ['GET'])]
 class GetAction
 {
-    public function __invoke(ActiveCart $cart): ?ReceiptInterface
+    public function __invoke(ActiveCart $activeCart, Cart $cart): ?ReceiptInterface
     {
         try {
-            return $cart->getReceipt();
+            return $activeCart->getReceipt();
         } catch (EmptyCartException) {
             return null;
         }
