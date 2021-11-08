@@ -6,9 +6,8 @@ use App\Exception\Pricing\PricingStrategy\EmptyPurchasesException;
 use App\Model\Pricing\Receipt;
 use App\Model\Pricing\Receipt\Item;
 use App\Money\MathInterface;
-use App\Pricing\PurchaseInterface;
-use App\Pricing\ReceiptInterface;
 use App\Pricing\PricingStrategyInterface;
+use App\Pricing\PurchaseInterface;
 
 class DefaultStrategy implements PricingStrategyInterface
 {
@@ -16,7 +15,7 @@ class DefaultStrategy implements PricingStrategyInterface
     {
     }
 
-    public function execute(PurchaseInterface ...$purchases): ReceiptInterface
+    public function execute(PurchaseInterface ...$purchases): Receipt
     {
         $items = [];
         $grandTotal = null;

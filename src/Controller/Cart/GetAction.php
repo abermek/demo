@@ -5,7 +5,6 @@ namespace App\Controller\Cart;
 use App\Entity\Cart;
 use App\Model\Pricing\Receipt;
 use App\Pricing\PricingStrategyInterface;
-use App\Pricing\ReceiptInterface;
 use Nelmio\ApiDocBundle\Annotation as SWG;
 use OpenApi\Annotations as OA;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,7 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route(path: '/cart', name: 'cart.get', methods: ['GET'])]
 class GetAction
 {
-    public function __invoke(Cart $cart, PricingStrategyInterface $pricing): ?ReceiptInterface
+    public function __invoke(Cart $cart, PricingStrategyInterface $pricing): ?Receipt
     {
         return $cart->getItems()->isEmpty()
             ? null

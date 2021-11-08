@@ -5,9 +5,10 @@ namespace App\Model\Pricing;
 use App\Exception\Pricing\Receipt\EmptyItemsException;
 use App\Money\MoneyInterface;
 use App\Pricing\Receipt\ItemInterface;
-use App\Pricing\ReceiptInterface;
+use JetBrains\PhpStorm\Immutable;
 
-final class Receipt implements ReceiptInterface
+#[Immutable]
+final class Receipt
 {
     private array $items;
 
