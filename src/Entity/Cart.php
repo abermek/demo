@@ -95,7 +95,7 @@ class Cart
             return;
         }
 
-        $item->increaseQuantity(-$quantity);
+        $item->setQuantity($item->getQuantity() - $quantity);
 
         if ($item->getQuantity() <= 0) {
             $this->items->removeElement($item);

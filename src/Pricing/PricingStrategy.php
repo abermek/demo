@@ -4,5 +4,5 @@ namespace App\Pricing;
 
 interface PricingStrategy
 {
-    public function execute(PurchaseInterface ...$purchases): Receipt;
+    public function execute(Purchase ...$purchases): Receipt;
 }

@@ -3,7 +3,7 @@
 namespace Tests\Unit\Service\Pricing;
 
 use App\Money\MoneyInterface;
-use App\Pricing\PurchaseInterface;
+use App\Pricing\Purchase;
 use App\Service\Money\MoneyMath;
 use App\Service\Pricing\Strategy\DefaultStrategy;
 use Codeception\Test\Unit;
@@ -26,7 +26,7 @@ class PricingStrategyTest extends Unit
 
     public function testCalculateCartItemTotal()
     {
-        $purchase = Mockery::mock(PurchaseInterface::class);
+        $purchase = Mockery::mock(Purchase::class);
         $price = Mockery::mock(MoneyInterface::class);
         $total = Mockery::mock(MoneyInterface::class);
 

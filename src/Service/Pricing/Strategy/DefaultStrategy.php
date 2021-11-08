@@ -7,7 +7,7 @@ use App\Pricing\Receipt;
 use App\Pricing\ReceiptItem;
 use App\Money\MathInterface;
 use App\Pricing\PricingStrategy;
-use App\Pricing\PurchaseInterface;
+use App\Pricing\Purchase;
 
 class DefaultStrategy implements PricingStrategy
 {
@@ -15,7 +15,7 @@ class DefaultStrategy implements PricingStrategy
     {
     }
 
-    public function execute(PurchaseInterface ...$purchases): Receipt
+    public function execute(Purchase ...$purchases): Receipt
     {
         $items = [];
         $grandTotal = null;
@@ -25,16 +25,16 @@ class DefaultStrategy implements PricingStrategy
         }
 
         foreach ($purchases as $purchase) {
-            $subtotal = $this->math->multiply($purchase->getProductPrice(), $purchase->getProductQuantity());
+            $subtotal = $this->math->multiply($purchase->getProduct()->getPrice(), $purchase->getQuantity());
 
             is_null($grandTotal)
                 ? $grandTotal = $subtotal
                 : $grandTotal = $this->math->add($grandTotal, $subtotal);
 
             $items[] = new ReceiptItem(
-                $purchase->getProductName(),
-                $purchase->getProductQuantity(),
-                $purchase->getProductPrice(),
+                $purchase->getProduct()->getName(),
+                $purchase->getQuantity(),
+                $purchase->getProduct()->getPrice(),
                 $subtotal
             );
         }
