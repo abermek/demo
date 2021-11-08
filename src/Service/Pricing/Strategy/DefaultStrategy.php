@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Pricing;
+namespace App\Service\Pricing\Strategy;
 
 use App\Exception\Pricing\PricingStrategy\EmptyPurchasesException;
 use App\Model\Pricing\Receipt;
@@ -8,9 +8,9 @@ use App\Model\Pricing\Receipt\Item;
 use App\Money\MathInterface;
 use App\Pricing\PurchaseInterface;
 use App\Pricing\ReceiptInterface;
-use App\Pricing\StrategyInterface;
+use App\Pricing\PricingStrategyInterface;
 
-class PricingStrategy implements StrategyInterface
+class DefaultStrategy implements PricingStrategyInterface
 {
     public function __construct(private MathInterface $math)
     {

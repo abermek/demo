@@ -2,7 +2,7 @@
 
 namespace App\Pricing;
 
-interface StrategyInterface
+interface PricingStrategyInterface
 {
     public function execute(PurchaseInterface ...$purchases): ReceiptInterface;
 }

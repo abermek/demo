@@ -4,10 +4,11 @@ namespace App\Controller\Cart;
 
 use App\Attribute\Input;
 use App\DTO\Purchase;
+use App\Entity\Cart;
 use App\Form\Type\PurchaseType;
 use App\Model\Pricing\Receipt;
+use App\Pricing\PricingStrategyInterface;
 use App\Pricing\ReceiptInterface;
-use App\Service\Cart\ActiveCart;
 use Doctrine\ORM\EntityManagerInterface;
 use Nelmio\ApiDocBundle\Annotation as SWG;
 use OpenApi\Annotations as OA;
@@ -28,12 +29,13 @@ class PostAction
 {
     public function __invoke(
         EntityManagerInterface $em,
-        ActiveCart $cart,
+        Cart $cart,
+        PricingStrategyInterface $pricing,
         #[Input(PurchaseType::class)] Purchase $purchase
     ): ?ReceiptInterface {
-        $cart->addPurchase($purchase);
+        $cart->addProduct($purchase->product, $purchase->quantity);
         $em->flush();
 
-        return $cart->getReceipt();
+        return $pricing->execute(... $cart->getItems());
     }
 }

@@ -3,13 +3,12 @@
 namespace App\Controller\Cart;
 
 use App\Entity\Cart;
-use App\Exception\Cart\EmptyCartException;
-use App\Pricing\ReceiptInterface;
-use App\Service\Cart\ActiveCart;
-use Symfony\Component\Routing\Annotation\Route;
 use App\Model\Pricing\Receipt;
-use OpenApi\Annotations as OA;
+use App\Pricing\PricingStrategyInterface;
+use App\Pricing\ReceiptInterface;
 use Nelmio\ApiDocBundle\Annotation as SWG;
+use OpenApi\Annotations as OA;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @OA\Response(
@@ -23,12 +22,10 @@ use Nelmio\ApiDocBundle\Annotation as SWG;
 #[Route(path: '/cart', name: 'cart.get', methods: ['GET'])]
 class GetAction
 {
-    public function __invoke(ActiveCart $activeCart, Cart $cart): ?ReceiptInterface
+    public function __invoke(Cart $cart, PricingStrategyInterface $pricing): ?ReceiptInterface
     {
-        try {
-            return $activeCart->getReceipt();
-        } catch (EmptyCartException) {
-            return null;
-        }
+        return $cart->getItems()->isEmpty()
+            ? null
+            : $pricing->execute(...$cart->getItems());
     }
 }
