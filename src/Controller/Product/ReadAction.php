@@ -7,7 +7,7 @@ use App\DTO\Product\ProductCriteria;
 use App\DTO\Response\BadRequest\InvalidPageResponse;
 use App\DTO\Response\PaginationResponse;
 use App\Form\Type\Product\ProductCriteriaType;
-use App\Repository\ProductRepositoryInterface;
+use App\Repository\Doctrine\ProductRepository;
 use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation as SWG;
 use OpenApi\Annotations as OA;
@@ -37,7 +37,7 @@ class ReadAction
     private const PRODUCTS_PER_PAGE = 20;
 
     public function __invoke(
-        ProductRepositoryInterface $repository,
+        ProductRepository $repository,
         #[Input(ProductCriteriaType::class)] ProductCriteria $criteria,
         int $page = 1
     ): PaginationResponse | View {

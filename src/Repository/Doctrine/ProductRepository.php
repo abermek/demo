@@ -1,28 +1,28 @@
 <?php
 
-namespace App\Service\Repository\Doctrine;
+namespace App\Repository\Doctrine;
 
 use App\DTO\Product\ProductCriteria;
 use App\Entity\Product;
-use App\Repository\ProductRepositoryInterface;
+use App\Service\Repository\Doctrine\PaginationTrait;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\Persistence\ManagerRegistry;
 use Pagerfanta\Pagerfanta;
 
-class ProductRepository implements ProductRepositoryInterface
+class ProductRepository extends ServiceEntityRepository
 {
     use PaginationTrait;
 
-    public function __construct(private EntityManagerInterface $em)
+    public function __construct(ManagerRegistry $registry, private EntityManagerInterface $em)
     {
+        parent::__construct($registry, Product::class);
     }
 
-    private function createQueryBuilder(ProductCriteria $criteria): QueryBuilder
+    private function createProductQueryBuilder(ProductCriteria $criteria): QueryBuilder
     {
-        $qb = $this->em->createQueryBuilder();
-        $qb
-            ->select('p')
-            ->from(Product::class, 'p');
+        $qb = $this->createQueryBuilder('p');
 
         if (!empty($criteria->name)) {
             $qb
@@ -39,17 +39,25 @@ class ProductRepository implements ProductRepositoryInterface
         return $qb;
     }
 
-    public function find(ProductCriteria $criteria): array
+    public function all(ProductCriteria $criteria): array
     {
-        return $this->createQueryBuilder($criteria)
+        return $this->createProductQueryBuilder($criteria)
             ->getQuery()
             ->getResult();
+    }
+
+    public function first(ProductCriteria $criteria): ?Product
+    {
+        return $this->createProductQueryBuilder($criteria)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
     public function paginate(ProductCriteria $criteria, int $pageNumber, int $itemsPerPage): Pagerfanta
     {
         return $this->getPagination(
-            $this->createQueryBuilder($criteria),
+            $this->createProductQueryBuilder($criteria),
             $pageNumber,
             $itemsPerPage
         );
@@ -60,6 +68,6 @@ class ProductRepository implements ProductRepositoryInterface
         $criteria = new ProductCriteria();
         $criteria->slug = $slug;
 
-        return $this->find($criteria)[0] ?? null;
+        return $this->first($criteria);
     }
 }
