@@ -7,6 +7,7 @@ use App\DTO\Product\ProductFilters;
 use App\DTO\Response\BadRequest\InvalidPageResponse;
 use App\DTO\Response\PaginationResponse;
 use App\Form\Type\Product\ProductFiltersType;
+use App\Pagination\Doctrine\ProductPagination;
 use App\Repository\Doctrine\ProductRepository;
 use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation as SWG;
@@ -37,13 +38,13 @@ class ReadAction
     private const PRODUCTS_PER_PAGE = 20;
 
     public function __invoke(
-        ProductRepository $repository,
-        #[Input(ProductFiltersType::class)] ProductFilters $criteria,
+        ProductPagination $pagination,
+        #[Input(ProductFiltersType::class)] ProductFilters $filters,
         int $page = 1
     ): PaginationResponse | View {
         try {
             return new PaginationResponse(
-                $repository->paginate($criteria, $page, self::PRODUCTS_PER_PAGE)
+                $pagination->execute($page, self::PRODUCTS_PER_PAGE, $filters)
             );
         } catch (OutOfRangeCurrentPageException) {
             return View::create(new InvalidPageResponse($page), Response::HTTP_BAD_REQUEST);

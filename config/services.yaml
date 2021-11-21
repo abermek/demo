@@ -16,7 +16,7 @@ services:
       $imageFilterWebp: '%image.filter.webp%'
 
   App\:
-    resource: ../src/{Service,MessageHandler,Security/Voter,DataTransformer,Repository,Form/DataTransformer}
+    resource: ../src/{Service,MessageHandler,Security/Voter,DataTransformer,Repository,Pagination,Form/DataTransformer}
 
   App\Controller\:
     resource: ../src/Controller
