@@ -2,7 +2,7 @@
 
 namespace App\DTO\Product;
 
-class ProductCriteria
+class ProductFilters
 {
     public ?string $name = null;
     public ?string $slug = null;

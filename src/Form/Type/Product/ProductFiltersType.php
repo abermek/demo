@@ -2,13 +2,13 @@
 
 namespace App\Form\Type\Product;
 
-use App\DTO\Product\ProductCriteria;
+use App\DTO\Product\ProductFilters;
 use App\Form\Type\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ProductCriteriaType extends AbstractType
+class ProductFiltersType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -19,10 +19,9 @@ class ProductCriteriaType extends AbstractType
     {
         parent::configureOptions($resolver);
 
-        $resolver->setDefault('method', 'GET');
         $resolver->setDefaults([
             'method' => 'GET',
-            'data_class' => ProductCriteria::class,
+            'data_class' => ProductFilters::class,
         ]);
     }
 }

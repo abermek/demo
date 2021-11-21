@@ -70,7 +70,10 @@ class InputResolver implements ArgumentValueResolverInterface
 
         $form = $this->formFactory->create($attribute->formClass, $subject, $options);
 
-        $form->submit($request->request->all(), $request->getMethod() !== "PATCH");
+        $form->submit(
+            $request->getMethod() === 'GET' ? $request->query->all() : $request->request->all(),
+            $request->getMethod() !== "PATCH"
+        );
 
         if (!$form->isValid()) {
             throw new InvalidInputException($form);

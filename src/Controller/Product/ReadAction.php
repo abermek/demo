@@ -3,10 +3,10 @@
 namespace App\Controller\Product;
 
 use App\Attribute\Input;
-use App\DTO\Product\ProductCriteria;
+use App\DTO\Product\ProductFilters;
 use App\DTO\Response\BadRequest\InvalidPageResponse;
 use App\DTO\Response\PaginationResponse;
-use App\Form\Type\Product\ProductCriteriaType;
+use App\Form\Type\Product\ProductFiltersType;
 use App\Repository\Doctrine\ProductRepository;
 use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation as SWG;
@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @OA\RequestBody(request=ProductCriteriaType::class, required=true)
+ * @OA\RequestBody(request=ProductFiltersType::class, required=true)
  * @OA\Response(
  *     response=200,
  *     description="Returns list of the Products",
@@ -38,7 +38,7 @@ class ReadAction
 
     public function __invoke(
         ProductRepository $repository,
-        #[Input(ProductCriteriaType::class)] ProductCriteria $criteria,
+        #[Input(ProductFiltersType::class)] ProductFilters $criteria,
         int $page = 1
     ): PaginationResponse | View {
         try {

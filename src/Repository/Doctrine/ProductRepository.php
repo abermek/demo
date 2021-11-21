@@ -2,12 +2,13 @@
 
 namespace App\Repository\Doctrine;
 
-use App\DTO\Product\ProductCriteria;
+use App\DTO\Doctrine\ProductCriteria;
+use App\DTO\Product\ProductFilters;
 use App\Entity\Product;
 use App\Service\Repository\Doctrine\PaginationTrait;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Pagerfanta\Pagerfanta;
 
@@ -20,54 +21,32 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
-    private function createProductQueryBuilder(ProductCriteria $criteria): QueryBuilder
+    public function all(ProductFilters $filters): Collection
+    {
+        return $this->matching(ProductCriteria::fromFilters($filters));
+    }
+
+    public function first(ProductFilters $filters): ?Product
+    {
+        $criteria = ProductCriteria::fromFilters($filters);
+        $criteria->setMaxResults(1);
+
+        return $this->matching($criteria)->first() ?: null;
+    }
+
+    public function paginate(ProductFilters $filters, int $pageNumber, int $itemsPerPage): Pagerfanta
     {
         $qb = $this->createQueryBuilder('p');
+        $qb->addCriteria(ProductCriteria::fromFilters($filters));
 
-        if (!empty($criteria->name)) {
-            $qb
-                ->andWhere($qb->expr()->eq('p.name', ':name_eq'))
-                ->setParameter('name_eq', $criteria->name);
-        }
-
-        if (!empty($criteria->slug)) {
-            $qb
-                ->andWhere($qb->expr()->eq('p.slug', ':slug_eq'))
-                ->setParameter('slug_eq', $criteria->slug);
-        }
-
-        return $qb;
-    }
-
-    public function all(ProductCriteria $criteria): array
-    {
-        return $this->createProductQueryBuilder($criteria)
-            ->getQuery()
-            ->getResult();
-    }
-
-    public function first(ProductCriteria $criteria): ?Product
-    {
-        return $this->createProductQueryBuilder($criteria)
-            ->setMaxResults(1)
-            ->getQuery()
-            ->getOneOrNullResult();
-    }
-
-    public function paginate(ProductCriteria $criteria, int $pageNumber, int $itemsPerPage): Pagerfanta
-    {
-        return $this->getPagination(
-            $this->createProductQueryBuilder($criteria),
-            $pageNumber,
-            $itemsPerPage
-        );
+        return $this->getPagination($qb, $pageNumber, $itemsPerPage);
     }
 
     public function findOneBySlug(string $slug): ?Product
     {
-        $criteria = new ProductCriteria();
-        $criteria->slug = $slug;
+        $filters = new ProductFilters();
+        $filters->slug = $slug;
 
-        return $this->first($criteria);
+        return $this->first($filters);
     }
 }
