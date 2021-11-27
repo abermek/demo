@@ -1,22 +1,21 @@
 <?php
 
-namespace App\Service\Pricing;
+namespace App\Service\Pricing\Strategy;
 
 use App\Exception\Pricing\PricingStrategy\EmptyPurchasesException;
-use App\Model\Pricing\Receipt;
-use App\Model\Pricing\Receipt\Item;
+use App\Pricing\Receipt;
+use App\Pricing\ReceiptItem;
 use App\Money\MathInterface;
-use App\Pricing\PurchaseInterface;
-use App\Pricing\ReceiptInterface;
-use App\Pricing\StrategyInterface;
+use App\Pricing\PricingStrategy;
+use App\Pricing\Purchase;
 
-class PricingStrategy implements StrategyInterface
+class DefaultStrategy implements PricingStrategy
 {
     public function __construct(private MathInterface $math)
     {
     }
 
-    public function execute(PurchaseInterface ...$purchases): ReceiptInterface
+    public function execute(Purchase ...$purchases): Receipt
     {
         $items = [];
         $grandTotal = null;
@@ -26,16 +25,16 @@ class PricingStrategy implements StrategyInterface
         }
 
         foreach ($purchases as $purchase) {
-            $subtotal = $this->math->multiply($purchase->getProductPrice(), $purchase->getProductQuantity());
+            $subtotal = $this->math->multiply($purchase->getProduct()->getPrice(), $purchase->getQuantity());
 
             is_null($grandTotal)
                 ? $grandTotal = $subtotal
                 : $grandTotal = $this->math->add($grandTotal, $subtotal);
 
-            $items[] = new Item(
-                $purchase->getProductName(),
-                $purchase->getProductQuantity(),
-                $purchase->getProductPrice(),
+            $items[] = new ReceiptItem(
+                $purchase->getProduct()->getName(),
+                $purchase->getQuantity(),
+                $purchase->getProduct()->getPrice(),
                 $subtotal
             );
         }

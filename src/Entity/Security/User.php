@@ -81,6 +81,12 @@ class User implements UserInterface
         return $this->cart;
     }
 
+    public function setCart(?Cart $cart): User
+    {
+        $this->cart = $cart;
+        return $this;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

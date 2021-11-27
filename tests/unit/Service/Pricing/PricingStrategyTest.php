@@ -3,9 +3,9 @@
 namespace Tests\Unit\Service\Pricing;
 
 use App\Money\MoneyInterface;
-use App\Pricing\PurchaseInterface;
+use App\Pricing\Purchase;
 use App\Service\Money\MoneyMath;
-use App\Service\Pricing\PricingStrategy;
+use App\Service\Pricing\Strategy\DefaultStrategy;
 use Codeception\Test\Unit;
 use Mockery;
 use Mockery\MockInterface;
@@ -19,14 +19,14 @@ class PricingStrategyTest extends Unit
         $this->math = Mockery::mock(MoneyMath::class);
     }
 
-    public function getSystemUnderTest(): PricingStrategy
+    public function getSystemUnderTest(): DefaultStrategy
     {
-        return new PricingStrategy($this->math);
+        return new DefaultStrategy($this->math);
     }
 
     public function testCalculateCartItemTotal()
     {
-        $purchase = Mockery::mock(PurchaseInterface::class);
+        $purchase = Mockery::mock(Purchase::class);
         $price = Mockery::mock(MoneyInterface::class);
         $total = Mockery::mock(MoneyInterface::class);
 
@@ -56,7 +56,7 @@ class PricingStrategyTest extends Unit
 
         $result = $this->getSystemUnderTest()->execute($purchase);
 
-        self::assertEquals($total, $result->getGrandTotal());
+        self::assertEquals($total, $result->getTotal());
 
     }
 }

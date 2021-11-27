@@ -47,7 +47,7 @@ services:
     resource: ../src/EventSubscriber
     tags: [ "kernel.event_subscriber" ]
 
-  App\Pricing\StrategyInterface: '@App\Service\Pricing\PricingStrategy'
+  App\Pricing\PricingStrategy: '@App\Service\Pricing\Strategy\DefaultStrategy'
   App\Money\MathInterface: '@App\Service\Money\MoneyMath'
 
   # https://github.com/FriendsOfSymfony/FOSRestBundle/issues/1768

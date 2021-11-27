@@ -4,7 +4,7 @@ namespace App\Exception\Pricing\Receipt;
 
 use Exception;
 
-class EmptyItemsException extends Exception
+class EmptyReceiptException extends Exception
 {
     public function __construct()
     {
