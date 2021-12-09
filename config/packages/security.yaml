@@ -1,11 +1,11 @@
 security:
-  encoders:
-    App\Entity\Security\User:
-      algorithm: bcrypt
-      cost: 12
+  enable_authenticator_manager: true
+
+  password_hashers:
+    Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: auto
 
   providers:
-    player_provider:
+    user_provider:
       entity:
         class: App\Entity\Security\User
         property: username
@@ -18,9 +18,7 @@ security:
     api:
       pattern:    ^/v\d+
       stateless:  true
-      guard:
-        authenticators:
-          - lexik_jwt_authentication.jwt_token_authenticator
+      jwt: ~
 
     app:
       pattern: ^/

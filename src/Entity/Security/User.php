@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace App\Entity\Security;
 
 use App\Entity\Cart;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class User implements UserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     private ?int $id = null;
     private ?string $username = null;

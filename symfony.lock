@@ -565,16 +565,10 @@
             "ref": "a9eecaa968723a91299a2eb1a893648dc11a7194"
         }
     },
-    "symfony/http-client-contracts": {
-        "version": "v2.3.1"
-    },
     "symfony/http-foundation": {
         "version": "v4.1.7"
     },
     "symfony/http-kernel": {
-        "version": "v4.1.7"
-    },
-    "symfony/intl": {
         "version": "v4.1.7"
     },
     "symfony/messenger": {
@@ -610,8 +604,14 @@
     "symfony/orm-pack": {
         "version": "v1.0.5"
     },
+    "symfony/password-hasher": {
+        "version": "v6.0.0"
+    },
     "symfony/polyfill-intl-grapheme": {
         "version": "v1.20.0"
+    },
+    "symfony/polyfill-intl-icu": {
+        "version": "v1.23.0"
     },
     "symfony/polyfill-intl-idn": {
         "version": "v1.23.0"
@@ -671,9 +671,6 @@
         "version": "v4.1.7"
     },
     "symfony/security-csrf": {
-        "version": "v4.2.4"
-    },
-    "symfony/security-guard": {
         "version": "v4.2.4"
     },
     "symfony/security-http": {
