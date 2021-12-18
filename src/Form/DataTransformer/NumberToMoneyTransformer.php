@@ -2,32 +2,31 @@
 
 namespace App\Form\DataTransformer;
 
-use App\Money\MoneyInterface;
-use App\Model\Money\USD;
 use Exception;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
+use Money\Money;
 
 class NumberToMoneyTransformer implements DataTransformerInterface
 {
-    public function transform($money)
+    public function transform($value)
     {
-        /** @var MoneyInterface $money */
-        if (null === $money) {
+        /** @var Money $value */
+        if (null === $value) {
             return null;
         }
 
-        return $money->getAmount();
+        return $value->getAmount();
     }
 
-    public function reverseTransform($value)
+    public function reverseTransform($value): ?Money
     {
         if (null === $value) {
             return null;
         }
 
         try {
-            $money = new USD($value);
+            $money = Money::USD($value);
         } catch (Exception $e) {
             $privateErrorMessage = $e->getMessage();
             $publicErrorMessage = 'The given "{{ value }}" value is not valid.';

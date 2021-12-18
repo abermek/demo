@@ -4,11 +4,11 @@ namespace Fixture;
 
 use App\Entity\Product;
 use App\Entity\Security\User;
-use App\Model\Money\USD;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Fixture\Security\UserFixture;
+use Money\Money;
 
 class ProductFixture extends Fixture implements DependentFixtureInterface
 {
@@ -52,7 +52,7 @@ class ProductFixture extends Fixture implements DependentFixtureInterface
             $product
                 ->setOwner($owner)
                 ->setSlug($props['slug'])
-                ->setPrice(new USD($props['price']))
+                ->setPrice(Money::USD($props['price']))
                 ->setName($props['name']);
 
             $this->setId($product);

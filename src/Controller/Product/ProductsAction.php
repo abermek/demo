@@ -33,7 +33,7 @@ use Symfony\Component\Routing\Annotation\Route;
     defaults: ['page' => 1],
     methods: ['GET']
 )]
-class ReadAction
+class ProductsAction
 {
     private const PRODUCTS_PER_PAGE = 20;
 

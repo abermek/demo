@@ -2,16 +2,16 @@
 
 namespace App\Service\Money;
 
-use App\Money\MoneyInterface;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\IntlMoneyFormatter;
 use NumberFormatter;
+use Money\Money;
 
 class MoneyFormatter
 {
     private IntlMoneyFormatter $formatter;
 
-    public function __construct(string $locale, private MoneyTransformer $transformer)
+    public function __construct(string $locale)
     {
         $this->formatter = new IntlMoneyFormatter(
             new NumberFormatter($locale, NumberFormatter::CURRENCY),
@@ -19,10 +19,8 @@ class MoneyFormatter
         );
     }
 
-    public function format(MoneyInterface $money): string
+    public function format(Money $money): string
     {
-        return $this->formatter->format(
-            $this->transformer->transform($money)
-        );
+        return $this->formatter->format($money);
     }
 }

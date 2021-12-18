@@ -1,11 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Entity;
 
 use App\Entity\Security\User;
-use App\Money\MoneyInterface;
+use Money\Money;
 
 class Product
 {
@@ -43,20 +41,6 @@ class Product
         return $this;
     }
 
-    public function getPrice(): ?MoneyInterface
-    {
-        return $this->price;
-    }
-
-    public function setPrice(?MoneyInterface $price): Product
-    {
-        $this->price = is_null($price)
-            ? null
-            : new Money($price->getAmount(), $price->getCurrency());
-
-        return $this;
-    }
-
     public function getSlug(): ?string
     {
         return $this->slug;
@@ -65,6 +49,17 @@ class Product
     public function setSlug(?string $slug): Product
     {
         $this->slug = $slug;
+        return $this;
+    }
+
+    public function getPrice(): ?Money
+    {
+        return $this->price;
+    }
+
+    public function setPrice(?Money $price): Product
+    {
+        $this->price = $price;
         return $this;
     }
 }

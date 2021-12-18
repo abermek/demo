@@ -23,6 +23,6 @@
             <join-column on-delete="CASCADE" nullable="false" />
         </many-to-one>
 
-        <embedded name="price" class="App\Entity\Money" />
+        <embedded name="price" class="Money\Money" />
     </entity>
 </doctrine-mapping>

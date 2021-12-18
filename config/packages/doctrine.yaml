@@ -7,10 +7,17 @@ doctrine:
       charset: utf8mb4
       collate: utf8mb4_unicode_ci
     url: '%env(resolve:DATABASE_URL)%'
+    types:
+      currency: App\Doctrine\Type\CurrencyType
   orm:
     auto_generate_proxy_classes: true
     naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
     mappings:
+      Money:
+        type: xml
+        prefix: Money
+        dir: "%kernel.project_dir%/config/doctrine/Money"
+        is_bundle: false
       Entity:
         type: xml
         prefix: App\Entity
