@@ -7,7 +7,7 @@ use Money\Formatter\IntlMoneyFormatter;
 use NumberFormatter;
 use Money\Money;
 
-class MoneyFormatter
+class Format
 {
     private IntlMoneyFormatter $formatter;
 
@@ -19,7 +19,7 @@ class MoneyFormatter
         );
     }
 
-    public function format(Money $money): string
+    public function execute(Money $money): string
     {
         return $this->formatter->format($money);
     }

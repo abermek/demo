@@ -2,22 +2,31 @@
 
 namespace Tests\Unit\Service\Serializer\Handler;
 
-use App\Service\Money\MoneyFormatter;
 use App\Serializer\SubscribingHandler\MoneyHandler;
+use App\Service\Money\Format;
 use Codeception\Test\Unit;
-use App\Money\MoneyInterface;
-use JMS\Serializer\Context;
 use JMS\Serializer\JsonSerializationVisitor;
 use Mockery;
 use Mockery\MockInterface;
+use Money\Money;
 
 class MoneyHandlerTest extends Unit
 {
-    private MoneyFormatter | MockInterface $formatter;
+    private Format|MockInterface $formatter;
 
-    protected function _before()
+    public function testSerialize()
     {
-        $this->formatter = Mockery::mock(MoneyFormatter::class);
+        $money = Money::USD(10);
+        $formatted = '$10';
+
+        $this->formatter
+            ->shouldReceive('execute')
+            ->with($money)
+            ->andReturn($formatted);
+
+        $result = $this->getSystemUnderTest()->serialize(new JsonSerializationVisitor(), $money);
+
+        self::assertEquals($formatted, $result);
     }
 
     public function getSystemUnderTest(): MoneyHandler
@@ -25,20 +34,8 @@ class MoneyHandlerTest extends Unit
         return new MoneyHandler($this->formatter);
     }
 
-    public function testSerialize()
+    protected function _before()
     {
-        $context = Mockery::mock(Context::class);
-        $money   = Mockery::mock(MoneyInterface::class);
-
-        $formatted = '$10';
-
-        $this->formatter
-            ->shouldReceive('format')
-            ->with($money)
-            ->andReturn($formatted);
-
-        $result = $this->getSystemUnderTest()->serialize(new JsonSerializationVisitor(), $money);
-
-        self::assertEquals($formatted, $result);
+        $this->formatter = Mockery::mock(Format::class);
     }
 }

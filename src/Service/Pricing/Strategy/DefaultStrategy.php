@@ -3,18 +3,13 @@
 namespace App\Service\Pricing\Strategy;
 
 use App\Exception\Pricing\PricingStrategy\EmptyPurchasesException;
-use App\Pricing\Receipt;
-use App\Pricing\ReceiptItem;
-use App\Money\MathInterface;
 use App\Pricing\PricingStrategy;
 use App\Pricing\Purchase;
+use App\Pricing\Receipt;
+use App\Pricing\ReceiptItem;
 
 class DefaultStrategy implements PricingStrategy
 {
-    public function __construct(private MathInterface $math)
-    {
-    }
-
     public function execute(Purchase ...$purchases): Receipt
     {
         $items = [];
@@ -25,11 +20,12 @@ class DefaultStrategy implements PricingStrategy
         }
 
         foreach ($purchases as $purchase) {
-            $subtotal = $this->math->multiply($purchase->getProduct()->getPrice(), $purchase->getQuantity());
+            $product = $purchase->getProduct();
+            $subtotal = $product->getPrice()->multiply($purchase->getQuantity());
 
             is_null($grandTotal)
                 ? $grandTotal = $subtotal
-                : $grandTotal = $this->math->add($grandTotal, $subtotal);
+                : $grandTotal = $grandTotal->add($subtotal);
 
             $items[] = new ReceiptItem(
                 $purchase->getProduct()->getName(),

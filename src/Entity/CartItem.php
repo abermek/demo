@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use App\Exception\Pricing\Purchase\EmptyPropertyException;
-use App\Money\MoneyInterface;
 use App\Pricing\Purchase;
 
 class CartItem implements Purchase

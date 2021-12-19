@@ -3,15 +3,15 @@
 namespace App\Pricing;
 
 use App\Exception\Pricing\Receipt\EmptyReceiptException;
-use App\Money\MoneyInterface;
 use JetBrains\PhpStorm\Immutable;
+use Money\Money;
 
 #[Immutable]
 final class Receipt
 {
     private array $items;
 
-    public function __construct(private MoneyInterface $total, ReceiptItem ...$items)
+    public function __construct(private Money $total, ReceiptItem ...$items)
     {
         if (empty($items)) {
             throw new EmptyReceiptException();
@@ -25,7 +25,7 @@ final class Receipt
         return $this->items;
     }
 
-    public function getTotal(): MoneyInterface
+    public function getTotal(): Money
     {
         return $this->total;
     }

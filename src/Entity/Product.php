@@ -18,6 +18,12 @@ class Product
         return $this->id;
     }
 
+    public function setId(?int $id): Product
+    {
+        $this->id = $id;
+        return $this;
+    }
+
     public function getName(): ?string
     {
         return $this->name;
@@ -57,7 +63,7 @@ class Product
         return $this->price;
     }
 
-    public function setPrice(?Money $price): Product
+    public function setPrice(?Money $price = null): Product
     {
         $this->price = $price;
         return $this;

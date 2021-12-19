@@ -2,8 +2,8 @@
 
 namespace App\Pricing;
 
-use App\Money\MoneyInterface;
 use JetBrains\PhpStorm\Immutable;
+use Money\Money;
 
 #[Immutable]
 final class ReceiptItem
@@ -11,8 +11,8 @@ final class ReceiptItem
     public function __construct(
         private string $name,
         private int $quantity,
-        private MoneyInterface $price,
-        private MoneyInterface $total
+        private Money $price,
+        private Money $total
     ) {
     }
 
@@ -26,12 +26,12 @@ final class ReceiptItem
         return $this->quantity;
     }
 
-    public function getPrice(): MoneyInterface
+    public function getPrice(): Money
     {
         return $this->price;
     }
 
-    public function getTotal(): MoneyInterface
+    public function getTotal(): Money
     {
         return $this->total;
     }

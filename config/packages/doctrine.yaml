@@ -21,10 +21,10 @@ doctrine:
       Entity:
         type: xml
         prefix: App\Entity
-        dir: "%kernel.project_dir%/config/doctrine"
+        dir: "%kernel.project_dir%/config/doctrine/Entity"
         is_bundle: false
       Security:
         type: xml
         prefix: App\Entity\Security
-        dir: "%kernel.project_dir%/config/doctrine/Security"
+        dir: "%kernel.project_dir%/config/doctrine/Entity/Security"
         is_bundle: false

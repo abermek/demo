@@ -12,7 +12,8 @@ App\Entity\Product:
     price:
       - NotNull:
           groups: Create
-      - Valid: ~
+      - App\Validator\Money\GreaterThan:
+          value: 0
 
 App\Entity\Image:
   properties:
