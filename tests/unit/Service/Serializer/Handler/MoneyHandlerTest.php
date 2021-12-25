@@ -3,7 +3,7 @@
 namespace Tests\Unit\Service\Serializer\Handler;
 
 use App\Serializer\SubscribingHandler\MoneyHandler;
-use App\Service\Money\Format;
+use App\Service\Money\Formatter;
 use Codeception\Test\Unit;
 use JMS\Serializer\JsonSerializationVisitor;
 use Mockery;
@@ -12,7 +12,7 @@ use Money\Money;
 
 class MoneyHandlerTest extends Unit
 {
-    private Format|MockInterface $formatter;
+    private Formatter|MockInterface $formatter;
 
     public function testSerialize()
     {
@@ -36,6 +36,6 @@ class MoneyHandlerTest extends Unit
 
     protected function _before()
     {
-        $this->formatter = Mockery::mock(Format::class);
+        $this->formatter = Mockery::mock(Formatter::class);
     }
 }

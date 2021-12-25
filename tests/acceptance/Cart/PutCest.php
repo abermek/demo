@@ -18,7 +18,10 @@ class PutCest
             'items' => [
                 [
                     'name'  => 'Sword',
-                    'price' => '$1.00',
+                    'price' => [
+                        'amount' => '1.00',
+                        'currency' => 'USD'
+                    ],
                     'quantity' => 1
                 ]
             ]
@@ -40,11 +43,20 @@ class PutCest
         $I->seeResponseContainsJson([
             'items' => [
                 'name'  => 'Sword',
-                'price' => '$1.00',
+                'price' => [
+                    'amount' => '1.00',
+                    'currency' => 'USD'
+                ],
                 'quantity' => 3,
-                'total' => '$3.00'
+                'total' => [
+                    'amount' => '3.00',
+                    'currency' => 'USD'
+                ],
             ],
-            'total' => '$3.00'
+            'total' => [
+                'amount' => '3.00',
+                'currency' => 'USD'
+            ],
         ]);
     }
 

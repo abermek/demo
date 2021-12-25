@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Tests;
 
 use App\Entity\Security\User;
@@ -21,7 +22,7 @@ use Exception;
  * @method void pause()
  *
  * @SuppressWarnings(PHPMD)
-*/
+ */
 class AcceptanceTester extends Actor
 {
     use _generated\AcceptanceTesterActions;
@@ -109,5 +110,10 @@ class AcceptanceTester extends Actor
         }
 
         $this->seeResponseCodeIs(HttpCode::BAD_REQUEST);
+    }
+
+    public function usd(string $amount = "1.00"): array
+    {
+        return ['amount' => $amount, 'currency' => 'USD'];
     }
 }

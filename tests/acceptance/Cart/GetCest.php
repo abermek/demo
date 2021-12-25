@@ -32,17 +32,32 @@ class GetCest
                 [
                     'name'      => 'Sword',
                     'quantity'  => 2,
-                    'total'     => '$2.00',
-                    'price'     => '$1.00'
+                    'total'     => [
+                        'amount' => '2.00',
+                        'currency' => 'USD'
+                    ],
+                    'price'     =>  [
+                        'amount' => '1.00',
+                        'currency' => 'USD'
+                    ],
                 ],
                 [
                     'name'      => 'Staff',
                     'quantity'  => 1,
-                    'total'     => '$10.00',
-                    'price'     => '$10.00'
+                    'total'     => [
+                        'amount' => '10.00',
+                        'currency' => 'USD'
+                    ],
+                    'price'     => [
+                        'amount' => '10.00',
+                        'currency' => 'USD'
+                    ],
                 ]
             ],
-            'total' => '$12.00'
+            'total' => [
+                'amount' => '12.00',
+                'currency' => 'USD'
+            ],
         ]);
         $I->seeResponseCodeIs(HttpCode::OK);
     }

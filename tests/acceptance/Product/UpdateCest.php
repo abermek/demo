@@ -12,14 +12,14 @@ class UpdateCest
     {
         $product = [
             'name'  => 'My Product #1',
-            'price' => 1000
+            'price' => $I->usd()
         ];
 
         $I->amJohn();
         $I->updateProduct(self::PRODUCT_ID, $product);
         $I->seeResponseContainsJson([
             'name'  => $product['name'],
-            'price' => '$10.00'
+            'price' => $I->usd(),
         ]);
         $I->seeResponseCodeIs(HttpCode::OK);
     }
@@ -27,9 +27,9 @@ class UpdateCest
     public function withZeroPrice(AcceptanceTester $I)
     {
         $I->amJohn();
-        $I->updateProduct(self::PRODUCT_ID, ['price' => 0]);
+        $I->updateProduct(self::PRODUCT_ID, ['price' => $I->usd(0)]);
         $I->seeBadRequest(
-            ['path' => 'price', 'description' => 'The given "0" value is not valid.']
+            ['path' => 'price', 'description' => 'This value should be greater than 0.']
         );
     }
 

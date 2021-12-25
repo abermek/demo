@@ -2,7 +2,7 @@
 
 namespace App\Serializer\SubscribingHandler;
 
-use App\Service\Money\Format;
+use App\Service\Money\Formatter;
 use JMS\Serializer\GraphNavigatorInterface;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\JsonSerializationVisitor;
@@ -10,7 +10,7 @@ use Money\Money;
 
 class MoneyHandler implements SubscribingHandlerInterface
 {
-    public function __construct(private Format $format)
+    public function __construct(private Formatter $formatter)
     {
     }
 
@@ -26,8 +26,11 @@ class MoneyHandler implements SubscribingHandlerInterface
         ];
     }
 
-    public function serialize(JsonSerializationVisitor $visitor, Money $money): string
+    public function serialize(JsonSerializationVisitor $visitor, Money $money): array
     {
-        return $this->format->execute($money);
+        return [
+            'amount' => $this->formatter->decimal($money),
+            'currency' => $money->getCurrency()->getCode()
+        ];
     }
 }

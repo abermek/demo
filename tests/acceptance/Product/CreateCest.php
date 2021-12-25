@@ -1,4 +1,5 @@
 <?php
+
 namespace Tests\Acceptance\Product;
 
 use App\Tests\AcceptanceTester;
@@ -9,25 +10,20 @@ class CreateCest
     public function createProduct(AcceptanceTester $I)
     {
         $product = [
-            'name'  => 'Long Sword +5',
-            'price' => 1000
+            'name' => 'Long Sword +5',
+            'price' => $I->usd(),
         ];
 
         $I->amJohn();
         $I->createProduct($product);
-        $I->seeResponseContainsJson([
-            'name'  => $product['name'],
-            'price' => '$10.00'
-        ]);
+        $I->seeResponseContainsJson($product);
         $I->seeResponseCodeIs(HttpCode::OK);
     }
 
     public function withMissingName(AcceptanceTester $I)
     {
         $I->amJohn();
-        $I->createProduct([
-            'price' => 1000
-        ]);
+        $I->createProduct(['price' => $I->usd()]);
         $I->seeBadRequest(
             ['path' => 'name', 'description' => 'This value should not be blank.']
         );
@@ -36,10 +32,7 @@ class CreateCest
     public function withBlankName(AcceptanceTester $I)
     {
         $I->amJohn();
-        $I->createProduct([
-            'name'  => '',
-            'price' => 1000
-        ]);
+        $I->createProduct(['name' => '', 'price' => $I->usd()]);
         $I->seeBadRequest(
             ['path' => 'name', 'description' => 'This value should not be blank.']
         );
@@ -48,9 +41,7 @@ class CreateCest
     public function withMissingPrice(AcceptanceTester $I)
     {
         $I->amJohn();
-        $I->createProduct([
-            'name'  => 'Long Sword'
-        ]);
+        $I->createProduct(['name' => 'Long Sword']);
         $I->seeBadRequest(
             ['path' => 'price', 'description' => 'This value should not be null.']
         );
@@ -59,22 +50,16 @@ class CreateCest
     public function withZeroPrice(AcceptanceTester $I)
     {
         $I->amJohn();
-        $I->createProduct([
-            'name'  => 'Long Sword',
-            'price' => 0
-        ]);
+        $I->createProduct(['name' => 'Long Sword', 'price' => $I->usd(0)]);
         $I->seeBadRequest(
-            ['path' => 'price', 'description' => 'The given "0" value is not valid.']
+            ['path' => 'price', 'description' => 'This value should be greater than 0.']
         );
     }
 
     public function withNameContainsForbiddenCharacters(AcceptanceTester $I)
     {
         $I->amJohn();
-        $I->createProduct([
-            'name'  => '<b>Long sword +5</b>!!!!!',
-            'price' => 1000
-        ]);
+        $I->createProduct(['name' => '<b>Long sword +5</b>!!!!!', 'price' => $I->usd()]);
 
         $I->seeBadRequest(
             ['path' => 'name', 'description' => 'This value is not valid.']

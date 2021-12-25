@@ -16,17 +16,26 @@ class ListCest
                 [
                     "id"    => 1,
                     "name"  => "Sword",
-                    "price" => "$1.00",
+                    "price" => [
+                        'amount' => '1.00',
+                        'currency' => 'USD'
+                    ],
                 ],
                 [
                     "id"    => 2,
                     "name"  => "Staff",
-                    "price" => "$10.00",
+                    "price" => [
+                        'amount' => '10.00',
+                        'currency' => 'USD'
+                    ],
                 ],
                 [
                     "id"    => 3,
                     "name"  => "Shield",
-                    "price" => "$1.00",
+                    "price" => [
+                        'amount' => '1.00',
+                        'currency' => 'USD'
+                    ],
                 ]
             ],
             'page'  => 1,

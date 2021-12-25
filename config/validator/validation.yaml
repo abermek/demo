@@ -14,7 +14,9 @@ App\Entity\Product:
           groups: Create
       - App\Validator\Money\GreaterThan:
           value: 0
-
+      - App\Validator\Currency\Choice:
+            choices:
+              - USD
 App\Entity\Image:
   properties:
     file:
