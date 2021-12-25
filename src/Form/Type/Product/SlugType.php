@@ -2,7 +2,7 @@
 
 namespace App\Form\Type\Product;
 
-use App\Form\DataTransformer\ProductSlugTransformer;
+use App\Form\DataTransformer\Product\SlugTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -10,7 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SlugType extends AbstractType
 {
-    public function __construct(private ProductSlugTransformer $transformer)
+    public function __construct(private SlugTransformer $transformer)
     {
     }
 

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Form\DataTransformer;
+namespace App\Form\DataTransformer\Product;
 
 use App\Entity\Product;
 use App\Repository\Doctrine\ProductRepository;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-class ProductSlugTransformer implements DataTransformerInterface
+class SlugTransformer implements DataTransformerInterface
 {
     public function __construct(private ProductRepository $repository)
     {
