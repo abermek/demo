@@ -5,21 +5,18 @@ namespace App\Service\Cart;
 use App\Entity\Cart;
 use App\Entity\Security\User;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Security\Core\Security;
 
-class GetActualCart
+class FindOrCreate
 {
-    public function __construct(private EntityManagerInterface $em, private Security $security)
+    public function __construct(private EntityManagerInterface $em)
     {
     }
 
-    public function execute(): Cart
+    public function execute(User $user): Cart
     {
-        /** @var User $user */
-        $user = $this->security->getUser();
         $cart = $user->getCart();
 
-        if (!$cart) {
+        if ($cart === null) {
             $cart = new Cart($user);
 
             $user->setCart($cart);

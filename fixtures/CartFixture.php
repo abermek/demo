@@ -54,10 +54,11 @@ class CartFixture extends Fixture implements DependentFixtureInterface
                 $product = $this->getReference($row['product']);
                 $item = new CartItem();
                 $item
+                    ->setCart($cart)
                     ->setProduct($product)
                     ->setQuantity($row['quantity']);
 
-                $cart->addItem($item);
+                $cart->getItems()->add($item);
             }
 
             $manager->persist($cart);
