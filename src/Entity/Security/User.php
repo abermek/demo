@@ -15,7 +15,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
     private ?string $salt = null;
     private ?Cart $cart = null;
-
     private array $roles;
 
     public function __construct()
@@ -28,32 +27,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->roles;
     }
 
+    public function setRoles(array $roles): User
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
     public function getPassword(): ?string
     {
         return $this->password;
-    }
-
-    public function getSalt(): ?string
-    {
-        return $this->salt;
-    }
-
-    /** @psalm-suppress InvalidNullableReturnType */
-    public function getUsername(): ?string
-    {
-        /** @psalm-suppress NullableReturnStatement */
-        return $this->username;
-    }
-
-    public function eraseCredentials(): void
-    {
-    }
-
-    public function setUsername(string $username): User
-    {
-        $this->username = $username;
-
-        return $this;
     }
 
     public function setPassword(string $password): User
@@ -63,6 +46,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getSalt(): ?string
+    {
+        return $this->salt;
+    }
+
     public function setSalt(string $salt): User
     {
         $this->salt = $salt;
@@ -70,11 +58,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function setRoles(array $roles): User
+    /** @psalm-suppress InvalidNullableReturnType */
+    public function getUsername(): ?string
     {
-        $this->roles = $roles;
+        /** @psalm-suppress NullableReturnStatement */
+        return $this->username;
+    }
+
+    public function setUsername(string $username): User
+    {
+        $this->username = $username;
 
         return $this;
+    }
+
+    public function eraseCredentials(): void
+    {
     }
 
     public function getCart(): ?Cart

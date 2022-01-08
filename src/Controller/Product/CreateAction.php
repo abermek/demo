@@ -5,7 +5,7 @@ namespace App\Controller\Product;
 use App\Attribute\Input;
 use App\Entity\Product;
 use App\Entity\Security\User;
-use App\Form\Type\Product\ProductType;
+use App\Form\Type\ProductType;
 use App\Security\Voter\ProductVoter;
 use Doctrine\ORM\EntityManagerInterface;
 use Nelmio\ApiDocBundle\Annotation as SWG;

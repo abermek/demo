@@ -2,13 +2,13 @@
 
 namespace App\Form\Type\Product;
 
-use App\DTO\Product\ProductFilters;
+use App\DTO\Product\Search;
 use App\Form\Type\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ProductFiltersType extends AbstractType
+class SearchType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -21,7 +21,7 @@ class ProductFiltersType extends AbstractType
 
         $resolver->setDefaults([
             'method' => 'GET',
-            'data_class' => ProductFilters::class,
+            'data_class' => Search::class,
         ]);
     }
 }

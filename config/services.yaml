@@ -1,55 +1,53 @@
 parameters:
-  domain: 'http://localhost:81'
-  locale: '%env(APP_LOCALE)%'
-  image.filter.webp: 'images'
+    domain: 'http://localhost:81'
+    locale: '%env(APP_LOCALE)%'
+    image.filter.webp: 'images'
 
 services:
-  _defaults:
-    autowire: true
-    autoconfigure: true
-    public: false
-    bind:
-      $locale: '%locale%'
-      $gitHooksOriginDir: '%kernel.project_dir%/hooks'
-      $gitHooksTargetDir: '%kernel.project_dir%/.git/hooks'
-      $filterService: '@liip_imagine.service.filter'
-      $imageFilterWebp: '%image.filter.webp%'
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+        bind:
+            $locale: '%locale%'
+            $gitHooksOriginDir: '%kernel.project_dir%/hooks'
+            $gitHooksTargetDir: '%kernel.project_dir%/.git/hooks'
+            $filterService: '@liip_imagine.service.filter'
+            $imageFilterWebp: '%image.filter.webp%'
 
-  App\:
-    resource: ../src/{Service,MessageHandler,Security/Voter,DataTransformer,Repository,Pagination,Form/DataTransformer}
+    App\:
+        resource: ../src/{Service,MessageHandler,Security/Voter,Form/DataTransformer}
 
-  App\Controller\:
-    resource: ../src/Controller
-    tags: [ controller.service_arguments ]
+    App\Doctrine\:
+        resource: ../src/Doctrine/{Pagination,Repository,Pagination.php}
 
-  App\Serializer\SubscribingHandler\:
-    resource: ../src/Serializer/SubscribingHandler
-    tags: [ "jms_serializer.subscribing_handler" ]
+    App\Controller\:
+        resource: ../src/Controller
+        tags: [ controller.service_arguments ]
 
-  App\Serializer\EventSubscriber\:
-    resource: ../src/Serializer/EventSubscriber
-    tags: [ "jms_serializer.event_subscriber" ]
+    App\Serializer\:
+        resource: ../src/Serializer/{SubscribingHandler,EventSubscriber}
 
-  App\Form\Type\:
-    resource: ../src/Form/Type
-    tags: [ "form.type" ]
+    App\Form\Type\:
+        resource: ../src/Form/Type
+        tags: [ "form.type" ]
 
-  App\ArgumentResolver\:
-    resource: ../src/ArgumentResolver
-    tags:
-      - { name: "controller.argument_value_resolver", priority: 50 }
+    App\ArgumentResolver\:
+        resource: ../src/ArgumentResolver
+        tags:
+            - { name: "controller.argument_value_resolver", priority: 50 }
 
-  App\Command\:
-    resource: ../src/Command
-    tags: [ "console.command" ]
+    App\Command\:
+        resource: ../src/Command
+        tags: [ "console.command" ]
 
-  App\EventSubscriber\:
-    resource: ../src/EventSubscriber
-    tags: [ "kernel.event_subscriber" ]
+    App\EventSubscriber\:
+        resource: ../src/EventSubscriber
+        tags: [ "kernel.event_subscriber" ]
 
-  App\Pricing\PricingStrategy: '@App\Service\Pricing\Strategy\DefaultStrategy'
+    App\Pricing\PricingStrategy: '@App\Service\Pricing\Strategy\DefaultStrategy'
 
-  # https://github.com/FriendsOfSymfony/FOSRestBundle/issues/1768
-  sensio_framework_extra.view.listener:
-    alias: Sensio\Bundle\FrameworkExtraBundle\EventListener\TemplateListener
+    # https://github.com/FriendsOfSymfony/FOSRestBundle/issues/1768
+    sensio_framework_extra.view.listener:
+        alias: Sensio\Bundle\FrameworkExtraBundle\EventListener\TemplateListener
 

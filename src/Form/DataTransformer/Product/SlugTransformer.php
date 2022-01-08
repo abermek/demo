@@ -3,7 +3,7 @@
 namespace App\Form\DataTransformer\Product;
 
 use App\Entity\Product;
-use App\Repository\Doctrine\ProductRepository;
+use App\Doctrine\Repository\ProductRepository;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
@@ -31,7 +31,7 @@ class SlugTransformer implements DataTransformerInterface
             return null;
         }
 
-        $product = $this->repository->findOneBySlug($value);
+        $product = $this->repository->findOneBy(['slug' => $value]);
 
         if (!$product) {
             throw new TransformationFailedException(

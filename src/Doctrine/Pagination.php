@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Pagination\Doctrine;
+namespace App\Doctrine;
 
 use Doctrine\ORM\QueryBuilder;
 use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Pagerfanta\Pagerfanta;
 
-class DoctrinePagination
+class Pagination
 {
     public function execute(QueryBuilder $qb, int $page, int $limit): Pagerfanta
     {

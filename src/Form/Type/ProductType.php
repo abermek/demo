@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Form\Type\Product;
+namespace App\Form\Type;
 
 use App\Entity\Product;
-use App\Form\Type\AbstractType;
 use App\Form\Type\Money\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
