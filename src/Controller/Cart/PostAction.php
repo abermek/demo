@@ -37,6 +37,6 @@ class PostAction
         $addProduct->execute($cart, $purchase->product, $purchase->quantity);
         $em->flush();
 
-        return $pricing->execute(... $cart->getItems());
+        return $pricing->execute(... $cart->items);
     }
 }

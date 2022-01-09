@@ -21,16 +21,16 @@ class DefaultStrategy implements PricingStrategy
 
         foreach ($purchases as $purchase) {
             $product = $purchase->getProduct();
-            $subtotal = $product->getPrice()->multiply($purchase->getQuantity());
+            $subtotal = $product->price->multiply($purchase->getQuantity());
 
             is_null($grandTotal)
                 ? $grandTotal = $subtotal
                 : $grandTotal = $grandTotal->add($subtotal);
 
             $items[] = new ReceiptItem(
-                $purchase->getProduct()->getName(),
+                $product->name,
                 $purchase->getQuantity(),
-                $purchase->getProduct()->getPrice(),
+                $product->price,
                 $subtotal
             );
         }

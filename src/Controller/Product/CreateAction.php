@@ -34,8 +34,7 @@ class CreateAction
         #[CurrentUser] User $owner,
         #[Input(ProductType::class, ['Default', 'Create'])] Product $product
     ): Product {
-        $product->setOwner($owner);
-
+        $product->owner = $owner;
         $em->persist($product);
         $em->flush();
         $em->refresh($product);

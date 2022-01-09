@@ -23,13 +23,12 @@ class DefaultStrategyTest extends Unit
 
         foreach ($purchases as $purchase) {
             $product = new Product();
-            $product->setId($purchase['id']);
-            $product->setName($purchase['name']);
-            $product->setPrice($purchase['price']);
+            $product->name = $purchase['name'];
+            $product->price = $purchase['price'];
 
             $cartItem = new CartItem();
-            $cartItem->setProduct($product);
-            $cartItem->setQuantity($purchase['quantity']);
+            $cartItem->product = $product;
+            $cartItem->quantity = $purchase['quantity'];
 
             $cartItems[] = $cartItem;
         }

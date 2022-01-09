@@ -29,9 +29,9 @@ class UserFixture extends Fixture
         foreach ($users as $username) {
             $user = new User();
 
-            $user->setUsername($username);
-            $user->setSalt($password);
-            $user->setPassword($this->passwordHasher->hashPassword($user, $password));
+            $user->username = $username;
+            $user->salt = $password;
+            $user->password = $this->passwordHasher->hashPassword($user, $password);
 
             $manager->persist($user);
 

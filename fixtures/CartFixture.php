@@ -26,18 +26,18 @@ class CartFixture extends Fixture implements DependentFixtureInterface
         $carts = [
             [
                 'customer' => 'john',
-                'items'    => [
+                'items' => [
                     [
-                        'product'  => 'Staff',
+                        'product' => 'Staff',
                         'quantity' => 1
                     ]
                 ]
             ],
             [
                 'customer' => 'jane',
-                'items'    => [
+                'items' => [
                     [
-                        'product'  => 'Sword',
+                        'product' => 'Sword',
                         'quantity' => 10
                     ]
                 ]
@@ -45,20 +45,21 @@ class CartFixture extends Fixture implements DependentFixtureInterface
         ];
 
         foreach ($carts as $prop) {
-            /** @var User $customer */
-            $customer = $this->getReference($prop['customer']);
-            $cart = new Cart($customer);
+            /** @var User $user */
+            $user = $this->getReference($prop['customer']);
+
+            $cart = new Cart();
+            $cart->owner = $user;
 
             foreach ($prop['items'] as $row) {
                 /** @var Product $product */
                 $product = $this->getReference($row['product']);
                 $item = new CartItem();
-                $item
-                    ->setCart($cart)
-                    ->setProduct($product)
-                    ->setQuantity($row['quantity']);
+                $item->cart = $cart;
+                $item->product = $product;
+                $item->quantity = $row['quantity'];
 
-                $cart->getItems()->add($item);
+                $cart->items->add($item);
             }
 
             $manager->persist($cart);

@@ -37,6 +37,7 @@ class ProductVoter extends Voter
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
+        /** @var Product $subject */
         $user = $token->getUser();
 
         if (!$user instanceof UserInterface) {
@@ -49,7 +50,7 @@ class ProductVoter extends Voter
 
         return match ($attribute) {
             self::PERMISSION_DELETE,
-            self::PERMISSION_UPDATE => $subject->getOwner() === $user || $this->security->isGranted('ROLE_ADMIN'),
+            self::PERMISSION_UPDATE => $subject->owner === $user || $this->security->isGranted('ROLE_ADMIN'),
             self::PERMISSION_CREATE => true,
             default => throw new LogicException('A voter for the ' . $attribute . ' was not found'),
         };

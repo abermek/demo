@@ -14,15 +14,14 @@ class FindOrCreate
 
     public function execute(User $user): Cart
     {
-        $cart = $user->getCart();
+        if ($user->cart === null) {
+            $cart = new Cart();
+            $cart->owner = $user;
 
-        if ($cart === null) {
-            $cart = new Cart($user);
-
-            $user->setCart($cart);
+            $user->cart = $cart;
             $this->em->persist($cart);
         }
 
-        return $cart;
+        return $user->cart;
     }
 }

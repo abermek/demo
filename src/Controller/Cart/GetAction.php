@@ -23,8 +23,6 @@ class GetAction
 {
     public function __invoke(Cart $cart, PricingStrategy $pricing): ?Receipt
     {
-        return $cart->getItems()->isEmpty()
-            ? null
-            : $pricing->execute(...$cart->getItems());
+        return count($cart) === 0 ? null : $pricing->execute(...$cart->items);
     }
 }

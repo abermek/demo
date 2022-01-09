@@ -20,7 +20,7 @@ class SlugTransformer implements DataTransformerInterface
             return '';
         }
 
-        $slug = $value->getSlug();
+        $slug = $value->slug;
 
         return $slug ?? '';
     }

@@ -2,46 +2,33 @@
 
 namespace App\Entity;
 
+use App\Entity\Identity\GeneratedValueTrait;
 use App\Entity\Security\User;
+use Countable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\Criteria;
 
-class Cart
+class Cart implements Countable
 {
-    private ?int $id = null;
+    use GeneratedValueTrait;
 
-    private User $owner;
-    private Collection $items;
+    public ?User $owner = null;
+    public Collection $items;
 
-    public function __construct(User $owner)
+    public function __construct()
     {
         $this->items = new ArrayCollection();
-        $this->owner = $owner;
     }
 
-    public function getItems(): Collection
+    public function count(): int
     {
-        return $this->items;
+        return $this->items->count();
     }
 
-    public function getId(): ?int
+    public function findProduct(Product $product): ?CartItem
     {
-        return $this->id;
-    }
+        $item = $this->items->filter(fn(CartItem $item) => $item->product === $product)->first();
 
-    public function isEmpty(): bool
-    {
-        return !$this->items->count();
-    }
-
-    public function getOwner(): User
-    {
-        return $this->owner;
-    }
-
-    public function getCustomer(): User
-    {
-        return $this->owner;
+        return $item ?: null;
     }
 }

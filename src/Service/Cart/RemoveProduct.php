@@ -3,24 +3,22 @@
 namespace App\Service\Cart;
 
 use App\Entity\Cart;
-use App\Entity\CartItem;
 use App\Entity\Product;
 
 class RemoveProduct
 {
     public function execute(Cart $cart, Product $product, int $quantity): void
     {
-        $items = $cart->getItems();
-        $item = $items->filter(fn(CartItem $item) => $item->getProduct() === $product)->first();
+        $item = $cart->findProduct($product);
 
         if ($item === null) {
             return;
         }
 
-        $item->setQuantity($item->getQuantity() - $quantity);
+        $item->quantity -= $quantity;
 
-        if ($item->getQuantity() <= 0) {
-            $items->removeElement($item);
+        if ($item->quantity <= 0) {
+            $cart->items->removeElement($item);
         }
     }
 }

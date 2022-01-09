@@ -10,19 +10,17 @@ class AddProduct
 {
     public function execute(Cart $cart, Product $product, int $quantity): void
     {
-        $items = $cart->getItems();
-        $item = $items->filter(fn(CartItem $item) => $item->getProduct() === $product)->first();
+        $item = $cart->findProduct($product);
 
         if ($item) {
-            $item->setQuantity($item->getQuantity() + $quantity);
+            $item->quantity += $quantity;
         } else {
             $item = new CartItem();
-            $item
-                ->setCart($cart)
-                ->setProduct($product)
-                ->setQuantity($quantity);
+            $item->cart = $cart;
+            $item->product = $product;
+            $item->quantity = $quantity;
 
-            $items->add($item);
+            $cart->items->add($item);
         }
     }
 }

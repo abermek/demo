@@ -5,17 +5,19 @@ declare(strict_types=1);
 namespace App\Entity\Security;
 
 use App\Entity\Cart;
+use App\Entity\Identity\GeneratedValueTrait;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    private ?int $id = null;
-    private ?string $username = null;
-    private ?string $password = null;
-    private ?string $salt = null;
-    private ?Cart $cart = null;
-    private array $roles;
+    use GeneratedValueTrait;
+
+    public ?string $username = null;
+    public ?string $password = null;
+    public ?string $salt = null;
+    public ?Cart $cart = null;
+    public array $roles;
 
     public function __construct()
     {
@@ -39,23 +41,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->password;
     }
 
-    public function setPassword(string $password): User
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
     public function getSalt(): ?string
     {
         return $this->salt;
-    }
-
-    public function setSalt(string $salt): User
-    {
-        $this->salt = $salt;
-
-        return $this;
     }
 
     /** @psalm-suppress InvalidNullableReturnType */
@@ -65,30 +53,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->username;
     }
 
-    public function setUsername(string $username): User
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
     public function eraseCredentials(): void
     {
-    }
-
-    public function getCart(): ?Cart
-    {
-        return $this->cart;
-    }
-
-    public function setCart(?Cart $cart): User
-    {
-        $this->cart = $cart;
-        return $this;
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 }

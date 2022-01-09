@@ -25,20 +25,20 @@ class ProductFixture extends Fixture implements DependentFixtureInterface
     {
         $products = [
             [
-                'slug'  => 'sword',
-                'name'  => 'Sword',
+                'slug' => 'sword',
+                'name' => 'Sword',
                 'owner' => 'john',
                 'price' => 100
             ],
             [
-                'slug'  => 'staff',
-                'name'  => 'Staff',
+                'slug' => 'staff',
+                'name' => 'Staff',
                 'owner' => 'jane',
                 'price' => 1000
             ],
             [
-                'slug'  => 'wooden-shield',
-                'name'  => 'Shield',
+                'slug' => 'wooden-shield',
+                'name' => 'Shield',
                 'owner' => 'john',
                 'price' => 100
             ],
@@ -49,11 +49,10 @@ class ProductFixture extends Fixture implements DependentFixtureInterface
             $owner = $this->getReference($props['owner']);
 
             $product = new Product();
-            $product
-                ->setOwner($owner)
-                ->setSlug($props['slug'])
-                ->setPrice(Money::USD($props['price']))
-                ->setName($props['name']);
+            $product->owner = $owner;
+            $product->slug = $props['slug'];
+            $product->price = Money::USD($props['price']);
+            $product->name = $props['name'];
 
             $this->setId($product);
 
