@@ -6,18 +6,38 @@ namespace App\Entity\Security;
 
 use App\Entity\Cart;
 use App\Entity\Identity\GeneratedValueTrait;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * @ORM\Entity()
+ * @ORM\Table(name="users")
+ */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     use GeneratedValueTrait;
 
+    /**
+     * @ORM\Column(length=255,nullable=false,unique=true)
+     */
     public ?string $username = null;
+    /**
+     * @ORM\Column(length=255,nullable=false)
+     */
     public ?string $password = null;
+    /**
+     * @ORM\Column(length=255,nullable=false)
+     */
     public ?string $salt = null;
-    public ?Cart $cart = null;
+    /**
+     * @ORM\Column(type="json")
+     */
     public array $roles;
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Cart", cascade={"remove"}, mappedBy="owner")
+     */
+    public ?Cart $cart = null;
 
     public function __construct()
     {
