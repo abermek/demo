@@ -22,21 +22,21 @@ App\Entity\Image:
     file:
       - Image: ~
 
+App\Entity\Cart\Item:
+    properties:
+        product:
+            - NotNull: ~
+        quantity:
+            - NotNull: ~
+            - Type: integer
+            - GreaterThan: 0
+
 App\DTO\Product\ProductCriteria:
   properties:
     name:
       - Type: string
       - Length:
           max: 125
-
-App\DTO\Purchase:
-  properties:
-    product:
-      - NotNull: ~
-    quantity:
-      - NotNull: ~
-      - Type: integer
-      - GreaterThan: 0
 
 App\Entity\Money:
   properties:

@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Form\Type;
+namespace App\Form\Type\Cart;
 
-use App\DTO\Purchase;
+use App\Entity\Cart\Item;
+use App\Form\Type\AbstractType;
 use App\Form\Type\Product\SlugType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PurchaseType extends AbstractType
+class ItemType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -22,6 +23,6 @@ class PurchaseType extends AbstractType
     {
         parent::configureOptions($resolver);
 
-        $resolver->setDefaults(['data_class' => Purchase::class]);
+        $resolver->setDefaults(['data_class' => Item::class]);
     }
 }

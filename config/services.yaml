@@ -45,7 +45,7 @@ services:
         resource: ../src/EventSubscriber
         tags: [ "kernel.event_subscriber" ]
 
-    App\Pricing\PricingStrategy: '@App\Service\Pricing\Strategy\DefaultStrategy'
+    App\Contract\Pricing\PricingStrategy: '@App\Service\Pricing\Strategy\DefaultStrategy'
 
     # https://github.com/FriendsOfSymfony/FOSRestBundle/issues/1768
     sensio_framework_extra.view.listener:

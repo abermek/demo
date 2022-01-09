@@ -3,8 +3,8 @@
 namespace App\Controller\Cart;
 
 use App\Entity\Cart;
-use App\Pricing\Receipt;
-use App\Pricing\PricingStrategy;
+use App\DTO\Receipt;
+use App\Contract\Pricing\PricingStrategy;
 use Nelmio\ApiDocBundle\Annotation as SWG;
 use OpenApi\Annotations as OA;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,6 +23,6 @@ class GetAction
 {
     public function __invoke(Cart $cart, PricingStrategy $pricing): ?Receipt
     {
-        return count($cart) === 0 ? null : $pricing->execute(...$cart->items);
+        return count($cart) ? $pricing->execute($cart) : null;
     }
 }

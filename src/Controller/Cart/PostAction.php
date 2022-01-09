@@ -5,17 +5,18 @@ namespace App\Controller\Cart;
 use App\Attribute\Input;
 use App\DTO\Purchase;
 use App\Entity\Cart;
-use App\Form\Type\PurchaseType;
-use App\Pricing\Receipt;
-use App\Pricing\PricingStrategy;
-use App\Service\Cart\AddProduct;
+use App\Entity\Cart\Item;
+use App\Form\Type\Cart\ItemType;
+use App\DTO\Receipt;
+use App\Contract\Pricing\PricingStrategy;
+use App\Service\Cart\AddItem;
 use Doctrine\ORM\EntityManagerInterface;
 use Nelmio\ApiDocBundle\Annotation as SWG;
 use OpenApi\Annotations as OA;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @OA\RequestBody(request=PurchaseType::class, required=true)
+ * @OA\RequestBody(request=ItemType::class, required=true)
  * @OA\Response(
  *     response=200,
  *     description="Put Product To The Cart",
@@ -30,13 +31,13 @@ class PostAction
     public function __invoke(
         EntityManagerInterface $em,
         Cart $cart,
-        AddProduct $addProduct,
+        AddItem $addProduct,
         PricingStrategy $pricing,
-        #[Input(PurchaseType::class)] Purchase $purchase
+        #[Input(ItemType::class)] Item $item
     ): Receipt {
-        $addProduct->execute($cart, $purchase->product, $purchase->quantity);
+        $addProduct->execute($cart, $item);
         $em->flush();
 
-        return $pricing->execute(... $cart->items);
+        return $pricing->execute($cart);
     }
 }

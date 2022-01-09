@@ -2,9 +2,9 @@
 
 namespace Tests\Unit\Service\Pricing\Strategy;
 
-use App\Entity\CartItem;
+use App\Entity\Cart\Item;
 use App\Entity\Product;
-use App\Pricing\Receipt;
+use App\DTO\Receipt;
 use App\Service\Pricing\Strategy\DefaultStrategy;
 use Codeception\Test\Unit;
 use Money\Money;
@@ -26,7 +26,7 @@ class DefaultStrategyTest extends Unit
             $product->name = $purchase['name'];
             $product->price = $purchase['price'];
 
-            $cartItem = new CartItem();
+            $cartItem = new Item();
             $cartItem->product = $product;
             $cartItem->quantity = $purchase['quantity'];
 

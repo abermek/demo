@@ -2,13 +2,16 @@
 
 namespace App\Entity;
 
+use App\Entity\Cart\Item;
 use App\Entity\Identity\GeneratedValueTrait;
 use App\Entity\Security\User;
 use Countable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use IteratorAggregate;
+use Traversable;
 
-class Cart implements Countable
+class Cart implements Countable, IteratorAggregate
 {
     use GeneratedValueTrait;
 
@@ -25,9 +28,14 @@ class Cart implements Countable
         return $this->items->count();
     }
 
-    public function findProduct(Product $product): ?CartItem
+    public function getIterator(): Traversable
     {
-        $item = $this->items->filter(fn(CartItem $item) => $item->product === $product)->first();
+        return $this->items->getIterator();
+    }
+
+    public function findProduct(Product $product): ?Item
+    {
+        $item = $this->items->filter(fn(Item $item) => $item->product === $product)->first();
 
         return $item ?: null;
     }

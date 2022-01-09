@@ -14,7 +14,7 @@
             <join-column name="user_id" on-delete="CASCADE" />
         </one-to-one>
 
-        <one-to-many target-entity="App\Entity\CartItem" field="items" mapped-by="cart">
+        <one-to-many target-entity="App\Entity\Cart\Item" field="items" mapped-by="cart">
             <cascade><cascade-all /></cascade>
         </one-to-many>
     </entity>

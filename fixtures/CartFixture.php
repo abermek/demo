@@ -3,7 +3,7 @@
 namespace Fixture;
 
 use App\Entity\Cart;
-use App\Entity\CartItem;
+use App\Entity\Cart\Item;
 use App\Entity\Product;
 use App\Entity\Security\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -54,7 +54,7 @@ class CartFixture extends Fixture implements DependentFixtureInterface
             foreach ($prop['items'] as $row) {
                 /** @var Product $product */
                 $product = $this->getReference($row['product']);
-                $item = new CartItem();
+                $item = new Item();
                 $item->cart = $cart;
                 $item->product = $product;
                 $item->quantity = $row['quantity'];

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form\Type\Money;
+namespace App\Form\Type;
 
 use App\Form\DataTransformer\Money\MoneyToArrayTransformer;
 use App\Form\Type\AbstractType;

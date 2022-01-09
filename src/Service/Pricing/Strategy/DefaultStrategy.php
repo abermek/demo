@@ -2,35 +2,35 @@
 
 namespace App\Service\Pricing\Strategy;
 
+use App\Entity\Cart;
 use App\Exception\Pricing\PricingStrategy\EmptyPurchasesException;
-use App\Pricing\PricingStrategy;
-use App\Pricing\Purchase;
-use App\Pricing\Receipt;
-use App\Pricing\ReceiptItem;
+use App\Contract\Pricing\PricingStrategy;
+use App\DTO\Receipt;
+use App\DTO\Receipt\Item;
 
 class DefaultStrategy implements PricingStrategy
 {
-    public function execute(Purchase ...$purchases): Receipt
+    public function execute(Cart $cart): Receipt
     {
-        $items = [];
         $grandTotal = null;
+        $items = [];
 
-        if (empty($purchases)) {
+        if (count($cart) === 0) {
             throw new EmptyPurchasesException();
         }
 
-        foreach ($purchases as $purchase) {
-            $product = $purchase->getProduct();
-            $subtotal = $product->price->multiply($purchase->getQuantity());
+        /** @var Cart\Item $item */
+        foreach ($cart as $item) {
+            $subtotal = $item->product->price->multiply($item->quantity);
 
             is_null($grandTotal)
                 ? $grandTotal = $subtotal
                 : $grandTotal = $grandTotal->add($subtotal);
 
-            $items[] = new ReceiptItem(
-                $product->name,
-                $purchase->getQuantity(),
-                $product->price,
+            $items[] = new Item(
+                $item->product->name,
+                $item->quantity,
+                $item->product->price,
                 $subtotal
             );
         }
