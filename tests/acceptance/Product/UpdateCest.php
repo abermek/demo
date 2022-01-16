@@ -40,7 +40,7 @@ class UpdateCest
         $I->amJohn();
         $I->updateProduct(self::PRODUCT_ID, ['name' => $name]);
         $I->seeBadRequest(
-            ['path' => 'name', 'description' => 'This value is too long. It should have 255 characters or less.']
+            ['path' => 'name', 'description' => 'This value is too long. It should have 200 characters or less.']
         );
     }
 

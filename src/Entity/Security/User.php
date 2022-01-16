@@ -10,33 +10,24 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-/**
- * @ORM\Entity()
- * @ORM\Table(name="users")
- */
+#[ORM\Entity, ORM\Table(name: 'users')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     use GeneratedValueTrait;
 
-    /**
-     * @ORM\Column(length=255,nullable=false,unique=true)
-     */
+    #[ORM\Column(length: 255, unique: true, nullable: false)]
     public ?string $username = null;
-    /**
-     * @ORM\Column(length=255,nullable=false)
-     */
+
+    #[ORM\Column(length: 255, nullable: false)]
     public ?string $password = null;
-    /**
-     * @ORM\Column(length=255,nullable=false)
-     */
+
+    #[ORM\Column(length: 255, nullable: false)]
     public ?string $salt = null;
-    /**
-     * @ORM\Column(type="json")
-     */
+
+    #[ORM\Column(type: 'json')]
     public array $roles;
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Cart", cascade={"remove"}, mappedBy="owner")
-     */
+
+    #[ORM\OneToOne(mappedBy: 'owner', targetEntity: Cart::class, cascade: ['remove'])]
     public ?Cart $cart = null;
 
     public function __construct()

@@ -4,6 +4,7 @@ namespace App\Validator\Money;
 
 use Symfony\Component\Validator\Constraint;
 
+/** @Annotation  */
 class GreaterThan extends Constraint
 {
     public string $message = 'This value should be greater than {{ value }}.';

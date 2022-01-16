@@ -10,24 +10,20 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use IteratorAggregate;
+use JMS\Serializer\Annotation as Serializer;
 use Traversable;
 
-/**
- * @ORM\Entity()
- * @ORM\Table(name="carts")
- */
+#[ORM\Entity, ORM\Table(name: 'carts')]
+#[Serializer\ExclusionPolicy(policy: Serializer\ExclusionPolicy::ALL)]
 class Cart implements Countable, IteratorAggregate
 {
     use GeneratedValueTrait;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Security\User")
-     * @ORM\JoinColumn(name="user_id", onDelete="CASCADE")
-     */
+    #[ORM\OneToOne(targetEntity: User::class), ORM\JoinColumn(name: 'user_id', onDelete: 'CASCADE')]
     public ?User $owner = null;
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Cart\Item", cascade={"persist","remove"}, mappedBy="cart")
-     */
+
+    #[ORM\OneToMany(mappedBy: 'cart', targetEntity: Item::class, cascade: ['persist', 'remove'])]
+    #[Serializer\Expose]
     public Collection $items;
 
     public function __construct()

@@ -2,17 +2,3 @@ jms_serializer:
     visitors:
         xml_serialization:
             format_output: '%kernel.debug%'
-    metadata:
-        directories:
-            Entity:
-                namespace_prefix: "App\\Entity"
-                path: "%kernel.project_dir%/config/serializer/Entity"
-            Cart:
-                namespace_prefix: "App\\Entity\\Cart"
-                path: "%kernel.project_dir%/config/serializer/Entity/Cart"
-            Pricing:
-                namespace_prefix: "App\\Model\\Pricing"
-                path: "%kernel.project_dir%/config/serializer/Model/Pricing"
-            Receipt:
-                namespace_prefix: "App\\Model\\Pricing\\Receipt"
-                path: "%kernel.project_dir%/config/serializer/Model/Pricing/Receipt"

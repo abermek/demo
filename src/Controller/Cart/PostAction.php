@@ -3,12 +3,11 @@
 namespace App\Controller\Cart;
 
 use App\Attribute\Input;
-use App\DTO\Purchase;
+use App\Contract\Pricing\PricingStrategy;
+use App\DTO\Receipt;
 use App\Entity\Cart;
 use App\Entity\Cart\Item;
 use App\Form\Type\Cart\ItemType;
-use App\DTO\Receipt;
-use App\Contract\Pricing\PricingStrategy;
 use App\Service\Cart\AddItem;
 use Doctrine\ORM\EntityManagerInterface;
 use Nelmio\ApiDocBundle\Annotation as SWG;

@@ -1,5 +1,0 @@
-App\Entity\Cart:
-  exclusion_policy: ALL
-  properties:
-    items:
-      expose: true

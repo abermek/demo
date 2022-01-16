@@ -9,6 +9,7 @@
         "ext-iconv": "*",
         "ext-json": "*",
         "ext-pdo": "*",
+        "doctrine/orm": "2.11.*",
         "doctrine/annotations": "1.13.*",
         "friendsofsymfony/rest-bundle": "3.1.*",
         "jms/serializer-bundle": "4.0.*",
@@ -47,6 +48,7 @@
         "symfony/validator": "5.4.*",
         "symfony/yaml": "5.4.*",
         "symfony/messenger": "5.4.*",
+        "symfony/translation": "5.4.*",
         "vich/uploader-bundle": "1.18.*"
     },
     "require-dev": {
