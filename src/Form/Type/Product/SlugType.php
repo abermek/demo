@@ -10,7 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SlugType extends AbstractType
 {
-    public function __construct(private SlugTransformer $transformer)
+    public function __construct(private readonly SlugTransformer $transformer)
     {
     }
 

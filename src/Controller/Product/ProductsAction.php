@@ -4,10 +4,10 @@ namespace App\Controller\Product;
 
 use App\Attribute\Input;
 use App\Doctrine\Pagination\ProductPagination;
-use App\DTO\Product\Search;
+use App\DTO\Product\Filter;
 use App\DTO\Response\BadRequest\InvalidPageResponse;
 use App\DTO\Response\PaginationResponse;
-use App\Form\Type\Product\SearchType;
+use App\Form\Type\Product\FilterType;
 use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation as SWG;
 use OpenApi\Annotations as OA;
@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @OA\RequestBody(request=SearchType::class, required=true)
+ * @OA\RequestBody(request=FilterType::class, required=true)
  * @OA\Response(
  *     response=200,
  *     description="Returns list of the Products",
@@ -38,7 +38,7 @@ class ProductsAction
 
     public function __invoke(
         ProductPagination $pagination,
-        #[Input(SearchType::class)] Search $search,
+        #[Input(FilterType::class)] Filter $search,
         int $page = 1
     ): PaginationResponse | View {
         try {

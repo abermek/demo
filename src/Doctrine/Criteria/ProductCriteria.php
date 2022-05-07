@@ -3,11 +3,11 @@
 namespace App\Doctrine\Criteria;
 
 use App\Doctrine\Criteria;
-use App\DTO\Product\Search;
+use App\DTO\Product\Filter;
 
 class ProductCriteria extends Criteria
 {
-    public function __construct(Search $search)
+    public function __construct(Filter $search)
     {
         if ($search->name) {
             $this->expressions[] = Criteria::expr()->eq('p.name', $search->name);
