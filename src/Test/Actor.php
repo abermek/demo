@@ -9,17 +9,20 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final class Actor
 {
+    public const JACK = 'jack';
+    public const JOHN = 'john';
+
     public static function john(ContainerInterface $container): User
     {
-        return self::getUserOrFail('john', $container);
+        return self::as(self::JOHN, $container);
     }
 
     public static function jack(ContainerInterface $container): User
     {
-        return self::getUserOrFail('jack', $container);
+        return self::as(self::JACK, $container);
     }
 
-    private static function getUserOrFail(string $username, ContainerInterface $container): User
+    public static function as(string $username, ContainerInterface $container): User
     {
         $user = $container
             ->get(EntityManagerInterface::class)

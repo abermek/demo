@@ -12,7 +12,10 @@ class FilterType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add('name', TextType::class, ['required' => false]);
+        $builder
+            ->add('name', TextType::class)
+            ->add('page', TextType::class, ['empty_data' => 1])
+            ->add('limit', TextType::class, ['empty_data' => 20]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

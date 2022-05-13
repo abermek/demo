@@ -10,9 +10,9 @@ use Money\Money;
 #[Immutable]
 final class Receipt
 {
-    private readonly array $items;
+    public readonly array $items;
 
-    public function __construct(private readonly Money $total, Item ...$items)
+    public function __construct(public readonly Money $total, Item ...$items)
     {
         if (empty($items)) {
             throw new EmptyReceiptException();

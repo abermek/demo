@@ -14,7 +14,7 @@ use Symfony\Component\Security\Core\Security;
 
 class CartResolver implements ArgumentValueResolverInterface
 {
-    public function __construct(private FindOrCreate $getActualCart, private Security $security)
+    public function __construct(private readonly FindOrCreate $getActualCart, private readonly Security $security)
     {
     }
 

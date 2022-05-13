@@ -26,27 +26,22 @@ use Symfony\Component\Routing\Annotation\Route;
  * @SWG\Security(name="Bearer")
  */
 #[Route(
-    path: '/products/{page}',
+    path: '/products',
     name: 'products',
-    requirements: ['page' => '^[1-9]\d*$'],
-    defaults: ['page' => 1],
     methods: ['GET']
 )]
 class ProductsAction
 {
-    private const PRODUCTS_PER_PAGE = 20;
-
     public function __invoke(
         ProductPagination $pagination,
-        #[Input(FilterType::class)] Filter $search,
-        int $page = 1
+        #[Input(FilterType::class)] Filter $filter
     ): PaginationResponse | View {
         try {
             return new PaginationResponse(
-                $pagination->execute($search, $page, self::PRODUCTS_PER_PAGE)
+                $pagination->execute($filter, $filter->page, $filter->limit)
             );
         } catch (OutOfRangeCurrentPageException) {
-            return View::create(new InvalidPageResponse($page), Response::HTTP_BAD_REQUEST);
+            return View::create(new InvalidPageResponse($filter->page), Response::HTTP_BAD_REQUEST);
         }
     }
 }

@@ -1,25 +1,21 @@
 <?php
 
-namespace Tests\Unit\Service\Pricing\Strategy;
+namespace App\Tests\Service\Pricing\Strategy;
 
+use App\DTO\Receipt;
+use App\Entity\Cart;
 use App\Entity\Cart\Item;
 use App\Entity\Product;
-use App\DTO\Receipt;
 use App\Service\Pricing\Strategy\DefaultStrategy;
-use Codeception\Test\Unit;
 use Money\Money;
+use PHPUnit\Framework\TestCase;
 
-class DefaultStrategyTest extends Unit
+class DefaultStrategyTest extends TestCase
 {
-    public function getSystemUnderTest(): DefaultStrategy
-    {
-        return new DefaultStrategy();
-    }
-
     /** @dataProvider executeDataProvider */
     public function testExecute(array $purchases, Money $total): void
     {
-        $cartItems = [];
+        $cart = new Cart();
 
         foreach ($purchases as $purchase) {
             $product = new Product();
@@ -30,13 +26,13 @@ class DefaultStrategyTest extends Unit
             $cartItem->product = $product;
             $cartItem->quantity = $purchase['quantity'];
 
-            $cartItems[] = $cartItem;
+            $cart->items->add($cartItem);
         }
 
-        $receipt = $this->getSystemUnderTest()->execute(...$cartItems);
+        $receipt = (new DefaultStrategy())->execute($cart);
 
         self::assertInstanceOf(Receipt::class, $receipt);
-        self::assertTrue($total->equals($receipt->getTotal()));
+        self::assertTrue($total->equals($receipt->total));
     }
 
     protected function executeDataProvider(): array

@@ -1,6 +1,0 @@
-actor: UnitTester
-modules:
-    enabled:
-        - Asserts
-        - Mockery
-        - \App\Tests\Helper\Unit

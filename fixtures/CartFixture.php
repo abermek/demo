@@ -13,7 +13,7 @@ use Fixture\Security\UserFixture;
 
 class CartFixture extends Fixture implements DependentFixtureInterface
 {
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return [
             UserFixture::class,
@@ -25,20 +25,15 @@ class CartFixture extends Fixture implements DependentFixtureInterface
     {
         $carts = [
             [
-                'customer' => 'john',
-                'items' => [
-                    [
-                        'product' => 'Staff',
-                        'quantity' => 1
-                    ]
-                ]
-            ],
-            [
-                'customer' => 'jane',
+                'customer' => 'jack',
                 'items' => [
                     [
                         'product' => 'Sword',
-                        'quantity' => 10
+                        'quantity' => 2
+                    ],
+                    [
+                        'product' => 'Staff',
+                        'quantity' => 1
                     ]
                 ]
             ]

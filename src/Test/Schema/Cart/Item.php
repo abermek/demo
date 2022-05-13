@@ -1,22 +1,23 @@
 <?php
 
-namespace App\Test\Schema;
+namespace App\Test\Schema\Cart;
 
 use App\Test\Schema;
 
-final class Product extends Schema
+class Item extends Schema
 {
     public function __construct()
     {
         $this->schema = [
             'type' => 'object',
             'properties' => [
-                'id' => new Id(),
                 'name' => ['type' => 'string'],
-                'price' => new Money()
+                'quantity' => ['type' => 'number'],
+                'total' => new Schema\Money(),
+                'price' => new Schema\Money()
             ],
             'additionalProperties' => false,
-            'required' => ['id', 'name', 'price']
+            'required' => ['name', 'quantity', 'total', 'price']
         ];
     }
 }

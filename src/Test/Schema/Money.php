@@ -4,7 +4,7 @@ namespace App\Test\Schema;
 
 use App\Test\Schema;
 
-final class Price extends Schema
+final class Money extends Schema
 {
     public function __construct()
     {
