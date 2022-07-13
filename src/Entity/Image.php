@@ -11,11 +11,9 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-/**
- * @Vich\Uploadable()
- */
 #[ORM\Entity, ORM\Table(name: 'images')]
 #[Serializer\ExclusionPolicy(policy: Serializer\ExclusionPolicy::ALL)]
+#[Vich\Uploadable]
 class Image
 {
     use GeneratedValueTrait;
@@ -32,15 +30,8 @@ class Image
     #[ORM\Column(length: 255)]
     public ?string $type = null;
 
-    /**
-     * @Vich\UploadableField(
-     *     mapping="images",
-     *     fileNameProperty="name",
-     *     size="size",
-     *     mimeType="type"
-     * )
-     */
     #[Assert\Image]
+    #[Vich\UploadableField(mapping: "images", fileNameProperty: "name", size: "size", mimeType: "type")]
     public ?File $file;
 
     #[ORM\Column(type: 'datetime')]
