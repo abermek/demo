@@ -9,7 +9,10 @@ final class InvalidPageResponse extends BadRequestResponse
     public function __construct(int $page)
     {
         parent::__construct([
-            'description' => sprintf('Page #%s does not exists', $page),
+            [
+                'path' => 'page',
+                'description' => sprintf('Page #%s does not exists', $page)
+            ]
         ]);
     }
 }

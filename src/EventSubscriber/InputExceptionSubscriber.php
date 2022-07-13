@@ -13,7 +13,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class InputExceptionSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private SerializerInterface $serializer)
+    public function __construct(private readonly SerializerInterface $serializer)
     {
     }
 

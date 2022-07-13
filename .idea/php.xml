@@ -23,8 +23,6 @@
       <path value="$PROJECT_DIR$/vendor/nelmio/api-doc-bundle" />
       <path value="$PROJECT_DIR$/vendor/symfony/translation-contracts" />
       <path value="$PROJECT_DIR$/vendor/symfony/console" />
-      <path value="$PROJECT_DIR$/vendor/symfony/redis-messenger" />
-      <path value="$PROJECT_DIR$/vendor/symfony/amqp-messenger" />
       <path value="$PROJECT_DIR$/vendor/symfony/validator" />
       <path value="$PROJECT_DIR$/vendor/symfony/property-info" />
       <path value="$PROJECT_DIR$/vendor/symfony/stopwatch" />
@@ -35,7 +33,6 @@
       <path value="$PROJECT_DIR$/vendor/symfony/templating" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php80" />
       <path value="$PROJECT_DIR$/vendor/gedmo/doctrine-extensions" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php81" />
       <path value="$PROJECT_DIR$/vendor/symfony/cache" />
       <path value="$PROJECT_DIR$/vendor/symfony/form" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-idn" />
@@ -58,7 +55,6 @@
       <path value="$PROJECT_DIR$/vendor/symfony/process" />
       <path value="$PROJECT_DIR$/vendor/lcobucci/clock" />
       <path value="$PROJECT_DIR$/vendor/symfony/http-foundation" />
-      <path value="$PROJECT_DIR$/vendor/symfony/doctrine-messenger" />
       <path value="$PROJECT_DIR$/vendor/friendsofphp/proxy-manager-lts" />
       <path value="$PROJECT_DIR$/vendor/symfony/messenger" />
       <path value="$PROJECT_DIR$/vendor/symfony/security-csrf" />
@@ -85,7 +81,6 @@
       <path value="$PROJECT_DIR$/vendor/openlss/lib-array2xml" />
       <path value="$PROJECT_DIR$/vendor/symfony/expression-language" />
       <path value="$PROJECT_DIR$/vendor/symfony/framework-bundle" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php73" />
       <path value="$PROJECT_DIR$/vendor/symfony/deprecation-contracts" />
       <path value="$PROJECT_DIR$/vendor/symfony/cache-contracts" />
       <path value="$PROJECT_DIR$/vendor/laminas/laminas-code" />
@@ -167,6 +162,7 @@
       <path value="$PROJECT_DIR$/vendor/justinrainbow/json-schema" />
       <path value="$PROJECT_DIR$/vendor/helmich/phpunit-json-assert" />
       <path value="$PROJECT_DIR$/vendor/softcreatr/jsonpath" />
+      <path value="$PROJECT_DIR$/vendor/masterminds/html5" />
     </include_path>
   </component>
   <component name="PhpInterpreters">

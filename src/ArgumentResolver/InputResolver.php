@@ -17,19 +17,21 @@ use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
 class InputResolver implements ArgumentValueResolverInterface
 {
-    public function __construct(private FormFactoryInterface $formFactory, private EntityManagerInterface $em)
-    {
+    public function __construct(
+        private readonly FormFactoryInterface $formFactory,
+        private readonly EntityManagerInterface $em
+    ) {
     }
 
     public function supports(Request $request, ArgumentMetadata $argument): bool
     {
-        return $argument->getAttribute() instanceof Input;
+        return count($argument->getAttributesOfType(Input::class)) > 0;
     }
 
     public function resolve(Request $request, ArgumentMetadata $argument): Generator
     {
         /** @var Input $attribute */
-        $attribute = $argument->getAttribute();
+        $attribute = current($argument->getAttributesOfType(Input::class));
         $type = $argument->getType();
 
         if (!$type) {
